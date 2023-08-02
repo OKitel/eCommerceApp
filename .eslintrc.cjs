@@ -5,6 +5,7 @@ module.exports = {
         'airbnb-typescript',
         'plugin:@typescript-eslint/recommended',
         'plugin:react-hooks/recommended',
+        'plugin:compat/recommended',
         'eslint-config-prettier',
         'prettier',
     ],
@@ -18,7 +19,7 @@ module.exports = {
         sourceType: 'module',
         project: ['./tsconfig.json'],
     },
-    plugins: ['react-refresh', '@typescript-eslint', 'import', 'react', 'react-hooks', 'prettier'],
+    plugins: ['react-refresh', '@typescript-eslint', 'import', 'react', 'react-hooks', 'compat', 'prettier'],
     rules: {
         'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
         'prettier/prettier': ['error', { endOfLine: 'auto' }],
