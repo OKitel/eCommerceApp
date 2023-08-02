@@ -10,7 +10,9 @@
         "lint:fix": "eslint . --ext ts,tsx --fix",
         "check": "prettier --check .",
         "format": "prettier --write .",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "prepare": "husky install",
+        "pre-commit": "lint-staged"
     },
     "dependencies": {
         "react": "^18.2.0",
@@ -32,10 +34,17 @@
         "eslint-plugin-react": "^7.33.1",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.3",
+        "husky": "^8.0.3",
+        "lint-staged": "^13.2.3",
         "prettier": "^3.0.0",
         "typescript": "^5.1.6",
         "vite": "^4.4.8",
         "vite-plugin-eslint": "^1.8.1"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run pre-commit"
+        }
     },
     "browserslist": [
         "defaults"
