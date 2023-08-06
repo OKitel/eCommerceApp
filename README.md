@@ -60,3 +60,94 @@ npm install
 ```bash
 npm run dev
 ```
+
+## Available scripts
+
+In the project directory, you can run:
+
+### Run Project:
+
+```bash
+npm dev
+```
+
+Runs the app in the development mode.
+Open http://localhost:3000 to view it in the browser.
+
+The page will reload if you make edits.
+You will also see any lint errors in the console.
+
+### Runs TypeScript and Vite build:
+
+```bash
+npm build
+```
+
+Builds the app for production to the build folder.
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes. Your app is ready to be deployed!
+
+### Runs ESLint:
+
+```bash
+npm lint
+```
+
+Runs the linter in all components and pages
+
+### Runs ESLint fix:
+
+```bash
+npm lint:fix
+```
+
+Runs the linter and fix and makes fixes in all components and pages
+
+### Runs prettier to check files:
+
+```bash
+npm check
+```
+
+When you want to check if your files are formatted
+
+### Runs prettier to format:
+
+```bash
+npm format
+```
+
+To format a file in-place
+
+### Runs Vite preview:
+
+```bash
+npm preview
+```
+
+Starts a local web server that serves the built solution from ./dist for previewing
+
+### Runs Husky:
+
+```bash
+npm prepare
+```
+
+Enable git hooks
+
+### Runs linter before commit:
+
+```bash
+npm pre-commit
+```
+
+Run linters against staged git files and don't let 💩 slip into your code base!
+
+### Runs Jest:
+
+```bash
+npm test
+```
+
+Launches the test runner in the interactive watch mode.
