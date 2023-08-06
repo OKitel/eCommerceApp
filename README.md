@@ -34,3 +34,29 @@ The application is powered by CommerceTools 🌐, a leading provider of commerce
 - ESLint
 - Prettier
 - Jest
+
+## Installation 💾
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/OKitel/eCommerceApp.git
+```
+
+2. Enter the project directory:
+
+```bash
+cd eCommerceApp
+```
+
+3. Install the dependencies:
+
+```bash
+npm install
+```
+
+4. Start the development server with:
+
+```bash
+npm run dev
+```
