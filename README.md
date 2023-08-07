@@ -1,25 +1,25 @@
-<h1 align="center">
-# eCommerce Application 🛍️🌐
-<br>
-</h1>
+# eCommerceApp
 
-Welcome to our eCommerce application! This platform replicates real-world shopping experiences in a digital environment 🏪. It's a comprehensive online shopping portal that provides an interactive and seamless experience to users. From product discovery to checkout, the application ensures a smooth journey for the user, enhancing their engagement and boosting their purchasing confidence 🚀.
+Welcome to our eCommerce musical instrument selling application!
+This project is a simple e-commerce application powered by React on the frontend and CommerceTools platform for the backend. It's simply a demo demonstrating basic features which is only the tip of an iceberg because commerce is a complex business with a solid system architecture. Our application replicates real-world shopping experiences in a digital environment.
 
-Users can browse through a vast range of products 📚👗👟, view detailed descriptions, add their favorite items to the basket 🛒, and proceed to checkout 💳. It includes features such as user registration and login 📝🔐, product search 🔍, product categorization, and sorting to make the shopping experience more streamlined and convenient.
+## Visitors can do the following:
 
-An important aspect of our application is that it's responsive 📲, ensuring it looks great on various devices with a minimum resolution of 390px. This feature makes the shopping experience enjoyable, irrespective of the device users prefer.
+1.  Browse through a vast range of music instruments, view their detailed descriptions and select an item from the showcase and preview.
+2.  Search, categorization and sorting of the instruments.
+3.  User registration and login to the further implementation of the order.
+4.  Add their favorite instruments to the cart and proceed to checkout.
 
-Key pages in the application include:
+## Key pages of the application:
 
-- Login and Registration pages 🖥️
-- Main page 🏠
-- Catalog Product page 📋
-- Detailed Product page 🔎
-- User Profile page 👤
-- Basket page 🛒
-- About Us page 🙋‍♂️🙋‍♀️
-
-The application is powered by CommerceTools 🌐, a leading provider of commerce solutions for B2C and B2B enterprises. CommerceTools offers a cloud-native, microservices-based commerce platform that enables brands to create unique and engaging digital commerce experiences.
+- Login
+- Registration
+- Main
+- Catalog Product
+- Detailed Product
+- User Profile
+- Basket
+- About Us
 
 ## Technologies Stack🔧
 
@@ -68,11 +68,11 @@ In the project directory, you can run:
 ### Run Project:
 
 ```bash
-npm dev
+npm  run dev
 ```
 
 Runs the app in the development mode.
-Open http://localhost:3000 to view it in the browser.
+Open http://localhost:5173 to view it in the browser.
 
 The page will reload if you make edits.
 You will also see any lint errors in the console.
@@ -80,7 +80,7 @@ You will also see any lint errors in the console.
 ### Runs TypeScript and Vite build:
 
 ```bash
-npm build
+npm run build
 ```
 
 Builds the app for production to the build folder.
@@ -91,7 +91,7 @@ The build is minified and the filenames include the hashes. Your app is ready to
 ### Runs ESLint:
 
 ```bash
-npm lint
+npm run lint
 ```
 
 Runs the linter in all components and pages
@@ -99,7 +99,7 @@ Runs the linter in all components and pages
 ### Runs ESLint fix:
 
 ```bash
-npm lint:fix
+npm run lint:fix
 ```
 
 Runs the linter and fix and makes fixes in all components and pages
@@ -107,15 +107,15 @@ Runs the linter and fix and makes fixes in all components and pages
 ### Runs prettier to check files:
 
 ```bash
-npm check
+npm run check
 ```
 
-When you want to check if your files are formatted
+When you want to check if your files are formatted according to Prettier rules
 
 ### Runs prettier to format:
 
 ```bash
-npm format
+npm run format
 ```
 
 To format a file in-place
@@ -123,31 +123,15 @@ To format a file in-place
 ### Runs Vite preview:
 
 ```bash
-npm preview
+npm run preview
 ```
 
 Starts a local web server that serves the built solution from ./dist for previewing
 
-### Runs Husky:
-
-```bash
-npm prepare
-```
-
-Enable git hooks
-
-### Runs linter before commit:
-
-```bash
-npm pre-commit
-```
-
-Run linters against staged git files and don't let 💩 slip into your code base!
-
 ### Runs Jest:
 
 ```bash
-npm test
+npm run test
 ```
 
 Launches the test runner in the interactive watch mode.
