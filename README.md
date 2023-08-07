@@ -68,7 +68,7 @@ In the project directory, you can run:
 ### Run Project:
 
 ```bash
-npm  run dev
+npm run dev
 ```
 
 Runs the app in the development mode.
@@ -102,7 +102,7 @@ Runs the linter in all components and pages
 npm run lint:fix
 ```
 
-Runs the linter and fix and makes fixes in all components and pages
+Runs the linter and makes fixes in all components and pages
 
 ### Runs prettier to check files:
 
@@ -118,7 +118,7 @@ When you want to check if your files are formatted according to Prettier rules
 npm run format
 ```
 
-To format a file in-place
+To format files according to ESLint rules in-place
 
 ### Runs Vite preview:
 
