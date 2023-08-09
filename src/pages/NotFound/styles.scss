@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20rem auto;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vinyl {
+  width: 25rem;
+}
+
+.text {
+  font-family: "GramophoneNF", Verdana, sans-serif;
+}
+
+.title {
+  font-size: 20rem;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 8rem;
+  text-transform: uppercase;
+}
