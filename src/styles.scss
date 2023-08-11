@@ -1,11 +1,8 @@
+@import './assets/fonts/Gramophone/scss/Gramophone.scss';
+
 html {
   font-size: 10px;
   font-family: "GramophoneNF", Verdana, sans-serif;
-}
-
-@font-face {
-  font-family: "GramophoneNF";
-  src: url(./assets/fonts/gramophone/GramophoneNF.ttf);
 }
 
 body {
