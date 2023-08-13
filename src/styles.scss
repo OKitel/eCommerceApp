@@ -1,12 +1,23 @@
 @import './assets/fonts/Gramophone/scss/Gramophone.scss';
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
   font-size: 10px;
   font-family: "GramophoneNF", Verdana, sans-serif;
 }
 
 body {
+  min-height: 100vh;
   background-image: url(./assets/images/texture.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+#root {
+  overflow: auto;
 }
