@@ -8,7 +8,6 @@ import {
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
 const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY || '';
-const scopes: string[] = [];
 
 // Configure authMiddlewareOptions
 const authMiddlewareOptions: AuthMiddlewareOptions = {
@@ -23,7 +22,6 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   //   get: () => ({ token: 'existing_token_from_ls', expirationTime: 1692141166005 }),
   //   set: (tokenStore) => saveToLs(tokenStore),
   // },
-  scopes,
   fetch,
 };
 
