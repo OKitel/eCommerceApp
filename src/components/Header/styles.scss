@@ -1,0 +1,18 @@
+.logo {
+  text-decoration: none;
+  font-size: 2rem;
+  color: white;
+  flex-grow: 1;
+  text-shadow: 0.2rem 0.2rem 0.2rem #311b92;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.logo-sub {
+  font-family: 'Mr Dafoe', cursive;
+  font-size: 1.3rem;
+  position: absolute;
+  bottom: -1rem;
+  left: 2rem;
+  text-shadow: 0.2rem 0.2rem 0.2rem #311b92;
+}
