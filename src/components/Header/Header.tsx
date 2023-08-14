@@ -10,7 +10,7 @@ import './styles.scss';
 
 // eslint-disable-next-line max-lines-per-function
 export const Header: React.FC = (): JSX.Element => {
-  const [isAuth, setIsAuth] = React.useState(true);
+  const [isAuth, setIsAuth] = React.useState(false);
   const navigate = useNavigate();
   const handleCart = (): void => navigate('/cart');
   return (
