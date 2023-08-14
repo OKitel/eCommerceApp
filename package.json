@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
