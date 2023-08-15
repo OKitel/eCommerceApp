@@ -8,14 +8,14 @@ import {
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder';
 
-const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY || '';
+const projectKey = process.env.VITE_CTP_PROJECT_KEY || '';
 
 const getPasswordAuthMiddlewareOptions = (username: string, password: string): PasswordAuthMiddlewareOptions => ({
-  host: import.meta.env.VITE_CTP_AUTH_HOST || '',
+  host: process.env.VITE_CTP_AUTH_HOST || '',
   projectKey,
   credentials: {
-    clientId: import.meta.env.VITE_CTP_SPA_CLIENT_ID || '',
-    clientSecret: import.meta.env.VITE_CTP_SPA_CLIENT_SECRET || '',
+    clientId: process.env.VITE_CTP_SPA_CLIENT_ID || '',
+    clientSecret: process.env.VITE_CTP_SPA_CLIENT_SECRET || '',
     user: {
       username,
       password,
@@ -34,7 +34,7 @@ export const getSpaApiRoot = (username: string, password: string): ByProjectKeyR
 
   // Configure httpMiddlewareOptions
   const httpMiddlewareOptions: HttpMiddlewareOptions = {
-    host: import.meta.env.VITE_CTP_API_HOST || '',
+    host: process.env.VITE_CTP_API_HOST || '',
     fetch,
   };
 

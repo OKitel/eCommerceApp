@@ -7,14 +7,14 @@ import {
 } from '@commercetools/sdk-client-v2';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
-const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY || '';
+const projectKey = process.env.VITE_CTP_PROJECT_KEY || '';
 
 const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
-  host: import.meta.env.VITE_CTP_AUTH_HOST || '',
+  host: process.env.VITE_CTP_AUTH_HOST || '',
   projectKey,
   credentials: {
-    clientId: import.meta.env.VITE_CTP_ANONYMOUS_CLIENT_ID || '',
-    clientSecret: import.meta.env.VITE_CTP_ANONYMOUS_CLIENT_SECRET || '',
+    clientId: process.env.VITE_CTP_ANONYMOUS_CLIENT_ID || '',
+    clientSecret: process.env.VITE_CTP_ANONYMOUS_CLIENT_SECRET || '',
   },
   // tokenCache: {
   //   // TODO add local storage methods
@@ -26,7 +26,7 @@ const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
 
 // Configure httpMiddlewareOptions
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
-  host: import.meta.env.VITE_CTP_API_HOST || '',
+  host: process.env.VITE_CTP_API_HOST || '',
   fetch,
 };
 
