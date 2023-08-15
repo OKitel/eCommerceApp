@@ -1,11 +1,30 @@
+@import '../../sass/constants';
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .logo {
+  margin-bottom: 1rem;
+
+  & a {
+    transition: all ease-in-out 0.3s;
+  }
+
+
+  & a:hover {
+    text-shadow: 0.2rem 0.2rem 2rem $color-secondary;
+  }
+}
+
+.logo-main {
   text-decoration: none;
   font-size: 2rem;
   color: white;
-  flex-grow: 1;
-  text-shadow: 0.2rem 0.2rem 0.2rem #311b92;
+  text-shadow: 0.2rem 0.2rem 0.2rem $color-dark-prim;
   position: relative;
-  margin-bottom: 1rem;
 }
 
 .logo-sub {
@@ -14,5 +33,5 @@
   position: absolute;
   bottom: -1rem;
   left: 2rem;
-  text-shadow: 0.2rem 0.2rem 0.2rem #311b92;
+  text-shadow: 0.2rem 0.2rem 0.2rem $color-dark-prim;
 }
