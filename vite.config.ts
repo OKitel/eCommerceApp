@@ -4,10 +4,11 @@ import eslint from 'vite-plugin-eslint';
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
 import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
+import EnvironmentPlugin from 'vite-plugin-environment';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), eslint()],
+  plugins: [react(), eslint(), EnvironmentPlugin('all')],
   resolve: {
     alias: {
       // This Rollup aliases are extracted from @esbuild-plugins/node-modules-polyfill,
