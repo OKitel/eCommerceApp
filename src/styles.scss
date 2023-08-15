@@ -1,0 +1,21 @@
+@import './assets/fonts/Gramophone/scss/Gramophone.scss';
+@import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  font-family: "GramophoneNF", Verdana, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#root {
+  overflow: auto;
+}
