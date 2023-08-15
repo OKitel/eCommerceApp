@@ -1,0 +1,46 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20rem auto;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vinyl {
+  width: 25rem;
+}
+
+.title {
+  font-size: 20rem;
+  margin: 0;
+  text-shadow: 0.2rem 0.2rem 0.2rem gray;
+}
+
+.subtitle {
+  font-size: 8rem;
+  text-transform: uppercase;
+  text-shadow: 0.2rem 0.2rem 0.2rem gray;
+}
+
+.btn {
+  text-decoration: none;
+  border: 0.3rem solid black;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 2rem;
+  color: black;
+  transition: ease-in-out 0.3s;
+
+
+  &:hover {
+    background-color: #4753ff;
+    border-color: #4753ff;
+    color: white;
+  }
+}
