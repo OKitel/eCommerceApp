@@ -14,6 +14,7 @@ const config: Config = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
+  setupFiles: ['<rootDir>/dotenv.setup.ts'],
 };
 
 export default config;
