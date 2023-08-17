@@ -4,6 +4,7 @@ import { Paper, Box, Button, Typography } from '@mui/material';
 import { FormInputText } from '../form-components/FormInputText';
 import { useForm } from 'react-hook-form';
 import './styles.scss';
+import { FormInputDate } from '../form-components/FormInputDate';
 
 export const RegistrationForm: React.FC = (): JSX.Element => {
   const { control } = useForm();
@@ -16,10 +17,10 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
           <FormInputText name={'name'} control={control} label={'First Name'} />
           <FormInputText name={'surname'} control={control} label={'Last Name'} />
           <FormInputText name={'email'} control={control} label={'Email'} type="email" />
-          <FormInputText name={'name'} control={control} label={'Password'} type="password" />
-          {/* Date of Birth */}
+          <FormInputText name={'password'} control={control} label={'Password'} type="password" />
+          <FormInputDate name={'date-of-birth'} control={control} />
           <Typography variant="h6" className="form-subtitle">
-            Adress
+            Address
           </Typography>
           <FormInputText name={'street'} control={control} label={'Street'} />
           <FormInputText name={'city'} control={control} label={'City'} />
