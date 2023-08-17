@@ -29,14 +29,7 @@ export const Header: React.FC = (): JSX.Element => {
             </IconButton>
             {!isAuth && (
               <>
-                <Button
-                  component={RouterLink}
-                  to="/login"
-                  variant="contained"
-                  sx={{ m: 1 }}
-                  color="secondary"
-                  onClick={(): void => setIsAuth(true)}
-                >
+                <Button component={RouterLink} to="/login" variant="contained" sx={{ m: 1 }} color="secondary">
                   Login
                 </Button>
                 <Button component={RouterLink} to="/registration" color="secondary" variant="contained">
