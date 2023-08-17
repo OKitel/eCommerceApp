@@ -1,14 +1,19 @@
-import { Control, Controller } from 'react-hook-form';
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 
-type FormInputProps = {
-  name: string;
-  control: Control;
+type FormInputProps<T extends FieldValues> = {
+  name: Path<T>;
+  control: Control<T>;
   label: string;
   type?: string;
 };
 
-export const FormInputText = ({ name, control, label, type }: FormInputProps): JSX.Element => {
+export const FormInputText = <T extends FieldValues>({
+  name,
+  control,
+  label,
+  type,
+}: FormInputProps<T>): JSX.Element => {
   return (
     <Controller
       name={name}
