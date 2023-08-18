@@ -1,4 +1,4 @@
-import { Control, Controller } from 'react-hook-form';
+import { Control, Controller, FieldValues, RegisterOptions } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 
 type FormInputProps = {
@@ -6,25 +6,27 @@ type FormInputProps = {
   control: Control;
   label: string;
   type?: string;
+  rules: Omit<RegisterOptions<FieldValues, string>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
 };
 
-export const FormInputText = ({ name, control, label, type }: FormInputProps): JSX.Element => {
+export const FormInputText = ({ name, control, label, type, rules }: FormInputProps): JSX.Element => {
   return (
     <Controller
       name={name}
       control={control}
+      rules={rules}
       render={({ field: { onChange, value }, fieldState: { error } }): JSX.Element => (
         <TextField
           helperText={error ? error.message : null}
-          size="small"
           error={!!error}
+          size="small"
           onChange={onChange}
-          value={value}
+          value={value ?? ''}
           fullWidth
           label={label}
           variant="outlined"
           type={type || 'text'}
-          margin="dense"
+          sx={{ mb: 1 }}
         />
       )}
     />
