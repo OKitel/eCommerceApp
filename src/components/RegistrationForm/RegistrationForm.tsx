@@ -98,6 +98,12 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
               pattern: { value: /^[a-zA-Z]+$/, message: 'Only letters allowed' },
             }}
           />
+          <FormInputDropdown
+            name={'country'}
+            control={control}
+            label={'Country'}
+            rules={{ required: 'Country is required' }}
+          />
           <FormInputText
             name={'postcode'}
             control={control}
@@ -107,18 +113,13 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
               required: 'Postcode is required',
               validate: (value): string | boolean => {
                 const country = getValues('country');
+                if (!country) return true;
                 if (!postcodeValidator(value, country)) {
                   return 'Invalid postcode for provided country';
                 }
                 return true;
               },
             }}
-          />
-          <FormInputDropdown
-            name={'country'}
-            control={control}
-            label={'Country'}
-            rules={{ required: 'Country is required' }}
           />
           <div className="form-btn">
             <Button type="submit" variant="contained">
