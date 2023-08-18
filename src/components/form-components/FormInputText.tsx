@@ -1,21 +1,12 @@
-import { Control, Controller, FieldValues, RegisterOptions, Path } from 'react-hook-form';
+import { Controller, UseControllerProps } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 
-type FormInputProps<T extends FieldValues> = {
-  name: Path<T>;
-  control: Control<T>;
+interface FormInputProps extends UseControllerProps {
   label: string;
   type?: string;
-  rules: Omit<RegisterOptions<FieldValues, string>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
-};
+}
 
-export const FormInputText = <T extends FieldValues>({
-  name,
-  control,
-  label,
-  type,
-  rules,
-}: FormInputProps<T>): JSX.Element => {
+export const FormInputText = ({ name, control, label, type, rules }: FormInputProps): JSX.Element => {
   return (
     <Controller
       name={name}
