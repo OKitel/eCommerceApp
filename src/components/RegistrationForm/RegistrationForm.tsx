@@ -123,7 +123,7 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
             label={'City'}
             rules={{
               required: 'City is required',
-              pattern: { value: /^[a-zA-Z]+$/, message: 'Only letters allowed' },
+              pattern: { value: /^['a-zA-Z\s-'.]+$/, message: 'Only letters allowed' },
             }}
           />
           <FormInputDropdown
