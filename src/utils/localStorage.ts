@@ -29,5 +29,9 @@ export function getTokenStore(tokenStoreType: TokenStoreTypes): TokenStore {
     }
   }
 
-  return { expirationTime: 0, token: '' };
+  return { expirationTime: -1, token: '' };
+}
+
+export function clearTokenStore(tokenStoreType: TokenStoreTypes): void {
+  localStorage.removeItem(tokenStoreType);
 }
