@@ -14,7 +14,8 @@ const config: Config = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-  setupFiles: ['<rootDir>/dotenv.setup.ts'],
+  resetMocks: false,
+  setupFiles: ['<rootDir>/dotenv.setup.ts', 'jest-localstorage-mock'],
 };
 
 export default config;
