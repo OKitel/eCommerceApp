@@ -1,19 +1,16 @@
 import React from 'react';
 import { Paper, Box, Button } from '@mui/material';
 import { FormInputText } from '../form-components/FormInputText';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import customersService from '../../services/Customers';
 import './styles.scss';
+import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
 
-interface IFormLogin {
-  email: string;
-  password: string;
-}
-
+// eslint-disable-next-line max-lines-per-function
 export const LoginForm: React.FC = (): JSX.Element => {
-  const { control, handleSubmit } = useForm<IFormLogin>({ defaultValues: { email: '', password: '' } });
+  const { control, handleSubmit } = useForm();
 
-  const onSubmit = ({ email, password }: IFormLogin): void => {
+  const onSubmit = ({ email, password }: FieldValues): void => {
     customersService.loginCustomer(email, password);
   };
 
@@ -22,8 +19,30 @@ export const LoginForm: React.FC = (): JSX.Element => {
       <Paper elevation={3} sx={{ padding: '2rem' }}>
         <h2 className="form-title">Login Form</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormInputText name="email" control={control} label="Email" type="email" />
-          <FormInputText name="password" control={control} label="Password" type="password" />
+          <FormInputText
+            name="email"
+            control={control}
+            label="Email"
+            type="email"
+            rules={{
+              required: 'Email is required',
+              pattern: { value: EMAIL_REGEXP, message: 'Please enter a valid email address' },
+            }}
+          />
+          <FormInputText
+            name="password"
+            control={control}
+            label="Password"
+            type="password"
+            rules={{
+              required: 'Password is required',
+              pattern: {
+                value: PASSWORD_REGEXP,
+                message:
+                  'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character',
+              },
+            }}
+          />
           <div className="form-btn">
             <Button className="form-btn" variant="contained" type="submit">
               Login
