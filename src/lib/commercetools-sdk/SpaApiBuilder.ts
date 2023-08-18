@@ -24,8 +24,8 @@ const getPasswordAuthMiddlewareOptions = (username: string, password: string): P
     },
   },
   tokenCache: {
-    get: () => getTokenStore(TokenStoreTypes.SpaApi),
-    set: (tokenStore) => saveTokenStore(TokenStoreTypes.SpaApi, tokenStore),
+    get: () => getTokenStore(TokenStoreTypes.SpaApiTokenStore),
+    set: (tokenStore) => saveTokenStore(TokenStoreTypes.SpaApiTokenStore, tokenStore),
   },
   fetch,
 });

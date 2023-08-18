@@ -10,7 +10,7 @@ class CustomersService {
       await spaApi.loginCustomer(email, password);
     } catch (error) {
       if (isErrorResponse(error) && error.statusCode === 401) {
-        clearTokenStore(TokenStoreTypes.SpaApi);
+        clearTokenStore(TokenStoreTypes.SpaApiTokenStore);
         window.location.replace('/login');
       }
     }
