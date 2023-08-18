@@ -10,9 +10,12 @@ class SpaApi {
     this.customerApiRoot = getSpaApiRoot(username, password);
   }
 
-  public loginCustomer(email: string, password: string): Promise<ClientResponse<CustomerSignInResult>> | undefined {
+  public async loginCustomer(
+    email: string,
+    password: string,
+  ): Promise<ClientResponse<CustomerSignInResult> | undefined> {
     if (this.customerApiRoot) {
-      const res = this.customerApiRoot.me().login().post({ body: { email, password } }).execute();
+      const res = await this.customerApiRoot.me().login().post({ body: { email, password } }).execute();
 
       return res;
     }
