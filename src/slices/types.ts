@@ -18,4 +18,5 @@ export type RegistrationRequest = {
   defaultShippingAddress?: number;
   defaultBillingAddress?: number;
   onSuccess: () => void;
+  onError: (error: unknown) => void;
 };

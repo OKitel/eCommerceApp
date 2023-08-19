@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, Box, Typography, Alert } from '@mui/material';
+import { Paper, Box, Typography, Alert, Snackbar } from '@mui/material';
 import { FormInputText } from '../form-components/FormInputText';
 import { useForm, FieldValues } from 'react-hook-form';
 import './styles.scss';
@@ -16,18 +16,48 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { useNavigate } from 'react-router-dom';
 import { registerCustomer } from '../../slices/customerSlice';
 import { LoadingButton } from '@mui/lab';
+import Slide, { SlideProps } from '@mui/material/Slide';
+
+type TransitionProps = Omit<SlideProps, 'direction'>;
+
+const TransitionDown = (props: TransitionProps): JSX.Element => {
+  return <Slide {...props} direction="down" />;
+};
 
 // eslint-disable-next-line max-lines-per-function
 export const RegistrationForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit, getValues } = useForm();
-  const [showError, setShowError] = useState(true);
-  const [showSuccess, setShowSuccess] = useState(true);
+  const [showError, setShowError] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const progressRegistration = useAppSelector((state) => state.customer.progress.registration);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const handleClose = (_?: React.SyntheticEvent | Event, reason?: string): void => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setShowError(false);
+    setShowSuccess(false);
+  };
+
   const onSubmit = (data: FieldValues): void => {
-    const onSuccess = (): void => navigate('/');
+    const onSuccess = (): void => {
+      setShowError(false);
+      setShowSuccess(true);
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    };
+    const onError = (err: unknown): void => {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      }
+      setShowSuccess(false);
+      setShowError(true);
+    };
     const request: RegistrationRequest = {
       firstName: data.name,
       lastName: data.surname,
@@ -48,23 +78,37 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
       defaultShippingAddress: data.defaultAddress ? 0 : undefined,
       defaultBillingAddress: data.defaultAddress ? 0 : undefined,
       onSuccess,
+      onError,
     };
-
     dispatch(registerCustomer(request));
   };
 
   return (
     <>
-      {showError && (
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={showError}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        TransitionComponent={TransitionDown}
+      >
         <Alert severity="error" onClose={(): void => setShowError(false)}>
-          Error message
+          {`Oops! Registration failed. ${errorMessage}`}
         </Alert>
-      )}
-      {showSuccess && (
+      </Snackbar>
+
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={showSuccess}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        TransitionComponent={TransitionDown}
+      >
         <Alert severity="success" onClose={(): void => setShowSuccess(false)}>
-          This is a success message!
+          Your account was successfully created! Welcome!
         </Alert>
-      )}
+      </Snackbar>
+
       <Box sx={{ maxWidth: '50%', margin: '5rem auto' }}>
         <Paper elevation={3} sx={{ padding: '2rem' }}>
           <h2 className="form-title">Registration Form</h2>

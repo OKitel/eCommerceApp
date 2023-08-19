@@ -35,12 +35,14 @@ export const loginCustomer = createAsyncThunk(
 );
 
 export const registerCustomer = createAsyncThunk('customer/registerCustomer', async (request: RegistrationRequest) => {
-  const { onSuccess, ...req } = request;
-  const response = await ServiceApi.createCustomer(req);
-
-  onSuccess();
-
-  return response?.body.customer;
+  const { onSuccess, onError, ...req } = request;
+  try {
+    const response = await ServiceApi.createCustomer(req);
+    onSuccess();
+    return response?.body.customer;
+  } catch (error: unknown) {
+    onError(error);
+  }
 });
 
 const customerSlice = createSlice({
