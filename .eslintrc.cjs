@@ -16,7 +16,7 @@ module.exports = {
     },
     ecmaVersion: 'ES6',
     sourceType: 'module',
-    project: ['./tsconfig.json'],
+    project: ['./tsconfig.lint.json'],
   },
   plugins: ['react-refresh', '@typescript-eslint', 'import', 'react', 'react-hooks', 'compat', 'prettier'],
   rules: {
