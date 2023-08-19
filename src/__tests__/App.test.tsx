@@ -1,9 +1,9 @@
-import { render } from '@testing-library/react';
 import { App } from '../components/App';
 import { MemoryRouter } from 'react-router-dom';
+import { renderWithProviders } from './test-utils';
 
 test('Render app correctly', () => {
-  render(
+  renderWithProviders(
     <MemoryRouter initialEntries={['/']}>
       <App />
     </MemoryRouter>,

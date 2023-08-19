@@ -1,9 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Header } from '../components/Header/Header';
+import { renderWithProviders } from './test-utils';
 
 test('Render Header correctly', () => {
-  render(
+  renderWithProviders(
     <MemoryRouter initialEntries={['/']}>
       <Header />
     </MemoryRouter>,
