@@ -1,11 +1,10 @@
 export type Address = {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   streetName: string;
   city: string;
   country: string;
   postalCode: string;
-  email: string;
 };
 
 export type RegistrationRequest = {
@@ -17,6 +16,8 @@ export type RegistrationRequest = {
   addresses: Address[];
   defaultShippingAddress?: number;
   defaultBillingAddress?: number;
+  shippingAddresses: number[];
+  billingAddresses: number[];
   onSuccess: () => void;
   onError: (error: unknown) => void;
 };

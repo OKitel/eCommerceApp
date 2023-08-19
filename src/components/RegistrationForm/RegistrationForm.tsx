@@ -1,6 +1,7 @@
+/* eslint-disable max-lines-per-function */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, Box, Typography, Alert, Snackbar } from '@mui/material';
+import { Paper, Box, Typography, Alert, Snackbar, Divider } from '@mui/material';
 import { FormInputText } from '../form-components/FormInputText';
 import { useForm, FieldValues } from 'react-hook-form';
 import './styles.scss';
@@ -10,7 +11,7 @@ import { FormInputPassword } from '../form-components/FormInputPassword';
 import moment from 'moment';
 import { FormInputDropdown } from '../form-components/FormInputDropdown';
 import { postcodeValidator } from 'postcode-validator';
-import { RegistrationRequest } from '../../slices/types';
+import { Address, RegistrationRequest } from '../../slices/types';
 import { FormCheckBox } from '../form-components/FormCheckBox';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { useNavigate } from 'react-router-dom';
@@ -24,15 +25,16 @@ const TransitionDown = (props: TransitionProps): JSX.Element => {
   return <Slide {...props} direction="down" />;
 };
 
-// eslint-disable-next-line max-lines-per-function
 export const RegistrationForm: React.FC = (): JSX.Element => {
-  const { control, handleSubmit, getValues } = useForm();
+  const { control, handleSubmit, getValues, watch } = useForm();
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const progressRegistration = useAppSelector((state) => state.customer.progress.registration);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const showBillingAddress = !watch('billingAddress');
 
   const handleClose = (_?: React.SyntheticEvent | Event, reason?: string): void => {
     if (reason === 'clickaway') {
@@ -58,25 +60,38 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
       setShowSuccess(false);
       setShowError(true);
     };
+
+    const addresses: Address[] = [
+      {
+        streetName: data.street,
+        city: data.city,
+        country: data.country,
+        postalCode: data.postCode,
+      },
+    ];
+
+    if (!data.billingAddress) {
+      addresses.push({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        streetName: data.billingStreet,
+        city: data.billingCity,
+        country: data.billingCountry,
+        postalCode: data.billingPostCode,
+      });
+    }
+
     const request: RegistrationRequest = {
       firstName: data.name,
       lastName: data.surname,
       email: data.email,
       password: data.password,
       dateOfBirth: moment(data.dateOfBirth).format('YYYY-MM-DD'),
-      addresses: [
-        {
-          firstName: data.name,
-          lastName: data.surname,
-          streetName: data.street,
-          city: data.city,
-          country: data.country,
-          postalCode: data.postCode,
-          email: data.email,
-        },
-      ],
+      addresses,
       defaultShippingAddress: data.defaultAddress ? 0 : undefined,
-      defaultBillingAddress: data.defaultAddress ? 0 : undefined,
+      defaultBillingAddress: !data.defaultAddress ? undefined : data.billingAddress ? 0 : 1,
+      shippingAddresses: [0],
+      billingAddresses: [data.billingAddress ? 0 : 1],
       onSuccess,
       onError,
     };
@@ -171,8 +186,9 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
                 },
               }}
             />
+            <Divider sx={{ mt: 2, backgroundColor: '#673ab7' }} />
             <Typography variant="h6" className="form-subtitle">
-              Address
+              Shipping Address
             </Typography>
             <FormInputText
               name={'street'}
@@ -215,6 +231,74 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
               }}
             />
             <FormCheckBox name={'defaultAddress'} control={control} label="Set address as default" />
+            <FormCheckBox name={'billingAddress'} control={control} label="Billing address is THE SAME as shipping" />
+            {showBillingAddress && (
+              <>
+                <Divider sx={{ mt: 1, backgroundColor: '#673ab7' }} />
+                <Typography variant="h6" className="form-subtitle">
+                  Billing Address
+                </Typography>
+
+                <FormInputText
+                  name={'firstName'}
+                  control={control}
+                  label={'First Name'}
+                  rules={{
+                    required: 'Name is required',
+                    pattern: { value: /^[a-zA-Z]+$/, message: 'Only letters allowed' },
+                  }}
+                />
+                <FormInputText
+                  name={'lastName'}
+                  control={control}
+                  label={'Last Name'}
+                  rules={{
+                    required: 'Last name is required',
+                    pattern: { value: /^[a-zA-Z]+$/, message: 'Only letters allowed' },
+                  }}
+                />
+                <FormInputText
+                  name={'billingStreet'}
+                  control={control}
+                  label={'Street'}
+                  rules={{
+                    required: 'Street is required',
+                  }}
+                />
+                <FormInputText
+                  name={'billingCity'}
+                  control={control}
+                  label={'City'}
+                  rules={{
+                    required: 'City is required',
+                    pattern: { value: /^['a-zA-Z\s-'.]+$/, message: 'Only letters allowed' },
+                  }}
+                />
+                <FormInputDropdown
+                  name={'billingCountry'}
+                  control={control}
+                  label={'Country'}
+                  rules={{ required: 'Country is required' }}
+                />
+                <FormInputText
+                  name={'billingPostcode'}
+                  control={control}
+                  label={'Postcode'}
+                  type="text"
+                  rules={{
+                    required: 'Postcode is required',
+                    validate: (value): string | boolean => {
+                      const country = getValues('billingCountry');
+                      if (!country) return true;
+                      if (!postcodeValidator(value, country)) {
+                        return 'Invalid postcode for provided country';
+                      }
+                      return true;
+                    },
+                  }}
+                />
+              </>
+            )}
             <div className="form-btn">
               <LoadingButton loading={progressRegistration} type="submit" variant="contained">
                 Register
