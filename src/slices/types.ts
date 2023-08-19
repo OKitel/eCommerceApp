@@ -17,4 +17,5 @@ export type RegistrationRequest = {
   addresses: Address[];
   defaultShippingAddress?: number;
   defaultBillingAddress?: number;
+  onSuccess: () => void;
 };

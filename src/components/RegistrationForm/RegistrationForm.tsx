@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, Box, Button, Typography, Alert } from '@mui/material';
+import { Paper, Box, Typography, Alert } from '@mui/material';
 import { FormInputText } from '../form-components/FormInputText';
 import { useForm, FieldValues } from 'react-hook-form';
 import './styles.scss';
@@ -10,17 +10,24 @@ import { FormInputPassword } from '../form-components/FormInputPassword';
 import moment from 'moment';
 import { FormInputDropdown } from '../form-components/FormInputDropdown';
 import { postcodeValidator } from 'postcode-validator';
-import guestsService from '../../services/Guests';
-import { RegistrationRequest } from '../../services/types';
+import { RegistrationRequest } from '../../slices/types';
 import { FormCheckBox } from '../form-components/FormCheckBox';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { useNavigate } from 'react-router-dom';
+import { registerCustomer } from '../../slices/customerSlice';
+import { LoadingButton } from '@mui/lab';
 
 // eslint-disable-next-line max-lines-per-function
 export const RegistrationForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit, getValues } = useForm();
   const [showError, setShowError] = useState(true);
   const [showSuccess, setShowSuccess] = useState(true);
+  const progressRegistration = useAppSelector((state) => state.customer.progress.registration);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (data: FieldValues): void => {
+    const onSuccess = (): void => navigate('/');
     const request: RegistrationRequest = {
       firstName: data.name,
       lastName: data.surname,
@@ -40,9 +47,10 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
       ],
       defaultShippingAddress: data.defaultAddress ? 0 : undefined,
       defaultBillingAddress: data.defaultAddress ? 0 : undefined,
+      onSuccess,
     };
 
-    guestsService.registerCustomer(request);
+    dispatch(registerCustomer(request));
   };
 
   return (
@@ -164,9 +172,9 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
             />
             <FormCheckBox name={'defaultAddress'} control={control} label="Set address as default" />
             <div className="form-btn">
-              <Button type="submit" variant="contained">
+              <LoadingButton loading={progressRegistration} type="submit" variant="contained">
                 Register
-              </Button>
+              </LoadingButton>
             </div>
             <div className="form-link">
               <Typography variant="body1">Already have an account?&nbsp;</Typography>
