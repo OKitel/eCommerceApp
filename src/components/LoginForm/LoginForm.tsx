@@ -2,16 +2,22 @@ import React from 'react';
 import { Paper, Box, Button } from '@mui/material';
 import { FormInputText } from '../form-components/FormInputText';
 import { FieldValues, useForm } from 'react-hook-form';
-import customersService from '../../services/Customers';
-import './styles.scss';
+import { useNavigate } from 'react-router-dom';
+import { loginCustomer } from '../../slices/customerSlice';
+import { useAppDispatch } from '../../store/hooks';
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
+import './styles.scss';
 
 // eslint-disable-next-line max-lines-per-function
 export const LoginForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit } = useForm();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = ({ email, password }: FieldValues): void => {
-    customersService.loginCustomer(email, password);
+    const onSuccess = (): void => navigate('/');
+
+    dispatch(loginCustomer({ email, password, onSuccess }));
   };
 
   return (
