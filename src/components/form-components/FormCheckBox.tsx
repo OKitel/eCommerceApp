@@ -13,12 +13,14 @@ export const FormCheckBox = ({ name, control, rules, label }: FormInputProps): J
       rules={rules}
       render={({ field }): JSX.Element => (
         <>
-          <Checkbox
-            {...field}
-            checked={field.value ?? false}
-            onChange={(e): void => field.onChange(e.target.checked)}
-          />
-          <FormLabel>{label}</FormLabel>
+          <FormLabel sx={{ display: 'flex', alignItems: 'center' }}>
+            <Checkbox
+              {...field}
+              checked={field.value ?? false}
+              onChange={(e): void => field.onChange(e.target.checked)}
+            />
+            {label}
+          </FormLabel>
         </>
       )}
     />
