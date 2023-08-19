@@ -9,7 +9,6 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { EMAIL_REGEXP } from '../../consts';
 import './styles.scss';
 
-// eslint-disable-next-line max-lines-per-function
 export const LoginForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit } = useForm();
   const progressLogin = useAppSelector((state) => state.customer.progress.login);
