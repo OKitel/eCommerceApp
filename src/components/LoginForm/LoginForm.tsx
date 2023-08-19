@@ -1,16 +1,18 @@
 import React from 'react';
-import { Paper, Box, Button } from '@mui/material';
+import { Paper, Box } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { FormInputText } from '../form-components/FormInputText';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { loginCustomer } from '../../slices/customerSlice';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { EMAIL_REGEXP } from '../../consts';
 import './styles.scss';
 
 // eslint-disable-next-line max-lines-per-function
 export const LoginForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit } = useForm();
+  const progressLogin = useAppSelector((state) => state.customer.progress.login);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -37,9 +39,9 @@ export const LoginForm: React.FC = (): JSX.Element => {
           />
           <FormInputText name="password" control={control} label="Password" type="password" />
           <div className="form-btn">
-            <Button className="form-btn" variant="contained" type="submit">
+            <LoadingButton loading={progressLogin} className="form-btn" variant="contained" type="submit">
               Login
-            </Button>
+            </LoadingButton>
           </div>
         </form>
       </Paper>
