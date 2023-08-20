@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { renderWithProviders } from './test-utils';
 import { RegistrationForm } from '../components/RegistrationForm/RegistrationForm';
+import { debug } from 'jest-preview';
 
 // eslint-disable-next-line max-lines-per-function
 describe('Registration form validation', () => {
@@ -97,5 +98,23 @@ describe('Registration form validation', () => {
         'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character',
       ),
     ).not.toBeInTheDocument();
+  });
+
+  test('Registration form invalid date of birth validation (age < 13)', async () => {
+    renderComponent();
+    debug();
+    const dobInput = screen.getByPlaceholderText('MM/DD/YYYY');
+    if (dobInput) await user.type(dobInput, '01012011');
+    await user.click(screen.getByTestId('submit-btn'));
+
+    expect(screen.getByText('You must be at least 13 years old')).toBeInTheDocument();
+  });
+
+  test('Registration form valid date of birth validation', async () => {
+    renderComponent();
+    const dobInput = screen.getByPlaceholderText('MM/DD/YYYY');
+    if (dobInput) await user.type(dobInput, '01011990');
+    await user.click(screen.getByTestId('submit-btn'));
+    expect(screen.queryByText('You must be at least 13 years old')).not.toBeInTheDocument();
   });
 });
