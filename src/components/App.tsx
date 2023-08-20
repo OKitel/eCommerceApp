@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { NotFound } from '../pages/NotFound/NotFound';
-import { Header } from './Header/Header';
 import { Registration } from '../pages/Registration/Registration';
 import { Login } from '../pages/Login/Login';
-import { useAppDispatch } from '../store/hooks';
+import { Header } from './Header/Header';
+import { AlertsSnackbar } from './AlertsSnackbar/AlertsSnackbar';
 import { getLoggedInCustomer } from '../slices/customerSlice';
+import { useAppDispatch } from '../store/hooks';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ export const App: React.FC = (): JSX.Element => {
 
   return (
     <>
+      <AlertsSnackbar />
       <Header />
       <Routes>
         <Route path="/" element={<h1>Main Page</h1>}></Route>

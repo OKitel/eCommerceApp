@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Paper, Box, Snackbar, Alert, SlideProps, Slide, Typography, CircularProgress } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Paper, Box, Typography, CircularProgress } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { FormInputText } from '../form-components/FormInputText';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -7,46 +7,31 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginCustomer } from '../../slices/customerSlice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
+import { setAlert } from '../../slices/alertsSlice';
 import './styles.scss';
-
-type TransitionProps = Omit<SlideProps, 'direction'>;
-
-const TransitionDown = (props: TransitionProps): JSX.Element => {
-  return <Slide {...props} direction="down" />;
-};
 
 // eslint-disable-next-line max-lines-per-function
 export const LoginForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit } = useForm();
+  const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
   const progressLogin = useAppSelector((state) => state.customer.progress.login);
-  const errorMessage = useAppSelector((state) => state.customer.errorMessage);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [isLoginError, setIsLoginError] = useState(false);
-  const [isLoginSuccess, setIsLoginSuccess] = useState(false);
-
-  const handleCloseSnackbar = (_?: React.SyntheticEvent | Event, reason?: string): void => {
-    if (reason === 'clickaway') {
-      return;
+  useEffect(() => {
+    if (customerData) {
+      navigate('/');
     }
-
-    setIsLoginError(false);
-    setIsLoginSuccess(false);
-  };
+  }, [customerData, navigate]);
 
   const onSubmit = ({ email, password }: FieldValues): void => {
     const onSuccess = (): void => {
-      setIsLoginError(false);
-      setIsLoginSuccess(true);
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
+      dispatch(setAlert({ message: 'You have successfully logged in!', severity: 'success' }));
+      navigate('/');
     };
-    const onError = (): void => {
-      setIsLoginError(true);
-      setIsLoginSuccess(false);
+    const onError = (errorMessage: string): void => {
+      dispatch(setAlert({ message: `Oops! Login failed. ${errorMessage}`, severity: 'error' }));
     };
 
     dispatch(loginCustomer({ email, password, onSuccess, onError }));
@@ -54,31 +39,6 @@ export const LoginForm: React.FC = (): JSX.Element => {
 
   return (
     <>
-      <Snackbar
-        sx={{ whiteSpace: 'pre-line' }}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={isLoginError}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        TransitionComponent={TransitionDown}
-      >
-        <Alert severity="error" onClose={(): void => setIsLoginError(false)}>
-          {`Oops! Login failed.\n${errorMessage}`}
-        </Alert>
-      </Snackbar>
-
-      <Snackbar
-        sx={{ whiteSpace: 'pre-line' }}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={isLoginSuccess}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        TransitionComponent={TransitionDown}
-      >
-        <Alert severity="success" onClose={(): void => setIsLoginSuccess(false)}>
-          {'You have successfully logged in!\nWe are now redirecting you to the main page...'}
-        </Alert>
-      </Snackbar>
       <Box sx={{ width: 'clamp(28rem, calc(100% - 4rem), 40rem)', margin: '10rem auto' }}>
         {progressIntrospect ? (
           <Box textAlign={'center'}>
