@@ -24,6 +24,7 @@ export const FormInputText = ({ name, control, label, type, rules }: FormInputPr
           variant="outlined"
           type={type || 'text'}
           sx={{ mb: 1 }}
+          data-testid={name}
         />
       )}
     />

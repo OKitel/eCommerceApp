@@ -74,7 +74,13 @@ export const LoginForm: React.FC = (): JSX.Element => {
                 }}
               />
               <div className="form-btn">
-                <LoadingButton loading={progressLogin} className="form-btn" variant="contained" type="submit">
+                <LoadingButton
+                  loading={progressLogin}
+                  className="form-btn"
+                  variant="contained"
+                  type="submit"
+                  data-testid="submit-btn"
+                >
                   Login
                 </LoadingButton>
               </div>
