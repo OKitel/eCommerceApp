@@ -23,6 +23,6 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "jest.config.ts", "jest.setup.ts", "dotenv.setup.ts"],
+  "include": ["src", "vite.config.ts", "jest.config.ts", "jest.setup.ts", "dotenv.setup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
