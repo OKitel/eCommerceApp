@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 20rem auto;
+  margin: 10rem auto;
 }
 
 .container {
@@ -13,19 +13,20 @@
 }
 
 .vinyl {
-  width: 25rem;
+  width: 15rem;
 }
 
 .title {
-  font-size: 20rem;
+  font-size: 13rem;
   margin: 0;
   text-shadow: 0.2rem 0.2rem 0.2rem gray;
 }
 
 .subtitle {
-  font-size: 8rem;
+  font-size: 3rem;
   text-transform: uppercase;
   text-shadow: 0.2rem 0.2rem 0.2rem gray;
+  margin-bottom: 3rem;
 }
 
 .btn {
@@ -42,5 +43,19 @@
     background-color: #4753ff;
     border-color: #4753ff;
     color: white;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .vinyl {
+    width: 8rem;
+  }
+
+  .title {
+    font-size: 10rem;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
   }
 }
