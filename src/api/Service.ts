@@ -26,12 +26,16 @@ class ServiceApi {
     return res;
   }
 
-  public createCustomer(customerData: CustomerDraft): Promise<ClientResponse<CustomerSignInResult>> {
-    return serviceApiRoot.customers().post({ body: customerData }).execute();
+  public async createCustomer(customerData: CustomerDraft): Promise<ClientResponse<CustomerSignInResult>> {
+    const res = await serviceApiRoot.customers().post({ body: customerData }).execute();
+
+    return res;
   }
 
-  public deleteCustomer(ID: string, version: number): Promise<ClientResponse<Customer>> {
-    return serviceApiRoot.customers().withId({ ID }).delete({ queryArgs: { version } }).execute();
+  public async deleteCustomer(ID: string, version: number): Promise<ClientResponse<Customer>> {
+    const res = serviceApiRoot.customers().withId({ ID }).delete({ queryArgs: { version } }).execute();
+
+    return res;
   }
 }
 
