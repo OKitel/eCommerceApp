@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Paper, Box, Snackbar, Alert, SlideProps, Slide } from '@mui/material';
+import { Paper, Box, Snackbar, Alert, SlideProps, Slide, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { FormInputText } from '../form-components/FormInputText';
 import { FieldValues, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginCustomer } from '../../slices/customerSlice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
@@ -110,6 +110,12 @@ export const LoginForm: React.FC = (): JSX.Element => {
               <LoadingButton loading={progressLogin} className="form-btn" variant="contained" type="submit">
                 Login
               </LoadingButton>
+            </div>
+            <div className="form-link">
+              <Typography variant="body1">Don't have an account yet?&nbsp;</Typography>
+              <Link to={'/registration'}>
+                <Typography variant="body1">Register</Typography>
+              </Link>
             </div>
           </form>
         </Paper>
