@@ -20,6 +20,12 @@ class ServiceApi {
     return res;
   }
 
+  public async getCustomerById(id: string): Promise<ClientResponse<Customer>> {
+    const res = await serviceApiRoot.customers().withId({ ID: id }).get().execute();
+
+    return res;
+  }
+
   public createCustomer(customerData: CustomerDraft): Promise<ClientResponse<CustomerSignInResult>> {
     return serviceApiRoot.customers().post({ body: customerData }).execute();
   }
