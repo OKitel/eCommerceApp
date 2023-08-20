@@ -1,6 +1,8 @@
 import { TokenStore } from '@commercetools/sdk-client-v2';
 import { TokenStoreTypes } from '../lib/commercetools-sdk';
 
+const LS_KEY_LOGGED_IN_CUSTOMER_ID = 'loggedInCustomerId';
+
 function isTokenStore(object: unknown): object is TokenStore {
   if (
     typeof object === 'object' &&
@@ -34,4 +36,16 @@ export function getTokenStore(tokenStoreType: TokenStoreTypes): TokenStore {
 
 export function clearTokenStore(tokenStoreType: TokenStoreTypes): void {
   localStorage.removeItem(tokenStoreType);
+}
+
+export function saveLoggedInCustomerId(id: string): void {
+  localStorage.setItem(LS_KEY_LOGGED_IN_CUSTOMER_ID, id);
+}
+
+export function getLoggedInCustomerId(): string | null {
+  return localStorage.getItem(LS_KEY_LOGGED_IN_CUSTOMER_ID);
+}
+
+export function clearLoggedInCustomerId(): void {
+  localStorage.removeItem(LS_KEY_LOGGED_IN_CUSTOMER_ID);
 }
