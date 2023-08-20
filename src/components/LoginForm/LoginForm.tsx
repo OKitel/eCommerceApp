@@ -48,7 +48,7 @@ export const LoginForm: React.FC = (): JSX.Element => {
         ) : (
           <Paper elevation={3} sx={{ padding: '2rem' }}>
             <h2 className="form-title">Login Form</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
               <FormInputText
                 name="email"
                 control={control}
