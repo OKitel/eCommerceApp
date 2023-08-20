@@ -43,4 +43,59 @@ describe('Registration form validation', () => {
     await user.click(screen.getByTestId('submit-btn'));
     expect(screen.queryByText('Please enter a valid email address')).not.toBeInTheDocument();
   });
+
+  test('Registration form invalid first name validation', async () => {
+    renderComponent();
+    const firstNameInput = screen.getByTestId('name').querySelector('input');
+    if (firstNameInput) await user.type(firstNameInput, '123');
+    await user.click(screen.getByTestId('submit-btn'));
+    expect(screen.getByText('Only letters allowed')).toBeInTheDocument();
+  });
+
+  test('Registration form valid first name validation', async () => {
+    renderComponent();
+    const firstNameInput = screen.getByTestId('name').querySelector('input');
+    if (firstNameInput) await user.type(firstNameInput, 'John');
+    await user.click(screen.getByTestId('submit-btn'));
+    expect(screen.queryByText('Only letters allowed')).not.toBeInTheDocument();
+  });
+  test('Registration form invalid last name validation', async () => {
+    renderComponent();
+    const firstNameInput = screen.getByTestId('surname').querySelector('input');
+    if (firstNameInput) await user.type(firstNameInput, '!fjkO23');
+    await user.click(screen.getByTestId('submit-btn'));
+    expect(screen.getByText('Only letters allowed')).toBeInTheDocument();
+  });
+
+  test('Registration form valid first name validation', async () => {
+    renderComponent();
+    const firstNameInput = screen.getByTestId('surname').querySelector('input');
+    if (firstNameInput) await user.type(firstNameInput, 'Doe');
+    await user.click(screen.getByTestId('submit-btn'));
+    expect(screen.queryByText('Only letters allowed')).not.toBeInTheDocument();
+  });
+
+  test('Registration form invalid password validation', async () => {
+    renderComponent();
+    const passwordInput = screen.getByTestId('password').querySelector('input');
+    if (passwordInput) await user.type(passwordInput, 'invalidpassword');
+    await user.click(screen.getByTestId('submit-btn'));
+    expect(
+      screen.getByText(
+        'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character',
+      ),
+    ).toBeInTheDocument();
+  });
+
+  test('Registration form valid password validation', async () => {
+    renderComponent();
+    const passwordInput = screen.getByTestId('password').querySelector('input');
+    if (passwordInput) await user.type(passwordInput, 'ValidPass123!');
+    await user.click(screen.getByTestId('submit-btn'));
+    expect(
+      screen.queryByText(
+        'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character',
+      ),
+    ).not.toBeInTheDocument();
+  });
 });

@@ -38,6 +38,7 @@ export const FormInputPassword = ({ name, control, label, rules }: FormInputProp
           label={label}
           variant="outlined"
           type={showPassword ? 'text' : 'password'}
+          data-testid={name}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
