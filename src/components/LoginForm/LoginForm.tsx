@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Paper, Box, Typography, CircularProgress } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { FormInputText } from '../form-components/FormInputText';
+import { FormInputPassword } from '../form-components/FormInputPassword';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginCustomer } from '../../slices/customerSlice';
@@ -58,7 +59,7 @@ export const LoginForm: React.FC = (): JSX.Element => {
                   pattern: { value: EMAIL_REGEXP, message: 'Please enter a valid email address' },
                 }}
               />
-              <FormInputText
+              <FormInputPassword
                 name="password"
                 control={control}
                 label="Password"
