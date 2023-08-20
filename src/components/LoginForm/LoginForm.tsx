@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Box, Snackbar, Alert, SlideProps, Slide, Typography } from '@mui/material';
+import { Paper, Box, Snackbar, Alert, SlideProps, Slide, Typography, CircularProgress } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { FormInputText } from '../form-components/FormInputText';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -18,6 +18,7 @@ const TransitionDown = (props: TransitionProps): JSX.Element => {
 // eslint-disable-next-line max-lines-per-function
 export const LoginForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit } = useForm();
+  const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
   const progressLogin = useAppSelector((state) => state.customer.progress.login);
   const errorMessage = useAppSelector((state) => state.customer.errorMessage);
   const dispatch = useAppDispatch();
@@ -79,46 +80,52 @@ export const LoginForm: React.FC = (): JSX.Element => {
         </Alert>
       </Snackbar>
       <Box sx={{ width: 'clamp(28rem, calc(100% - 4rem), 40rem)', margin: '10rem auto' }}>
-        <Paper elevation={3} sx={{ padding: '2rem' }}>
-          <h2 className="form-title">Login Form</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormInputText
-              name="email"
-              control={control}
-              label="Email"
-              type="email"
-              rules={{
-                required: 'Email is required',
-                pattern: { value: EMAIL_REGEXP, message: 'Please enter a valid email address' },
-              }}
-            />
-            <FormInputText
-              name="password"
-              control={control}
-              label="Password"
-              type="password"
-              rules={{
-                required: 'Password is required',
-                pattern: {
-                  value: PASSWORD_REGEXP,
-                  message:
-                    'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character',
-                },
-              }}
-            />
-            <div className="form-btn">
-              <LoadingButton loading={progressLogin} className="form-btn" variant="contained" type="submit">
-                Login
-              </LoadingButton>
-            </div>
-            <div className="form-link">
-              <Typography variant="body1">Don't have an account yet?&nbsp;</Typography>
-              <Link to={'/registration'}>
-                <Typography variant="body1">Register</Typography>
-              </Link>
-            </div>
-          </form>
-        </Paper>
+        {progressIntrospect ? (
+          <Box textAlign={'center'}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Paper elevation={3} sx={{ padding: '2rem' }}>
+            <h2 className="form-title">Login Form</h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <FormInputText
+                name="email"
+                control={control}
+                label="Email"
+                type="email"
+                rules={{
+                  required: 'Email is required',
+                  pattern: { value: EMAIL_REGEXP, message: 'Please enter a valid email address' },
+                }}
+              />
+              <FormInputText
+                name="password"
+                control={control}
+                label="Password"
+                type="password"
+                rules={{
+                  required: 'Password is required',
+                  pattern: {
+                    value: PASSWORD_REGEXP,
+                    message:
+                      'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character',
+                  },
+                }}
+              />
+              <div className="form-btn">
+                <LoadingButton loading={progressLogin} className="form-btn" variant="contained" type="submit">
+                  Login
+                </LoadingButton>
+              </div>
+              <div className="form-link">
+                <Typography variant="body1">Don't have an account yet?&nbsp;</Typography>
+                <Link to={'/registration'}>
+                  <Typography variant="body1">Register</Typography>
+                </Link>
+              </div>
+            </form>
+          </Paper>
+        )}
       </Box>
     </>
   );

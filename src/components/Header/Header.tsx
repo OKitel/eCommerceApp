@@ -13,6 +13,7 @@ import './styles.scss';
 // eslint-disable-next-line max-lines-per-function
 export const Header: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
+  const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleClickCart = (): void => navigate('/cart');
@@ -31,7 +32,7 @@ export const Header: React.FC = (): JSX.Element => {
             <IconButton size="medium" color="inherit" onClick={handleClickCart}>
               <ShoppingCartRoundedIcon />
             </IconButton>
-            {customerData ? (
+            {progressIntrospect ? null : customerData ? (
               <Button
                 component={RouterLink}
                 to="/"
