@@ -41,7 +41,6 @@ describe('anonymous api', () => {
 
 describe('SPA api', () => {
   it('log a customer in', async () => {
-    spaApi.obtainCustomerToken(CREATED_TEST_CUSTOMER_EMAIL, CREATED_TEST_CUSTOMER_PASSWORD);
     const responseLoginCustomer = await spaApi.loginCustomer(
       CREATED_TEST_CUSTOMER_EMAIL,
       CREATED_TEST_CUSTOMER_PASSWORD,
