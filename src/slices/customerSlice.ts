@@ -11,11 +11,13 @@ type TCustomerSliceProgress = {
 
 type TCustomerSliceState = {
   customerData: Customer | null;
+  errorMessage: string | null;
   progress: TCustomerSliceProgress;
 };
 
 const initialState: TCustomerSliceState = {
   customerData: null,
+  errorMessage: null,
   progress: {
     login: false,
     registration: false,
@@ -24,13 +26,27 @@ const initialState: TCustomerSliceState = {
 
 export const loginCustomer = createAsyncThunk(
   'customer/loginCustomer',
-  async (loginData: { email: string; password: string; onSuccess: () => void }) => {
-    const { email, password, onSuccess } = loginData;
-    const response = await spaApi.loginCustomer(email, password);
+  async (
+    loginData: { email: string; password: string; onSuccess: () => void; onError: (err: unknown) => void },
+    { rejectWithValue },
+  ) => {
+    const { email, password, onSuccess, onError } = loginData;
+    try {
+      const response = await spaApi.loginCustomer(email, password);
+      onSuccess();
 
-    onSuccess();
+      return response.body.customer;
+    } catch (error) {
+      let errorMessage = 'An unknown error occured';
 
-    return response?.body.customer;
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      onError(error);
+
+      return rejectWithValue(errorMessage);
+    }
   },
 );
 
@@ -63,8 +79,13 @@ const customerSlice = createSlice({
         state.customerData = action.payload;
       }
     });
-    builder.addCase(loginCustomer.rejected, (state) => {
+    builder.addCase(loginCustomer.rejected, (state, action) => {
+      const { payload } = action;
+
       state.progress.login = false;
+      if (payload && typeof payload === 'string') {
+        state.errorMessage = payload;
+      }
     });
     builder.addCase(registerCustomer.pending, (state) => {
       state.progress.registration = true;
