@@ -1,4 +1,4 @@
 export { serviceApiRoot } from './ServiceApiBuilder';
-export { getSpaApiRoot } from './SpaApiBuilder';
+export { getSpaApiRootWithPasswordFlow } from './SpaApiBuilder';
 export { anonymousApiRoot } from './AnonymousApiBuilder';
 export * from './types';

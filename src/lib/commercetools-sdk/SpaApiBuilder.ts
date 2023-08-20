@@ -30,7 +30,7 @@ const getPasswordAuthMiddlewareOptions = (username: string, password: string): P
   fetch,
 });
 
-export const getSpaApiRoot = (username: string, password: string): ByProjectKeyRequestBuilder => {
+export const getSpaApiRootWithPasswordFlow = (username: string, password: string): ByProjectKeyRequestBuilder => {
   const passwordAuthMiddlewareOptions = getPasswordAuthMiddlewareOptions(username, password);
 
   // Configure httpMiddlewareOptions
