@@ -300,7 +300,7 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
               </>
             )}
             <div className="form-btn">
-              <LoadingButton loading={progressRegistration} type="submit" variant="contained">
+              <LoadingButton loading={progressRegistration} type="submit" variant="contained" data-testid="submit-btn">
                 Register
               </LoadingButton>
             </div>
