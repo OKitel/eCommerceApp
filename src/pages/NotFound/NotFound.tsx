@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import vinylUrl from '../../assets/images/vinyl.png';
 import './styles.scss';
 
 export const NotFound: React.FC = (): JSX.Element => {
@@ -6,7 +7,7 @@ export const NotFound: React.FC = (): JSX.Element => {
     <div className="wrapper">
       <div className="container">
         <h2 className="title">4</h2>
-        <img className="vinyl" src="./src/assets/images/vinyl.png" alt="vinyl record melts" />
+        <img className="vinyl" src={vinylUrl} alt="vinyl record melts" />
         <h2 className="title">4</h2>
       </div>
       <h2 className="subtitle">Page not found</h2>
