@@ -93,11 +93,5 @@ export const LoginForm: React.FC = (): JSX.Element => {
     </Paper>
   );
 
-  return (
-    <>
-      <Box sx={{ width: 'clamp(28rem, calc(100% - 4rem), 40rem)', margin: '10rem auto' }}>
-        {progressIntrospect ? renderProgress() : renderForm()}
-      </Box>
-    </>
-  );
+  return <Box className="form-box">{progressIntrospect ? renderProgress() : renderForm()}</Box>;
 };

@@ -327,7 +327,7 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
           Your account was successfully created! Welcome!
         </Alert>
       </Snackbar>
-      <Box sx={{ maxWidth: '50%', margin: '5rem auto' }}>{progressIntrospect ? renderProgress() : renderForm()}</Box>
+      <Box className="form-box">{progressIntrospect ? renderProgress() : renderForm()}</Box>
     </>
   );
 };
