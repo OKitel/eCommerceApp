@@ -43,10 +43,17 @@ export const FormInputDropdown: React.FC<FormInputProps> = ({ name, control, lab
         render={({ field: { onChange, value }, fieldState: { error } }): JSX.Element => (
           <>
             <InputLabel error={!!error}>{label}</InputLabel>
-            <Select error={!!error} label="Country" onChange={onChange} value={value ?? ''} data-testid={name}>
+            <Select
+              error={!!error}
+              label="Country"
+              onChange={onChange}
+              value={value ?? ''}
+              data-testid={name}
+              sx={{ mb: 1 }}
+            >
               {generateSingleOptions()}
             </Select>
-            <FormHelperText error={!!error}>{error ? error.message : null}</FormHelperText>
+            {!!error && <FormHelperText error={!!error}>{error ? error.message : null}</FormHelperText>}
           </>
         )}
         control={control}
