@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 import eslint from 'vite-plugin-eslint';
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
-import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
 import EnvironmentPlugin from 'vite-plugin-environment';
 
 // https://vitejs.dev/config/
@@ -40,6 +39,7 @@ export default defineConfig({
       zlib: 'rollup-plugin-node-polyfills/polyfills/zlib',
       tty: 'rollup-plugin-node-polyfills/polyfills/tty',
       domain: 'rollup-plugin-node-polyfills/polyfills/domain',
+      process: 'rollup-plugin-node-polyfills/polyfills/process-es6',
     },
   },
 
@@ -56,15 +56,6 @@ export default defineConfig({
           buffer: true,
         }),
         NodeModulesPolyfillPlugin(),
-      ],
-    },
-  },
-  build: {
-    rollupOptions: {
-      plugins: [
-        // Enable rollup polyfills plugin
-        // used during production bundling
-        rollupNodePolyFill(),
       ],
     },
   },

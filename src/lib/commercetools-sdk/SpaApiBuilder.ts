@@ -7,6 +7,8 @@ import {
 } from '@commercetools/sdk-client-v2';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder';
+import { getTokenStore, saveTokenStore } from '../../utils/localStorage';
+import { TokenStoreTypes } from '.';
 
 const projectKey = process.env.VITE_CTP_PROJECT_KEY || '';
 
@@ -21,11 +23,10 @@ const getPasswordAuthMiddlewareOptions = (username: string, password: string): P
       password,
     },
   },
-  // tokenCache: {
-  //   // TODO add local storage methods
-  //   get: () => ({ token: 'existing_token_from_ls', expirationTime: 1692141166005 }),
-  //   set: (tokenStore) => saveToLs(tokenStore),
-  // },
+  tokenCache: {
+    get: () => getTokenStore(TokenStoreTypes.SpaApiTokenStore),
+    set: (tokenStore) => saveTokenStore(TokenStoreTypes.SpaApiTokenStore, tokenStore),
+  },
   fetch,
 });
 

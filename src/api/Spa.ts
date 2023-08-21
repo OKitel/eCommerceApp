@@ -6,16 +6,13 @@ import { CustomerSignInResult } from '@commercetools/platform-sdk/dist/declarati
 class SpaApi {
   private customerApiRoot: ByProjectKeyRequestBuilder | null = null;
 
-  public obtainCustomerToken(username: string, password: string): void {
-    this.customerApiRoot = getSpaApiRoot(username, password);
-  }
-
-  public loginCustomer(email: string, password: string): Promise<ClientResponse<CustomerSignInResult>> | undefined {
-    if (this.customerApiRoot) {
-      const res = this.customerApiRoot.me().login().post({ body: { email, password } }).execute();
-
-      return res;
+  public async loginCustomer(email: string, password: string): Promise<ClientResponse<CustomerSignInResult>> {
+    if (!this.customerApiRoot) {
+      this.customerApiRoot = getSpaApiRoot(email, password);
     }
+    const res = await this.customerApiRoot.me().login().post({ body: { email, password } }).execute();
+
+    return res;
   }
 
   // public logout(token) {} // TODO via revoking token

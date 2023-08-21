@@ -11,10 +11,14 @@ const config: Config = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
+  testPathIgnorePatterns: ['__tests__/test-utils.tsx'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-  setupFiles: ['<rootDir>/dotenv.setup.ts'],
+  resetMocks: false,
+  setupFiles: ['<rootDir>/dotenv.setup.ts', 'jest-localstorage-mock'],
+  collectCoverageFrom: ['src/**'],
+  coveragePathIgnorePatterns: ['node_modules', './src/__mocks__', './src/__tests__'],
 };
 
 export default config;

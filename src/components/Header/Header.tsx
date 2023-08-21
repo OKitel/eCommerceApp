@@ -6,13 +6,17 @@ import Button from '@mui/material/Button';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import IconButton from '@mui/material/IconButton';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { clearCustomerData } from '../../slices/customerSlice';
 import './styles.scss';
 
 // eslint-disable-next-line max-lines-per-function
 export const Header: React.FC = (): JSX.Element => {
-  const [isAuth, setIsAuth] = React.useState(false);
+  const customerData = useAppSelector((state) => state.customer.customerData);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleClickCart = (): void => navigate('/cart');
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -27,33 +31,27 @@ export const Header: React.FC = (): JSX.Element => {
             <IconButton size="medium" color="inherit" onClick={handleClickCart}>
               <ShoppingCartRoundedIcon />
             </IconButton>
-            {!isAuth && (
+            {customerData ? (
+              <Button
+                component={RouterLink}
+                to="/"
+                variant="contained"
+                color="secondary"
+                onClick={(): void => {
+                  dispatch(clearCustomerData());
+                }}
+              >
+                Logout
+              </Button>
+            ) : (
               <>
-                <Button
-                  component={RouterLink}
-                  to="/login"
-                  variant="contained"
-                  sx={{ m: 1 }}
-                  color="secondary"
-                  onClick={(): void => setIsAuth(true)}
-                >
+                <Button component={RouterLink} to="/login" variant="contained" sx={{ m: 1 }} color="secondary">
                   Login
                 </Button>
                 <Button component={RouterLink} to="/registration" color="secondary" variant="contained">
                   Register
                 </Button>
               </>
-            )}
-            {isAuth && (
-              <Button
-                component={RouterLink}
-                to="/"
-                variant="contained"
-                color="secondary"
-                onClick={(): void => setIsAuth(false)}
-              >
-                Logout
-              </Button>
             )}
           </div>
         </Toolbar>
