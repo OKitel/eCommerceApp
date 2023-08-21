@@ -9,7 +9,7 @@
 
 html {
   font-size: 14px;
-  font-family: "GramophoneNF", Verdana, sans-serif;
+  font-family: 'GramophoneNF', Verdana, sans-serif;
 }
 
 body {
@@ -18,4 +18,9 @@ body {
 
 #root {
   overflow: auto;
+}
+
+.form-box {
+  width: clamp(22rem, calc(100% - 4rem), 40rem);
+  margin: 5rem auto;
 }

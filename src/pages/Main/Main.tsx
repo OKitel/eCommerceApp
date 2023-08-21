@@ -7,7 +7,7 @@ export const Main: React.FC = (): JSX.Element => {
     <>
       <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
         <h2 className="welcome-title">Welcome to Maestro!</h2>
-        <Typography variant="subtitle1">Oline market, where melodies come alive</Typography>
+        <Typography variant="subtitle1">Online market, where melodies come alive</Typography>
         <div className="maestro-container">
           <img className="maestro" src={maestroUrl} alt="maestro on treble clef" />
         </div>
