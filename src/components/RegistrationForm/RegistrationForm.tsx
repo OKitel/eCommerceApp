@@ -61,10 +61,8 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
         navigate('/');
       }, 3000);
     };
-    const onError = (err: unknown): void => {
-      if (err instanceof Error) {
-        setErrorMessage(err.message);
-      }
+    const onError = (error: string): void => {
+      setErrorMessage(error);
       setShowSuccess(false);
       setShowError(true);
     };

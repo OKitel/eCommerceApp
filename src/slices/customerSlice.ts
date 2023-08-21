@@ -84,18 +84,29 @@ export const loginCustomer = createAsyncThunk(
   },
 );
 
-export const registerCustomer = createAsyncThunk('customer/registerCustomer', async (request: RegistrationRequest) => {
-  const { onSuccess, onError, email, password, ...req } = request;
-  try {
-    await ServiceApi.createCustomer({ email, password, ...req });
-    const response = await spaApi.loginCustomer(email, password);
-    onSuccess();
+export const registerCustomer = createAsyncThunk(
+  'customer/registerCustomer',
+  async (request: RegistrationRequest, { rejectWithValue }) => {
+    const { onSuccess, onError, email, password, ...req } = request;
+    try {
+      await ServiceApi.createCustomer({ email, password, ...req });
+      const response = await spaApi.loginCustomer(email, password);
+      onSuccess();
 
-    return response?.body.customer;
-  } catch (error: unknown) {
-    onError(error);
-  }
-});
+      return response?.body.customer;
+    } catch (error: unknown) {
+      let errorMessage = 'An unknown error occured';
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      onError(errorMessage);
+
+      return rejectWithValue(errorMessage);
+    }
+  },
+);
 
 const customerSlice = createSlice({
   name: 'customer',
