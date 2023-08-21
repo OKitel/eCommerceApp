@@ -17,6 +17,8 @@ const config: Config = {
   },
   resetMocks: false,
   setupFiles: ['<rootDir>/dotenv.setup.ts', 'jest-localstorage-mock'],
+  collectCoverageFrom: ['src/**'],
+  coveragePathIgnorePatterns: ['node_modules', './src/__mocks__', './src/__tests__'],
 };
 
 export default config;

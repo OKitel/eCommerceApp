@@ -7,6 +7,8 @@ import { Header } from './Header/Header';
 import { AlertsSnackbar } from './AlertsSnackbar/AlertsSnackbar';
 import { getLoggedInCustomer } from '../slices/customerSlice';
 import { useAppDispatch } from '../store/hooks';
+import { Cart } from '../pages/Cart/Cart';
+import { Main } from '../pages/Main/Main';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -20,9 +22,10 @@ export const App: React.FC = (): JSX.Element => {
       <AlertsSnackbar />
       <Header />
       <Routes>
-        <Route path="/" element={<h1>Main Page</h1>}></Route>
+        <Route path="/" element={<Main />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/registration" element={<Registration />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
       </Routes>
     </>

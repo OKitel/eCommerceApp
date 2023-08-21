@@ -127,7 +127,7 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
       <Box sx={{ maxWidth: '50%', margin: '5rem auto' }}>
         <Paper elevation={3} sx={{ padding: '2rem' }}>
           <h2 className="form-title">Registration Form</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <FormInputText
               name={'name'}
               control={control}
@@ -300,7 +300,7 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
               </>
             )}
             <div className="form-btn">
-              <LoadingButton loading={progressRegistration} type="submit" variant="contained">
+              <LoadingButton loading={progressRegistration} type="submit" variant="contained" data-testid="submit-btn">
                 Register
               </LoadingButton>
             </div>
