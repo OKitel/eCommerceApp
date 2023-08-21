@@ -85,10 +85,12 @@ export const loginCustomer = createAsyncThunk(
 );
 
 export const registerCustomer = createAsyncThunk('customer/registerCustomer', async (request: RegistrationRequest) => {
-  const { onSuccess, onError, ...req } = request;
+  const { onSuccess, onError, email, password, ...req } = request;
   try {
-    const response = await ServiceApi.createCustomer(req);
+    await ServiceApi.createCustomer({ email, password, ...req });
+    const response = await spaApi.loginCustomer(email, password);
     onSuccess();
+
     return response?.body.customer;
   } catch (error: unknown) {
     onError(error);
@@ -153,6 +155,7 @@ const customerSlice = createSlice({
       state.errorMessage = null;
       if (action.payload) {
         state.customerData = action.payload;
+        saveLoggedInCustomerId(action.payload.id);
       }
     });
     builder.addCase(registerCustomer.rejected, (state) => {
