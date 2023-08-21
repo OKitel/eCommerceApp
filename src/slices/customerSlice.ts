@@ -91,7 +91,11 @@ export const registerCustomer = createAsyncThunk('customer/registerCustomer', as
     onSuccess();
     return response?.body.customer;
   } catch (error: unknown) {
-    onError(error);
+    if (error instanceof Error) {
+      onError(error.message);
+    } else {
+      onError('Unknown error');
+    }
   }
 });
 

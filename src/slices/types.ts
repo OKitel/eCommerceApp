@@ -19,5 +19,5 @@ export type RegistrationRequest = {
   shippingAddresses: number[];
   billingAddresses: number[];
   onSuccess: () => void;
-  onError: (error: unknown) => void;
+  onError: (errorMessage: string) => void;
 };
