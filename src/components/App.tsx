@@ -1,14 +1,25 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { NotFound } from '../pages/NotFound/NotFound';
-import { Header } from './Header/Header';
 import { Registration } from '../pages/Registration/Registration';
 import { Login } from '../pages/Login/Login';
+import { Header } from './Header/Header';
+import { AlertsSnackbar } from './AlertsSnackbar/AlertsSnackbar';
+import { getLoggedInCustomer } from '../slices/customerSlice';
+import { useAppDispatch } from '../store/hooks';
 import { Cart } from '../pages/Cart/Cart';
 import { Main } from '../pages/Main/Main';
 
 export const App: React.FC = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getLoggedInCustomer());
+  }, [dispatch]);
+
   return (
     <>
+      <AlertsSnackbar />
       <Header />
       <Routes>
         <Route path="/" element={<Main />}></Route>

@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import { serviceApiRoot, anonymousApiRoot, getSpaApiRoot } from '../lib/commercetools-sdk';
+import { serviceApiRoot, anonymousApiRoot, getSpaApiRootWithPasswordFlow } from '../lib/commercetools-sdk';
 
 const CREATED_TEST_CUSTOMER_EMAIL = process.env.VITE_CTP_CREATED_TEST_CUSTOMER_EMAIL || '';
 const CREATED_TEST_CUSTOMER_PASSWORD = process.env.VITE_CTP_CREATED_TEST_CUSTOMER_PASSWORD || '';
@@ -34,7 +34,7 @@ describe('anonymous api builder', () => {
 
 describe('SPA api builder', () => {
   it('gets products', async () => {
-    const spaApiRoot = getSpaApiRoot(CREATED_TEST_CUSTOMER_EMAIL, CREATED_TEST_CUSTOMER_PASSWORD);
+    const spaApiRoot = getSpaApiRootWithPasswordFlow(CREATED_TEST_CUSTOMER_EMAIL, CREATED_TEST_CUSTOMER_PASSWORD);
     const responseGetProducts = await spaApiRoot.products().get().execute();
 
     expect(responseGetProducts.body.results).toEqual(expect.any(Array));
