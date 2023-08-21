@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import vinylUrl from '../../assets/images/vinyl.png';
 import './styles.scss';
+import { Button } from '@mui/material';
 
 export const NotFound: React.FC = (): JSX.Element => {
   return (
@@ -11,9 +12,9 @@ export const NotFound: React.FC = (): JSX.Element => {
         <h2 className="title">4</h2>
       </div>
       <h2 className="subtitle">Page not found</h2>
-      <Link className="btn" to={'/'}>
+      <Button component={RouterLink} to="/" color="primary" variant="contained">
         Back to main
-      </Link>
+      </Button>
     </div>
   );
 };
