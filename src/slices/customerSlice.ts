@@ -47,7 +47,7 @@ export const getLoggedInCustomer = createAsyncThunk('customer/getLoggedInCustome
         return response.body;
       }
     } catch (error) {
-      let errorMessage = 'An unknown error occured';
+      let errorMessage = 'An unknown error occurred';
 
       if (error instanceof Error) {
         errorMessage = error.message;
@@ -71,7 +71,7 @@ export const loginCustomer = createAsyncThunk(
 
       return response?.body.customer;
     } catch (error) {
-      let errorMessage = 'An unknown error occured';
+      let errorMessage = 'An unknown error occurred';
 
       if (error instanceof Error) {
         errorMessage = error.message;
