@@ -1,8 +1,9 @@
-import { serviceApiRoot } from '../lib/commercetools-sdk';
+import { TokenStoreTypes, serviceApiRoot } from '../lib/commercetools-sdk';
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 import { CustomerSignInResult, Customer } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { CustomerDraft } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { TIntrospectResponse } from './types';
+import { retry } from './utils';
 
 class ServiceApi {
   public async introspectToken(token: string): Promise<TIntrospectResponse> {
@@ -21,19 +22,28 @@ class ServiceApi {
   }
 
   public async getCustomerById(id: string): Promise<ClientResponse<Customer>> {
-    const res = await serviceApiRoot.customers().withId({ ID: id }).get().execute();
+    const res = await retry<ClientResponse<Customer>>(
+      () => serviceApiRoot.customers().withId({ ID: id }).get().execute(),
+      TokenStoreTypes.ServiceApiTokenStore,
+    );
 
     return res;
   }
 
   public async createCustomer(customerData: CustomerDraft): Promise<ClientResponse<CustomerSignInResult>> {
-    const res = await serviceApiRoot.customers().post({ body: customerData }).execute();
+    const res = await retry<ClientResponse<CustomerSignInResult>>(
+      () => serviceApiRoot.customers().post({ body: customerData }).execute(),
+      TokenStoreTypes.ServiceApiTokenStore,
+    );
 
     return res;
   }
 
   public async deleteCustomer(ID: string, version: number): Promise<ClientResponse<Customer>> {
-    const res = serviceApiRoot.customers().withId({ ID }).delete({ queryArgs: { version } }).execute();
+    const res = await retry<ClientResponse<Customer>>(
+      () => serviceApiRoot.customers().withId({ ID }).delete({ queryArgs: { version } }).execute(),
+      TokenStoreTypes.ServiceApiTokenStore,
+    );
 
     return res;
   }
