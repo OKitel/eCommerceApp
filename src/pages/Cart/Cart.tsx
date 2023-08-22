@@ -1,8 +1,19 @@
 import { Box } from '@mui/material';
 import wipUrl from '../../assets/images/wip.png';
 import './styles.scss';
+import { setAlert } from '../../slices/alertsSlice';
+import { useAppDispatch } from '../../store/hooks';
 
 export const Cart: React.FC = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+
+  dispatch(
+    setAlert({
+      message: `Dear cross-checker, you accidentally ended up on the cart page because of some magical Netlify tricks. Please, go to another pages and see what we've prepared for you!`,
+      severity: 'info',
+    }),
+  );
+
   return (
     <>
       <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
