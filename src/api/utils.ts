@@ -1,6 +1,7 @@
 import { ErrorResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { TokenStoreTypes } from '../lib/commercetools-sdk';
 import { clearTokenStore } from '../utils/localStorage';
+import { ValidationErrorResponse } from './types';
 
 const MAX_RETRYING_ATTEMPTS_NUMBER = 5;
 
@@ -10,6 +11,20 @@ export function isErrorResponse(object: unknown): object is ErrorResponse {
     object !== null &&
     object.hasOwnProperty('statusCode') &&
     object.hasOwnProperty('message')
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+export function isValidationErrorResponse(object: unknown): object is ValidationErrorResponse {
+  if (
+    typeof object === 'object' &&
+    object !== null &&
+    object.hasOwnProperty('statusCode') &&
+    (object as ErrorResponse).statusCode === 400 &&
+    object.hasOwnProperty('body')
   ) {
     return true;
   }

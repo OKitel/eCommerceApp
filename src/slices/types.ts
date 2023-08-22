@@ -1,3 +1,5 @@
+import { ServerError } from '../api/types';
+
 export type Address = {
   firstName?: string;
   lastName?: string;
@@ -19,5 +21,5 @@ export type RegistrationRequest = {
   shippingAddresses: number[];
   billingAddresses: number[];
   onSuccess: () => void;
-  onError: (errorMessage: string) => void;
+  onError: (errorMessage: ServerError) => void;
 };

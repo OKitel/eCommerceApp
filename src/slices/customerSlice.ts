@@ -10,6 +10,7 @@ import {
   saveLoggedInCustomerId,
 } from '../utils/localStorage';
 import { TokenStoreTypes } from '../lib/commercetools-sdk';
+import { mapErrorMessage } from '../api/mapError';
 
 type TCustomerSliceProgress = {
   introspect: boolean;
@@ -95,11 +96,7 @@ export const registerCustomer = createAsyncThunk(
 
       return response?.body.customer;
     } catch (error: unknown) {
-      let errorMessage = 'An unknown error occured';
-
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
+      const errorMessage = mapErrorMessage(error);
 
       onError(errorMessage);
 
