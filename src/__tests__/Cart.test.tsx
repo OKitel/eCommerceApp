@@ -1,9 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Cart } from '../pages/Cart/Cart';
+import { renderWithProviders } from './test-utils';
 
 test('Render Cart page correctly', () => {
-  render(
+  renderWithProviders(
     <MemoryRouter initialEntries={['/cart']}>
       <Cart />
     </MemoryRouter>,
