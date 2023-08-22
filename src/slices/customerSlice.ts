@@ -47,7 +47,7 @@ export const getLoggedInCustomer = createAsyncThunk('customer/getLoggedInCustome
         return response.body;
       }
     } catch (error) {
-      let errorMessage = 'An unknown error occured';
+      let errorMessage = 'An unknown error occurred';
 
       if (error instanceof Error) {
         errorMessage = error.message;
@@ -69,9 +69,9 @@ export const loginCustomer = createAsyncThunk(
       const response = await spaApi.loginCustomer(email, password);
       onSuccess();
 
-      return response.body.customer;
+      return response?.body.customer;
     } catch (error) {
-      let errorMessage = 'An unknown error occured';
+      let errorMessage = 'An unknown error occurred';
 
       if (error instanceof Error) {
         errorMessage = error.message;
