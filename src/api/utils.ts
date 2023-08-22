@@ -26,8 +26,9 @@ export async function retry<T>(callback: () => Promise<T>, tokenStoreType: Token
 
       return res;
     } catch (error) {
-      clearTokenStore(tokenStoreType);
       if (isErrorResponse(error) && error.statusCode === 401 && attempts < MAX_RETRYING_ATTEMPTS_NUMBER) {
+        clearTokenStore(tokenStoreType);
+
         attempts += 1;
         const res = await executeCallback();
 
