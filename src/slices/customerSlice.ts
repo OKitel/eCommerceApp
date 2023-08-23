@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Customer } from '@commercetools/platform-sdk';
 import spaApi from '../api/Spa';
 import ServiceApi from '../api/Service';
-import { RegistrationRequest } from './types';
+import { LoginRequest, RegistrationRequest } from './types';
 import {
   clearLoggedInCustomerId,
   getLoggedInCustomerId,
@@ -61,22 +61,15 @@ export const getLoggedInCustomer = createAsyncThunk('customer/getLoggedInCustome
 
 export const loginCustomer = createAsyncThunk(
   'customer/loginCustomer',
-  async (
-    loginData: { email: string; password: string; onSuccess: () => void; onError: (errorMessage: string) => void },
-    { rejectWithValue },
-  ) => {
+  async (loginData: LoginRequest, { rejectWithValue }) => {
     const { email, password, onSuccess, onError } = loginData;
     try {
       const response = await spaApi.loginCustomer(email, password);
       onSuccess();
 
       return response?.body.customer;
-    } catch (error) {
-      let errorMessage = 'An unknown error occurred';
-
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
+    } catch (error: unknown) {
+      const errorMessage = mapErrorMessage(error);
 
       onError(errorMessage);
 

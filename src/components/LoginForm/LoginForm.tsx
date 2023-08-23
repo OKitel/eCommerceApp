@@ -11,9 +11,11 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
 import { setAlert } from '../../slices/alertsSlice';
 import './styles.scss';
+import { ServerError } from '../../api/types';
+import { setFormServerError } from '../../utils/setFormServerError';
 
 export const LoginForm: React.FC = (): JSX.Element => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, setError } = useForm();
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
   const progressLogin = useAppSelector((state) => state.customer.progress.login);
@@ -31,8 +33,9 @@ export const LoginForm: React.FC = (): JSX.Element => {
       dispatch(setAlert({ message: 'You have successfully logged in!', severity: 'success' }));
       navigate('/');
     };
-    const onError = (errorMessage: string): void => {
-      dispatch(setAlert({ message: `Oops! Login failed. ${errorMessage}`, severity: 'error' }));
+    const onError = (error: ServerError): void => {
+      dispatch(setAlert({ message: `Oops! Login failed. ${error.message}`, severity: 'error' }));
+      setFormServerError(error.validationMessages, setError);
     };
 
     dispatch(loginCustomer({ email, password, onSuccess, onError }));

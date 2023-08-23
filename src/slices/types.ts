@@ -23,3 +23,10 @@ export type RegistrationRequest = {
   onSuccess: () => void;
   onError: (errorMessage: ServerError) => void;
 };
+
+export type LoginRequest = {
+  email: string;
+  password: string;
+  onSuccess: () => void;
+  onError: (errorMessage: ServerError) => void;
+};
