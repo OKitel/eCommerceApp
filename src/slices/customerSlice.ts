@@ -1,27 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Customer } from '@commercetools/platform-sdk';
 import spaApi from '../api/Spa';
 import ServiceApi from '../api/Service';
-import { RegistrationRequest } from './types';
+import { TokenStoreTypes } from '../lib/commercetools-sdk';
 import {
   clearLoggedInCustomerId,
   getLoggedInCustomerId,
   getTokenStore,
   saveLoggedInCustomerId,
 } from '../utils/localStorage';
-import { TokenStoreTypes } from '../lib/commercetools-sdk';
-
-type TCustomerSliceProgress = {
-  introspect: boolean;
-  login: boolean;
-  registration: boolean;
-};
-
-type TCustomerSliceState = {
-  customerData: Customer | null;
-  errorMessage: string | null;
-  progress: TCustomerSliceProgress;
-};
+import { RegistrationRequest, TCustomerSliceState, TLoginRequest } from './types';
 
 const initialState: TCustomerSliceState = {
   customerData: null,
@@ -60,11 +47,8 @@ export const getLoggedInCustomer = createAsyncThunk('customer/getLoggedInCustome
 
 export const loginCustomer = createAsyncThunk(
   'customer/loginCustomer',
-  async (
-    loginData: { email: string; password: string; onSuccess: () => void; onError: (errorMessage: string) => void },
-    { rejectWithValue },
-  ) => {
-    const { email, password, onSuccess, onError } = loginData;
+  async (request: TLoginRequest, { rejectWithValue }) => {
+    const { email, password, onSuccess, onError } = request;
     try {
       const response = await spaApi.loginCustomer(email, password);
       onSuccess();
