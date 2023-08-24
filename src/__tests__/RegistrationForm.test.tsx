@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { renderWithProviders } from './test-utils';
 import { RegistrationForm } from '../components/RegistrationForm/RegistrationForm';
+import { LINKS } from '../components/consts';
 
 // eslint-disable-next-line max-lines-per-function
 describe('Registration form validation', () => {
@@ -10,7 +11,7 @@ describe('Registration form validation', () => {
 
   const renderComponent = (): void => {
     renderWithProviders(
-      <MemoryRouter initialEntries={['/registration']}>
+      <MemoryRouter initialEntries={[LINKS.registration]}>
         <RegistrationForm />
       </MemoryRouter>,
     );

@@ -10,9 +10,10 @@ import { loginCustomer } from '../../slices/customer/slice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
 import { setAlert } from '../../slices/alerts/slice';
-import './styles.scss';
 import { ServerError } from '../../api/types';
 import { setFormServerError } from '../../utils/setFormServerError';
+import { LINKS } from '../consts';
+import './styles.scss';
 
 export const LoginForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit, setError } = useForm();
@@ -24,14 +25,14 @@ export const LoginForm: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if (customerData) {
-      navigate('/');
+      navigate(LINKS.main);
     }
   }, [customerData, navigate]);
 
   const onSubmit = ({ email, password }: FieldValues): void => {
     const onSuccess = (): void => {
       dispatch(setAlert({ message: 'You have successfully logged in!', severity: 'success' }));
-      navigate('/');
+      navigate(LINKS.main);
     };
     const onError = (error: ServerError): void => {
       dispatch(setAlert({ message: `Oops! Login failed. ${error.message}`, severity: 'error' }));
@@ -88,7 +89,7 @@ export const LoginForm: React.FC = (): JSX.Element => {
         </div>
         <div className="form-link">
           <Typography variant="body1">Don't have an account yet?&nbsp;</Typography>
-          <Link to={'/registration'}>
+          <Link to={LINKS.registration}>
             <Typography variant="body1">Register</Typography>
           </Link>
         </div>
