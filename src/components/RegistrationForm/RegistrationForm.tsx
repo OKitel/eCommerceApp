@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Paper, Box, Typography, Divider } from '@mui/material';
@@ -9,13 +8,13 @@ import { FormInputDate } from '../form-components/FormInputDate';
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
 import { FormInputPassword } from '../form-components/FormInputPassword';
 import moment from 'moment';
-import { RegistrationRequest } from '../../slices/types';
+import { RegistrationRequest } from '../../slices/customer/types';
 import { FormCheckBox } from '../form-components/FormCheckBox';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { useNavigate } from 'react-router-dom';
-import { registerCustomer } from '../../slices/customerSlice';
+import { registerCustomer } from '../../slices/customer/slice';
 import { LoadingButton } from '@mui/lab';
-import { setAlert } from '../../slices/alertsSlice';
+import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
 import { setFormServerError } from '../../utils/setFormServerError';
 import { messages } from '../../messages';

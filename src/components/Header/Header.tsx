@@ -13,7 +13,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import IconButton from '@mui/material/IconButton';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { clearCustomerData } from '../../slices/customerSlice';
+import { clearCustomerData } from '../../slices/customer/slice';
 import './styles.scss';
 
 // eslint-disable-next-line max-lines-per-function

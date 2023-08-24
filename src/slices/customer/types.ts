@@ -1,4 +1,24 @@
-import { ServerError } from '../api/types';
+import { Customer } from '@commercetools/platform-sdk';
+import { ServerError } from '../../api/types';
+
+type TCustomerSliceProgress = {
+  introspect: boolean;
+  login: boolean;
+  registration: boolean;
+};
+
+export type TCustomerSliceState = {
+  customerData: Customer | null;
+  errorMessage: string | null;
+  progress: TCustomerSliceProgress;
+};
+
+export type TLoginRequest = {
+  email: string;
+  password: string;
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
 
 export type Address = {
   firstName?: string;
@@ -20,13 +40,6 @@ export type RegistrationRequest = {
   defaultBillingAddress?: number;
   shippingAddresses: number[];
   billingAddresses: number[];
-  onSuccess: () => void;
-  onError: (error: ServerError) => void;
-};
-
-export type LoginRequest = {
-  email: string;
-  password: string;
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };

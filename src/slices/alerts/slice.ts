@@ -1,15 +1,5 @@
-import { AlertColor } from '@mui/material';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-
-type TAlert = {
-  isShow: boolean;
-  message: string;
-  severity?: AlertColor;
-};
-
-type TAlertsSliceState = {
-  alert: TAlert | null;
-};
+import { TAlert, TAlertsSliceState } from './types';
 
 const initialState: TAlertsSliceState = {
   alert: null,

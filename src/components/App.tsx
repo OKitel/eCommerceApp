@@ -5,7 +5,7 @@ import { Registration } from '../pages/Registration/Registration';
 import { Login } from '../pages/Login/Login';
 import { Header } from './Header/Header';
 import { AlertsSnackbar } from './AlertsSnackbar/AlertsSnackbar';
-import { getLoggedInCustomer } from '../slices/customerSlice';
+import { getLoggedInCustomer } from '../slices/customer/slice';
 import { useAppDispatch } from '../store/hooks';
 import { Cart } from '../pages/Cart/Cart';
 import { Main } from '../pages/Main/Main';
