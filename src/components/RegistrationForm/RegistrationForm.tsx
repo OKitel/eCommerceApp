@@ -20,6 +20,7 @@ import { LoadingButton } from '@mui/lab';
 import { setAlert } from '../../slices/alertsSlice';
 import { ServerError } from '../../api/types';
 import { setFormServerError } from '../../utils/setFormServerError';
+import { messages } from '../../messages';
 
 export const RegistrationForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit, getValues, watch, setError } = useForm();
@@ -39,11 +40,11 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
 
   const onSubmit = (data: FieldValues): void => {
     const onSuccess = (): void => {
-      dispatch(setAlert({ message: 'Your account was successfully created! Welcome!', severity: 'success' }));
+      dispatch(setAlert({ message: messages.registration.welcome, severity: 'success' }));
       navigate('/');
     };
     const onError = (error: ServerError): void => {
-      dispatch(setAlert({ message: `Oops! Registration failed. ${error.message}`, severity: 'error' }));
+      dispatch(setAlert({ message: messages.registration.error(error.message), severity: 'error' }));
       setFormServerError(error.validationMessages, setError);
     };
 
