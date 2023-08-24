@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, Box, Typography, Divider, CircularProgress } from '@mui/material';
+import { Paper, Box, Typography, Divider } from '@mui/material';
 import { FormInputText } from '../form-components/FormInputText';
 import { useForm, FieldValues } from 'react-hook-form';
 import './styles.scss';
@@ -11,7 +11,7 @@ import { FormInputPassword } from '../form-components/FormInputPassword';
 import moment from 'moment';
 import { FormInputDropdown } from '../form-components/FormInputDropdown';
 import { postcodeValidator } from 'postcode-validator';
-import { Address, RegistrationRequest } from '../../slices/types';
+import { RegistrationRequest } from '../../slices/types';
 import { FormCheckBox } from '../form-components/FormCheckBox';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { useNavigate } from 'react-router-dom';
@@ -21,8 +21,10 @@ import { setAlert } from '../../slices/alertsSlice';
 import { ServerError } from '../../api/types';
 import { setFormServerError } from '../../utils/setFormServerError';
 import { messages } from '../../messages';
+import { mapFormDataToRequest } from './registrationRequestMapper';
+import { Progress } from '../Progress/Progress';
 
-export const RegistrationForm: React.FC = (): JSX.Element => {
+export const RegistrationForm: React.FC = (): React.ReactElement => {
   const { control, handleSubmit, getValues, watch, setError } = useForm();
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
@@ -47,49 +49,9 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
       dispatch(setAlert({ message: messages.registration.error(error.message), severity: 'error' }));
       setFormServerError(error.validationMessages, setError);
     };
-
-    const addresses: Address[] = [
-      {
-        streetName: data.street,
-        city: data.city,
-        country: data.country,
-        postalCode: data.postCode,
-      },
-    ];
-
-    if (!data.billingAddress) {
-      addresses.push({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        streetName: data.billingStreet,
-        city: data.billingCity,
-        country: data.billingCountry,
-        postalCode: data.billingPostCode,
-      });
-    }
-
-    const request: RegistrationRequest = {
-      firstName: data.name,
-      lastName: data.surname,
-      email: data.email,
-      password: data.password,
-      dateOfBirth: moment(data.dateOfBirth).format('YYYY-MM-DD'),
-      addresses,
-      defaultShippingAddress: data.defaultAddress ? 0 : undefined,
-      defaultBillingAddress: !data.defaultAddress ? undefined : data.billingAddress ? 0 : 1,
-      shippingAddresses: [0],
-      billingAddresses: [data.billingAddress ? 0 : 1],
-      onSuccess,
-      onError,
-    };
+    const request: RegistrationRequest = mapFormDataToRequest(data, onSuccess, onError);
     dispatch(registerCustomer(request));
   };
-
-  const renderProgress = (): React.ReactElement => (
-    <Box textAlign={'center'}>
-      <CircularProgress />
-    </Box>
-  );
 
   const renderForm = (): React.ReactElement => (
     <Paper elevation={3} sx={{ padding: '2rem' }}>
@@ -281,5 +243,5 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
     </Paper>
   );
 
-  return <Box className="form-box">{progressIntrospect ? renderProgress() : renderForm()}</Box>;
+  return <Box className="form-box">{progressIntrospect ? <Progress /> : renderForm()}</Box>;
 };
