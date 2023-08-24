@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import wipUrl from '../../assets/images/wip.png';
 import './styles.scss';
-import { setAlert } from '../../slices/alertsSlice';
+import { setAlert } from '../../slices/alerts/slice';
 import { useAppDispatch } from '../../store/hooks';
 
 export const Cart: React.FC = (): JSX.Element => {
