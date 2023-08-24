@@ -1,4 +1,4 @@
-/* eslint-disable max-lines-per-function */
+/* eslint-disable react-func/max-lines-per-function */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Paper, Box, Typography, Divider, CircularProgress } from '@mui/material';
