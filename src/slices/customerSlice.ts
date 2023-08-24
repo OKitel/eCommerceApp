@@ -2,13 +2,19 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import spaApi from '../api/Spa';
 import ServiceApi from '../api/Service';
 import { TokenStoreTypes } from '../lib/commercetools-sdk';
-import {
-  clearLoggedInCustomerId,
-  getLoggedInCustomerId,
-  getTokenStore,
-  saveLoggedInCustomerId,
-} from '../utils/localStorage';
+import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '../utils/localStorage';
 import { RegistrationRequest, TCustomerSliceState, TLoginRequest } from './types';
+import {
+  reducerGetLoggedInCustomerFulfilled,
+  reducerGetLoggedInCustomerPending,
+  reducerGetLoggedInCustomerRejected,
+  reducerLoginCustomerFulfilled,
+  reducerLoginCustomerPending,
+  reducerLoginCustomerRejected,
+  reducerRegisterCustomerFulfilled,
+  reducerRegisterCustomerPending,
+  reducerRegisterCustomerRejected,
+} from './reducers';
 
 const initialState: TCustomerSliceState = {
   customerData: null,
@@ -101,61 +107,18 @@ const customerSlice = createSlice({
       clearLoggedInCustomerId();
     },
   },
-  // eslint-disable-next-line max-lines-per-function
   extraReducers: (builder) => {
-    builder.addCase(getLoggedInCustomer.pending, (state) => {
-      state.progress.introspect = true;
-    });
-    builder.addCase(getLoggedInCustomer.fulfilled, (state, action) => {
-      state.progress.introspect = false;
-      state.errorMessage = null;
-      if (action.payload) {
-        state.customerData = action.payload;
-      }
-    });
-    builder.addCase(getLoggedInCustomer.rejected, (state, action) => {
-      const { payload } = action;
+    builder.addCase(getLoggedInCustomer.pending, reducerGetLoggedInCustomerPending);
+    builder.addCase(getLoggedInCustomer.fulfilled, reducerGetLoggedInCustomerFulfilled);
+    builder.addCase(getLoggedInCustomer.rejected, reducerGetLoggedInCustomerRejected);
 
-      state.progress.introspect = false;
-      if (payload && typeof payload === 'string') {
-        state.errorMessage = payload;
-      }
-    });
+    builder.addCase(loginCustomer.pending, reducerLoginCustomerPending);
+    builder.addCase(loginCustomer.fulfilled, reducerLoginCustomerFulfilled);
+    builder.addCase(loginCustomer.rejected, reducerLoginCustomerRejected);
 
-    builder.addCase(loginCustomer.pending, (state) => {
-      state.progress.login = true;
-    });
-    builder.addCase(loginCustomer.fulfilled, (state, action) => {
-      state.progress.login = false;
-      state.errorMessage = null;
-      if (action.payload) {
-        state.customerData = action.payload;
-        saveLoggedInCustomerId(action.payload.id);
-      }
-    });
-    builder.addCase(loginCustomer.rejected, (state, action) => {
-      const { payload } = action;
-
-      state.progress.login = false;
-      if (payload && typeof payload === 'string') {
-        state.errorMessage = payload;
-      }
-    });
-
-    builder.addCase(registerCustomer.pending, (state) => {
-      state.progress.registration = true;
-    });
-    builder.addCase(registerCustomer.fulfilled, (state, action) => {
-      state.progress.registration = false;
-      state.errorMessage = null;
-      if (action.payload) {
-        state.customerData = action.payload;
-        saveLoggedInCustomerId(action.payload.id);
-      }
-    });
-    builder.addCase(registerCustomer.rejected, (state) => {
-      state.progress.registration = false;
-    });
+    builder.addCase(registerCustomer.pending, reducerRegisterCustomerPending);
+    builder.addCase(registerCustomer.fulfilled, reducerRegisterCustomerFulfilled);
+    builder.addCase(registerCustomer.rejected, reducerRegisterCustomerRejected);
   },
 });
 
