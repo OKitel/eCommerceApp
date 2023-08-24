@@ -4,7 +4,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { renderWithProviders } from './test-utils';
 import { RegistrationForm } from '../components/RegistrationForm/RegistrationForm';
 
-// eslint-disable-next-line max-lines-per-function
 describe('Registration form validation', () => {
   const user = userEvent.setup();
 
