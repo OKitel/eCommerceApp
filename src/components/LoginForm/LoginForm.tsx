@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { useEffect } from 'react';
 import { Paper, Box, Typography, CircularProgress } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
