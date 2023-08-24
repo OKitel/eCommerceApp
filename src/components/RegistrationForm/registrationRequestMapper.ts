@@ -1,5 +1,5 @@
 import { FieldValues } from 'react-hook-form';
-import { Address, RegistrationRequest } from '../../slices/types';
+import { Address, RegistrationRequest } from '../../slices/customer/types';
 import moment from 'moment';
 import { ServerError } from '../../api/types';
 
