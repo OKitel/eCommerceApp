@@ -1,5 +1,4 @@
 import { Customer } from '@commercetools/platform-sdk';
-import { AlertColor } from '@mui/material';
 
 type TCustomerSliceProgress = {
   introspect: boolean;
@@ -42,14 +41,4 @@ export type RegistrationRequest = {
   billingAddresses: number[];
   onSuccess: () => void;
   onError: (errorMessage: string) => void;
-};
-
-export type TAlert = {
-  isShow: boolean;
-  message: string;
-  severity?: AlertColor;
-};
-
-export type TAlertsSliceState = {
-  alert: TAlert | null;
 };

@@ -1,5 +1,5 @@
 import { Alert, Slide, SlideProps, Snackbar } from '@mui/material';
-import { clearAlert } from '../../slices/alertsSlice';
+import { clearAlert } from '../../slices/alerts/slice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 type TransitionProps = Omit<SlideProps, 'direction'>;

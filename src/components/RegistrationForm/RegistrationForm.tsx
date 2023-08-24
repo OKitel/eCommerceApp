@@ -11,13 +11,13 @@ import { FormInputPassword } from '../form-components/FormInputPassword';
 import moment from 'moment';
 import { FormInputDropdown } from '../form-components/FormInputDropdown';
 import { postcodeValidator } from 'postcode-validator';
-import { Address, RegistrationRequest } from '../../slices/types';
+import { Address, RegistrationRequest } from '../../slices/customer/types';
 import { FormCheckBox } from '../form-components/FormCheckBox';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { useNavigate } from 'react-router-dom';
-import { registerCustomer } from '../../slices/customerSlice';
+import { registerCustomer } from '../../slices/customer/slice';
 import { LoadingButton } from '@mui/lab';
-import { setAlert } from '../../slices/alertsSlice';
+import { setAlert } from '../../slices/alerts/slice';
 
 export const RegistrationForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit, getValues, watch } = useForm();

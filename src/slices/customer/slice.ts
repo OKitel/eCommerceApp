@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import spaApi from '../api/Spa';
-import ServiceApi from '../api/Service';
-import { TokenStoreTypes } from '../lib/commercetools-sdk';
-import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '../utils/localStorage';
+import spaApi from '../../api/Spa';
+import ServiceApi from '../../api/Service';
+import { TokenStoreTypes } from '../../lib/commercetools-sdk';
+import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '../../utils/localStorage';
 import { RegistrationRequest, TCustomerSliceState, TLoginRequest } from './types';
 import {
   reducerGetLoggedInCustomerFulfilled,
@@ -14,7 +14,7 @@ import {
   reducerRegisterCustomerFulfilled,
   reducerRegisterCustomerPending,
   reducerRegisterCustomerRejected,
-} from './reducers';
+} from './extraReducers';
 
 const initialState: TCustomerSliceState = {
   customerData: null,

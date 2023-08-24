@@ -1,7 +1,7 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
 import { TCustomerSliceState } from './types';
 import { Customer } from '@commercetools/platform-sdk';
-import { saveLoggedInCustomerId } from '../utils/localStorage';
+import { saveLoggedInCustomerId } from '../../utils/localStorage';
 
 export function reducerGetLoggedInCustomerPending(state: Draft<TCustomerSliceState>): void {
   state.progress.introspect = true;
