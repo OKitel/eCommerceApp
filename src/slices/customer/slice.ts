@@ -3,6 +3,7 @@ import spaApi from '../../api/Spa';
 import ServiceApi from '../../api/Service';
 import { TokenStoreTypes } from '../../lib/commercetools-sdk';
 import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '../../utils/localStorage';
+import { mapErrorMessage } from '../../api/mapError';
 import { RegistrationRequest, TCustomerSliceState, TLoginRequest } from './types';
 import {
   reducerGetLoggedInCustomerFulfilled,
@@ -60,16 +61,10 @@ export const loginCustomer = createAsyncThunk(
       onSuccess();
 
       return response?.body.customer;
-    } catch (error) {
-      let errorMessage = 'An unknown error occurred';
-
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-
-      onError(errorMessage);
-
-      return rejectWithValue(errorMessage);
+    } catch (error: unknown) {
+      const mappedServerError = mapErrorMessage(error);
+      onError(mappedServerError);
+      return rejectWithValue(mappedServerError);
     }
   },
 );
@@ -85,15 +80,9 @@ export const registerCustomer = createAsyncThunk(
 
       return response?.body.customer;
     } catch (error: unknown) {
-      let errorMessage = 'An unknown error occured';
-
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-
-      onError(errorMessage);
-
-      return rejectWithValue(errorMessage);
+      const mappedServerError = mapErrorMessage(error);
+      onError(mappedServerError);
+      return rejectWithValue(mappedServerError);
     }
   },
 );

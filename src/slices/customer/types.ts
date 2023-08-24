@@ -1,4 +1,5 @@
 import { Customer } from '@commercetools/platform-sdk';
+import { ServerError } from '../../api/types';
 
 type TCustomerSliceProgress = {
   introspect: boolean;
@@ -16,7 +17,7 @@ export type TLoginRequest = {
   email: string;
   password: string;
   onSuccess: () => void;
-  onError: (errorMessage: string) => void;
+  onError: (error: ServerError) => void;
 };
 
 export type Address = {
@@ -40,5 +41,5 @@ export type RegistrationRequest = {
   shippingAddresses: number[];
   billingAddresses: number[];
   onSuccess: () => void;
-  onError: (errorMessage: string) => void;
+  onError: (error: ServerError) => void;
 };

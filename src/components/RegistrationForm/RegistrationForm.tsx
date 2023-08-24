@@ -18,9 +18,11 @@ import { useNavigate } from 'react-router-dom';
 import { registerCustomer } from '../../slices/customer/slice';
 import { LoadingButton } from '@mui/lab';
 import { setAlert } from '../../slices/alerts/slice';
+import { ServerError } from '../../api/types';
+import { setFormServerError } from '../../utils/setFormServerError';
 
 export const RegistrationForm: React.FC = (): JSX.Element => {
-  const { control, handleSubmit, getValues, watch } = useForm();
+  const { control, handleSubmit, getValues, watch, setError } = useForm();
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
   const progressRegistration = useAppSelector((state) => state.customer.progress.registration);
@@ -40,8 +42,9 @@ export const RegistrationForm: React.FC = (): JSX.Element => {
       dispatch(setAlert({ message: 'Your account was successfully created! Welcome!', severity: 'success' }));
       navigate('/');
     };
-    const onError = (errorMessage: string): void => {
-      dispatch(setAlert({ message: `Oops! Registration failed. ${errorMessage}`, severity: 'error' }));
+    const onError = (error: ServerError): void => {
+      dispatch(setAlert({ message: `Oops! Registration failed. ${error.message}`, severity: 'error' }));
+      setFormServerError(error.validationMessages, setError);
     };
 
     const addresses: Address[] = [
