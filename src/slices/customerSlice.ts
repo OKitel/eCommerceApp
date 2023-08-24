@@ -69,11 +69,9 @@ export const loginCustomer = createAsyncThunk(
 
       return response?.body.customer;
     } catch (error: unknown) {
-      const errorMessage = mapErrorMessage(error);
-
-      onError(errorMessage);
-
-      return rejectWithValue(errorMessage);
+      const mappedServerError = mapErrorMessage(error);
+      onError(mappedServerError);
+      return rejectWithValue(mappedServerError);
     }
   },
 );
@@ -89,11 +87,9 @@ export const registerCustomer = createAsyncThunk(
 
       return response?.body.customer;
     } catch (error: unknown) {
-      const errorMessage = mapErrorMessage(error);
-
-      onError(errorMessage);
-
-      return rejectWithValue(errorMessage);
+      const mappedServerError = mapErrorMessage(error);
+      onError(mappedServerError);
+      return rejectWithValue(mappedServerError);
     }
   },
 );

@@ -21,12 +21,12 @@ export type RegistrationRequest = {
   shippingAddresses: number[];
   billingAddresses: number[];
   onSuccess: () => void;
-  onError: (errorMessage: ServerError) => void;
+  onError: (error: ServerError) => void;
 };
 
 export type LoginRequest = {
   email: string;
   password: string;
   onSuccess: () => void;
-  onError: (errorMessage: ServerError) => void;
+  onError: (error: ServerError) => void;
 };
