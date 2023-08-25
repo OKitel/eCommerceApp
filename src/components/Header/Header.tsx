@@ -9,16 +9,16 @@ import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import IconButton from '@mui/material/IconButton';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
+import { LINKS } from '../consts';
 import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
 import './styles.scss';
 
-// eslint-disable-next-line max-lines-per-function
 export const Header: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleClickCart = (): void => navigate('/cart');
+  const handleClickCart = (): void => navigate(LINKS.cart);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -38,7 +38,7 @@ export const Header: React.FC = (): JSX.Element => {
               {progressIntrospect ? null : customerData ? (
                 <Button
                   component={RouterLink}
-                  to="/"
+                  to={LINKS.main}
                   variant="contained"
                   color="secondary"
                   onClick={(): void => {
@@ -49,10 +49,10 @@ export const Header: React.FC = (): JSX.Element => {
                 </Button>
               ) : (
                 <>
-                  <Button component={RouterLink} to="/login" variant="contained" sx={{ m: 1 }} color="secondary">
+                  <Button component={RouterLink} to={LINKS.login} variant="contained" sx={{ m: 1 }} color="secondary">
                     Login
                   </Button>
-                  <Button component={RouterLink} to="/registration" color="secondary" variant="contained">
+                  <Button component={RouterLink} to={LINKS.registration} color="secondary" variant="contained">
                     Register
                   </Button>
                 </>
