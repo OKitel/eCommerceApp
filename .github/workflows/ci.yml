@@ -42,4 +42,8 @@ jobs:
         run: npm run check
 
       - name: Jest tests
+        env:
+          VITE_CTP_API_HOST: ${{ vars.VITE_CTP_API_HOST }}
+          VITE_CTP_AUTH_HOST: ${{ vars.VITE_CTP_AUTH_HOST }}
+          VITE_CTP_PROJECT_KEY: ${{ vars.VITE_CTP_PROJECT_KEY }}
         run: npm test
