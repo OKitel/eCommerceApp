@@ -5,7 +5,6 @@ import { renderWithProviders } from './test-utils';
 import { RegistrationForm } from '../components/RegistrationForm/RegistrationForm';
 import { LINKS } from '../components/consts';
 
-// eslint-disable-next-line max-lines-per-function
 describe('Registration form validation', () => {
   const user = userEvent.setup();
 
