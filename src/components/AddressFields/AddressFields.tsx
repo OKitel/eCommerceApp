@@ -10,7 +10,6 @@ type Props = {
   getValues: (country: string) => string;
 };
 
-// eslint-disable-next-line max-lines-per-function
 export const AddressFields: React.FC<Props> = ({ type, control, getValues }: Props): React.ReactElement => {
   return (
     <>

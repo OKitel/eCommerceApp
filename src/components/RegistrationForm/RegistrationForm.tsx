@@ -19,7 +19,7 @@ import { ServerError } from '../../api/types';
 import { setFormServerError } from '../../utils/setFormServerError';
 import { messages } from '../../messages';
 import { mapFormDataToRequest } from './registrationRequestMapper';
-import { Progress } from '../Progress/Progress';
+import { ProgressLoader } from '../Progress/ProgressLoader';
 import { AddressFields } from '../AddressFields/AddressFields';
 
 export const RegistrationForm: React.FC = (): React.ReactElement => {
@@ -138,5 +138,5 @@ export const RegistrationForm: React.FC = (): React.ReactElement => {
     </Paper>
   );
 
-  return <Box className="form-box">{progressIntrospect ? <Progress /> : renderForm()}</Box>;
+  return <Box className="form-box">{progressIntrospect ? <ProgressLoader /> : renderForm()}</Box>;
 };
