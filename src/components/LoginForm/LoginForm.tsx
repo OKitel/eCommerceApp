@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { useEffect } from 'react';
 import { Paper, Box, Typography, CircularProgress } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
@@ -10,9 +9,11 @@ import { loginCustomer } from '../../slices/customer/slice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
 import { setAlert } from '../../slices/alerts/slice';
-import './styles.scss';
 import { ServerError } from '../../api/types';
 import { setFormServerError } from '../../utils/setFormServerError';
+import { getMessageErrorLogin } from './utils';
+import { LABELS, TEXT_CONTENT, TITLES } from './consts';
+import './styles.scss';
 
 export const LoginForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit, setError } = useForm();
@@ -30,11 +31,11 @@ export const LoginForm: React.FC = (): JSX.Element => {
 
   const onSubmit = ({ email, password }: FieldValues): void => {
     const onSuccess = (): void => {
-      dispatch(setAlert({ message: 'You have successfully logged in!', severity: 'success' }));
+      dispatch(setAlert({ message: TEXT_CONTENT.messageSuccesLogin, severity: 'success' }));
       navigate('/');
     };
     const onError = (error: ServerError): void => {
-      dispatch(setAlert({ message: `Oops! Login failed. ${error.message}`, severity: 'error' }));
+      dispatch(setAlert({ message: getMessageErrorLogin(error.message), severity: 'error' }));
       setFormServerError(error.validationMessages, setError);
     };
 
@@ -49,29 +50,28 @@ export const LoginForm: React.FC = (): JSX.Element => {
 
   const renderForm = (): React.ReactElement => (
     <Paper elevation={3} sx={{ padding: '2rem' }}>
-      <h2 className="form-title">Login Form</h2>
+      <h2 className="form-title">{TITLES.form}</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <FormInputText
           name="email"
           control={control}
-          label="Email"
+          label={LABELS.fieldEmail}
           type="email"
           rules={{
-            required: 'Email is required',
-            pattern: { value: EMAIL_REGEXP, message: 'Please enter a valid email address' },
+            required: TEXT_CONTENT.fieldEmail.required,
+            pattern: { value: EMAIL_REGEXP, message: TEXT_CONTENT.fieldEmail.patternMessage },
           }}
         />
         <FormInputPassword
           name="password"
           control={control}
-          label="Password"
+          label={LABELS.fieldPassword}
           type="password"
           rules={{
-            required: 'Password is required',
+            required: TEXT_CONTENT.fieldPassword.required,
             pattern: {
               value: PASSWORD_REGEXP,
-              message:
-                'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character',
+              message: TEXT_CONTENT.fieldPassword.patternMessage,
             },
           }}
         />
@@ -83,7 +83,7 @@ export const LoginForm: React.FC = (): JSX.Element => {
             type="submit"
             data-testid="submit-btn"
           >
-            Login
+            {LABELS.btnSubmitForm}
           </LoadingButton>
         </div>
         <div className="form-link">
