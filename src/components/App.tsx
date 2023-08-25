@@ -9,6 +9,7 @@ import { getLoggedInCustomer } from '../slices/customer/slice';
 import { useAppDispatch } from '../store/hooks';
 import { Cart } from '../pages/Cart/Cart';
 import { Main } from '../pages/Main/Main';
+import { LINKS } from './consts';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -22,10 +23,10 @@ export const App: React.FC = (): JSX.Element => {
       <AlertsSnackbar />
       <Header />
       <Routes>
-        <Route path="/" element={<Main />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/registration" element={<Registration />}></Route>
-        <Route path="/cart" element={<Cart />}></Route>
+        <Route path={LINKS.main} element={<Main />}></Route>
+        <Route path={LINKS.login} element={<Login />}></Route>
+        <Route path={LINKS.registration} element={<Registration />}></Route>
+        <Route path={LINKS.cart} element={<Cart />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
       </Routes>
     </>

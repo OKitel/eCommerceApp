@@ -4,13 +4,14 @@ import { MemoryRouter } from 'react-router-dom';
 import { renderWithProviders } from './test-utils';
 import { LoginForm } from '../components/LoginForm/LoginForm';
 import { debug } from 'jest-preview';
+import { LINKS } from '../components/consts';
 
 // eslint-disable-next-line max-lines-per-function
 describe('Login form validation', () => {
   const user = userEvent.setup();
   const renderComponent = (): void => {
     renderWithProviders(
-      <MemoryRouter initialEntries={['/login']}>
+      <MemoryRouter initialEntries={[LINKS.login]}>
         <LoginForm />
       </MemoryRouter>,
     );

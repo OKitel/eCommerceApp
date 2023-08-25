@@ -17,6 +17,7 @@ import { LoadingButton } from '@mui/lab';
 import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
 import { setFormServerError } from '../../utils/setFormServerError';
+import { LINKS } from '../consts';
 import { messages } from '../../messages';
 import { mapFormDataToRequest } from './registrationRequestMapper';
 import { ProgressLoader } from '../Progress/ProgressLoader';
@@ -32,7 +33,7 @@ export const RegistrationForm: React.FC = (): React.ReactElement => {
 
   useEffect(() => {
     if (customerData) {
-      navigate('/');
+      navigate(LINKS.main);
     }
   }, [customerData, navigate]);
 
@@ -41,7 +42,7 @@ export const RegistrationForm: React.FC = (): React.ReactElement => {
   const onSubmit = (data: FieldValues): void => {
     const onSuccess = (): void => {
       dispatch(setAlert({ message: messages.registration.welcome, severity: 'success' }));
-      navigate('/');
+      navigate(LINKS.main);
     };
     const onError = (error: ServerError): void => {
       dispatch(setAlert({ message: messages.registration.error(error.message), severity: 'error' }));
@@ -130,7 +131,7 @@ export const RegistrationForm: React.FC = (): React.ReactElement => {
         </div>
         <div className="form-link">
           <Typography variant="body1">Already have an account?&nbsp;</Typography>
-          <Link to={'/login'}>
+          <Link to={LINKS.login}>
             <Typography variant="body1">Login</Typography>
           </Link>
         </div>

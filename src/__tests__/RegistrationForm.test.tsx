@@ -3,13 +3,14 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { renderWithProviders } from './test-utils';
 import { RegistrationForm } from '../components/RegistrationForm/RegistrationForm';
+import { LINKS } from '../components/consts';
 
 describe('Registration form validation', () => {
   const user = userEvent.setup();
 
   const renderComponent = (): void => {
     renderWithProviders(
-      <MemoryRouter initialEntries={['/registration']}>
+      <MemoryRouter initialEntries={[LINKS.registration]}>
         <RegistrationForm />
       </MemoryRouter>,
     );
