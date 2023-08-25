@@ -6,7 +6,6 @@ import { LoginForm } from '../components/LoginForm/LoginForm';
 import { debug } from 'jest-preview';
 import { LINKS } from '../components/consts';
 
-// eslint-disable-next-line max-lines-per-function
 describe('Login form validation', () => {
   const user = userEvent.setup();
   const renderComponent = (): void => {

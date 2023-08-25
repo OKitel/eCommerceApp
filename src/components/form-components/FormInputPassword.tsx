@@ -12,7 +12,6 @@ type FormInputProps = {
   rules: Omit<RegisterOptions<FieldValues, string>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
 };
 
-//eslint-disable-next-line max-lines-per-function
 export const FormInputPassword = ({ name, control, label, rules }: FormInputProps): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
 

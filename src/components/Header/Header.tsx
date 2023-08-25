@@ -17,7 +17,6 @@ import { clearCustomerData } from '../../slices/customer/slice';
 import { LINKS } from '../consts';
 import './styles.scss';
 
-// eslint-disable-next-line max-lines-per-function
 export const Header: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
