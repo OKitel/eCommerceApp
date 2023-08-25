@@ -10,7 +10,6 @@ class ServiceApi {
     const authHost = process.env.VITE_CTP_AUTH_HOST || '';
     const clientId = process.env.VITE_CTP_SERVICE_CLIENT_ID || '';
     const clientSecret = process.env.VITE_CTP_SERVICE_CLIENT_SECRET || '';
-    console.log(authHost);
     const headers = new Headers();
     headers.set('Authorization', 'Basic ' + btoa(`${clientId}:${clientSecret}`));
 
