@@ -1,0 +1,33 @@
+name: FrontendFusion CI
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  lint-and-prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Linting
+        run: npm run lint
+
+      - name: Prettier
+        run: npm run check
+
+      - name: Jest tests
+        run: npm test
