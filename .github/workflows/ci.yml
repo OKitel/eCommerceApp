@@ -2,12 +2,24 @@ name: FrontendFusion CI
 
 on:
   pull_request:
-    types:
-      - opened
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'jest.config.ts'
+      - 'jest.setup.ts'
+      - '.eslintrc.cjs'
+      - '.prettieringore'
+      - '.prettierrc'
+      - 'index.html'
+      - 'tsconfig.json'
+      - 'tsconfig.node.json'
+      - 'vite.config.ts'
 
 jobs:
-  lint-and-prettier:
+  lint-prettier-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout Code
@@ -18,7 +30,7 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
+          cache-dependency-path: 'package-lock.json'
 
       - name: Install Dependencies
         run: npm ci
@@ -30,4 +42,16 @@ jobs:
         run: npm run check
 
       - name: Jest tests
+        env:
+          VITE_CTP_API_HOST: ${{ vars.VITE_CTP_API_HOST }}
+          VITE_CTP_AUTH_HOST: ${{ vars.VITE_CTP_AUTH_HOST }}
+          VITE_CTP_PROJECT_KEY: ${{ secrets.VITE_CTP_PROJECT_KEY }}
+          VITE_CTP_CREATED_TEST_CUSTOMER_PASSWORD: ${{ secrets.VITE_CTP_CREATED_TEST_CUSTOMER_PASSWORD }}
+          VITE_CTP_CREATED_TEST_CUSTOMER_EMAIL: ${{ secrets.VITE_CTP_CREATED_TEST_CUSTOMER_EMAIL }}
+          VITE_CTP_ANONYMOUS_CLIENT_ID: ${{ secrets.VITE_CTP_ANONYMOUS_CLIENT_ID }}
+          VITE_CTP_ANONYMOUS_CLIENT_SECRET: ${{ secrets.VITE_CTP_ANONYMOUS_CLIENT_SECRET }}
+          VITE_CTP_SERVICE_CLIENT_ID: ${{ secrets.VITE_CTP_SERVICE_CLIENT_ID }}
+          VITE_CTP_SERVICE_CLIENT_SECRET: ${{ secrets.VITE_CTP_SERVICE_CLIENT_SECRET }}
+          VITE_CTP_SPA_CLIENT_ID: ${{ secrets.VITE_CTP_SPA_CLIENT_ID }}
+          VITE_CTP_SPA_CLIENT_SECRET: ${{ secrets.VITE_CTP_SPA_CLIENT_SECRET }}
         run: npm test
