@@ -15,9 +15,6 @@ export const theme = createTheme({
     },
   },
   typography: {
-    allVariants: {
-      fontSize: fontSizes[400],
-    },
     h1: {
       fontSize: fontSizes[800],
     },
