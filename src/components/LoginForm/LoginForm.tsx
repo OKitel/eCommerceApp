@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Paper, Box, Typography, CircularProgress } from '@mui/material';
+import { Paper, Box, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { FormInputText } from '../form-components/FormInputText';
 import { FormInputPassword } from '../form-components/FormInputPassword';
@@ -15,6 +15,7 @@ import { LINKS } from '../consts';
 import { getMessageErrorLogin } from './utils';
 import { LABELS, TEXT_CONTENT, TITLES } from './consts';
 import './styles.scss';
+import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
 
 export const LoginForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit, setError } = useForm();
@@ -42,12 +43,6 @@ export const LoginForm: React.FC = (): JSX.Element => {
 
     dispatch(loginCustomer({ email, password, onSuccess, onError }));
   };
-
-  const renderProgress = (): React.ReactElement => (
-    <Box textAlign={'center'}>
-      <CircularProgress />
-    </Box>
-  );
 
   const renderForm = (): React.ReactElement => (
     <Paper elevation={3} sx={{ padding: '2rem' }}>
@@ -97,5 +92,5 @@ export const LoginForm: React.FC = (): JSX.Element => {
     </Paper>
   );
 
-  return <Box className="form-box">{progressIntrospect ? renderProgress() : renderForm()}</Box>;
+  return <Box className="form-box">{progressIntrospect ? <ProgressLoader /> : renderForm()}</Box>;
 };

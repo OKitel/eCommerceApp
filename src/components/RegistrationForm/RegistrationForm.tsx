@@ -20,7 +20,7 @@ import { setFormServerError } from '../../utils/setFormServerError';
 import { LINKS } from '../consts';
 import { messages } from '../../messages';
 import { mapFormDataToRequest } from './registrationRequestMapper';
-import { ProgressLoader } from '../Progress/ProgressLoader';
+import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
 import { AddressFields } from '../AddressFields/AddressFields';
 
 export const RegistrationForm: React.FC = (): React.ReactElement => {
