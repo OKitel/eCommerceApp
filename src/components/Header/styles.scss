@@ -1,4 +1,4 @@
-@import '../../sass/constants';
+@import '../../theme/consts.scss';
 
 .toolbar {
   display: flex;
@@ -14,7 +14,7 @@
   }
 
   & a:hover {
-    text-shadow: 0.2rem 0.2rem 2rem $color-secondary;
+    text-shadow: 0.2rem 0.2rem 2rem $clr-secondary;
   }
 }
 
@@ -22,7 +22,7 @@
   text-decoration: none;
   font-size: 2rem;
   color: white;
-  text-shadow: 0.2rem 0.2rem 0.2rem $color-dark-prim;
+  text-shadow: 0.2rem 0.2rem 0.2rem $clr-primary-dark;
   position: relative;
 }
 
@@ -32,5 +32,5 @@
   position: absolute;
   bottom: -1rem;
   left: 2rem;
-  text-shadow: 0.2rem 0.2rem 0.2rem $color-dark-prim;
+  text-shadow: 0.2rem 0.2rem 0.2rem $clr-primary-dark;
 }
