@@ -4,6 +4,7 @@ import { NotFound } from '../pages/NotFound/NotFound';
 import { Registration } from '../pages/Registration/Registration';
 import { Login } from '../pages/Login/Login';
 import { Header } from './Header/Header';
+import { Footer } from './Footer/Footer';
 import { AlertsSnackbar } from './AlertsSnackbar/AlertsSnackbar';
 import { getLoggedInCustomer } from '../slices/customer/slice';
 import { useAppDispatch } from '../store/hooks';
@@ -29,6 +30,7 @@ export const App: React.FC = (): JSX.Element => {
         <Route path={LINKS.cart} element={<Cart />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
       </Routes>
+      <Footer />
     </>
   );
 };

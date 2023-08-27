@@ -10,10 +10,12 @@
 html {
   font-size: 14px;
   font-family: 'GramophoneNF', Verdana, sans-serif;
+  height: 100%;
 }
 
 body {
   min-height: 100vh;
+  position: relative;
 }
 
 #root {

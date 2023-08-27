@@ -25,7 +25,7 @@ export const Header: React.FC = (): JSX.Element => {
       <AppBar position="static">
         <Toolbar className="toolbar">
           <div className="logo">
-            <RouterLink to={'/'} className="logo-main">
+            <RouterLink to={LINKS.main} className="logo-main">
               Maestro
               <span className="logo-sub">Market</span>
             </RouterLink>
