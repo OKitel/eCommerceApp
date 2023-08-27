@@ -18,20 +18,7 @@ export function isClientResponse(object: unknown): object is ClientResponse {
   return false;
 }
 
-export function isErrorResponse(object: unknown): object is ErrorResponse {
-  if (
-    typeof object === 'object' &&
-    object !== null &&
-    object.hasOwnProperty('statusCode') &&
-    object.hasOwnProperty('message')
-  ) {
-    return true;
-  }
-
-  return false;
-}
-
-export function isClientAuthErrorResponse(object: unknown): object is ClientResponse<AuthErrorResponse> {
+export function isClientErrorResponse<T>(object: unknown): object is ClientResponse<T> {
   if (isClientResponse(object)) {
     const { body } = object;
 
@@ -45,6 +32,19 @@ export function isClientAuthErrorResponse(object: unknown): object is ClientResp
     ) {
       return true;
     }
+  }
+
+  return false;
+}
+
+export function isErrorResponse(object: unknown): object is ErrorResponse {
+  if (
+    typeof object === 'object' &&
+    object !== null &&
+    object.hasOwnProperty('statusCode') &&
+    object.hasOwnProperty('message')
+  ) {
+    return true;
   }
 
   return false;
@@ -80,7 +80,11 @@ export async function retry<T>(callback: () => Promise<T>, tokenStoreType: Token
 
       return res;
     } catch (error) {
-      if (isClientAuthErrorResponse(error) && isAuthErrorCode(error.body) && attempts < MAX_RETRYING_ATTEMPTS_NUMBER) {
+      if (
+        isClientErrorResponse<AuthErrorResponse>(error) &&
+        isAuthErrorCode(error.body) &&
+        attempts < MAX_RETRYING_ATTEMPTS_NUMBER
+      ) {
         clearTokenStore(tokenStoreType);
 
         attempts += 1;
