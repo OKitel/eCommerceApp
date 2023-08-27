@@ -3,4 +3,6 @@ export const LINKS = {
   login: '/login',
   registration: '/registration',
   cart: '/cart',
+  catalog: '/catalog',
+  profile: '/profile',
 };
