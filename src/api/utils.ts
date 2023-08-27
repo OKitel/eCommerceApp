@@ -18,7 +18,7 @@ export function isClientResponse(object: unknown): object is ClientResponse {
   return false;
 }
 
-export function isClientErrorResponse<T>(object: unknown): object is ClientResponse<T> {
+export function isClientAuthErrorResponse(object: unknown): object is ClientResponse<AuthErrorResponse> {
   if (isClientResponse(object)) {
     const { body } = object;
 
@@ -80,11 +80,7 @@ export async function retry<T>(callback: () => Promise<T>, tokenStoreType: Token
 
       return res;
     } catch (error) {
-      if (
-        isClientErrorResponse<AuthErrorResponse>(error) &&
-        isAuthErrorCode(error.body) &&
-        attempts < MAX_RETRYING_ATTEMPTS_NUMBER
-      ) {
+      if (isClientAuthErrorResponse(error) && isAuthErrorCode(error.body) && attempts < MAX_RETRYING_ATTEMPTS_NUMBER) {
         clearTokenStore(tokenStoreType);
 
         attempts += 1;
