@@ -5,6 +5,7 @@ import { Registration } from '../pages/Registration/Registration';
 import { Login } from '../pages/Login/Login';
 import { Header } from './Header/Header';
 import { AlertsSnackbar } from './AlertsSnackbar/AlertsSnackbar';
+import { initSettings } from '../slices/settings/slice';
 import { getLoggedInCustomer } from '../slices/customer/slice';
 import { useAppDispatch } from '../store/hooks';
 import { Cart } from '../pages/Cart/Cart';
@@ -17,6 +18,7 @@ export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(initSettings());
     dispatch(getLoggedInCustomer());
   }, [dispatch]);
 
