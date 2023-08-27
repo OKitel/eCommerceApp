@@ -13,7 +13,7 @@ export const CurrencySelector: React.FC = (): JSX.Element => {
   return (
     <FormControl>
       <Select
-        sx={{ backgroundColor: '#c6a7fd', color: 'white' }}
+        sx={{ backgroundColor: '#c6a7fd', color: 'white', pointerEvents: 'all' }}
         labelId="currency-select-label"
         id="currency-select"
         value={currencySelected}
@@ -24,6 +24,7 @@ export const CurrencySelector: React.FC = (): JSX.Element => {
             dispatch(changeSettings({ currency: value }));
           }
         }}
+        data-testid="currency-select"
       >
         {currencies.map((currency) => (
           <MenuItem key={currency} value={currency}>
