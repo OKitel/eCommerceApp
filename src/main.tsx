@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from './components/App';
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from './theme';
+import { theme } from './theme/theme';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
 import './styles.scss';

@@ -1,7 +1,8 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
 import { TCustomerSliceState } from './types';
 import { Customer } from '@commercetools/platform-sdk';
-import { saveLoggedInCustomerId } from '../../utils/localStorage';
+import { clearLoggedInCustomerId, clearTokenStore, saveLoggedInCustomerId } from '../../utils/localStorage';
+import { TokenStoreTypes } from '../../lib/commercetools-sdk';
 
 export function reducerGetLoggedInCustomerPending(state: Draft<TCustomerSliceState>): void {
   state.progress.introspect = true;
@@ -12,8 +13,12 @@ export function reducerGetLoggedInCustomerFulfilled(
 ): void {
   state.progress.introspect = false;
   state.errorMessage = null;
+
   if (action.payload) {
     state.customerData = action.payload;
+  } else {
+    clearLoggedInCustomerId();
+    clearTokenStore(TokenStoreTypes.SpaApiTokenStore);
   }
 }
 export function reducerGetLoggedInCustomerRejected(

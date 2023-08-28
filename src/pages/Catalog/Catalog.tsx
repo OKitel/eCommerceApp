@@ -1,11 +1,12 @@
-import { Box } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 export const Catalog: React.FC = (): JSX.Element => {
   return (
-    <>
-      <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
-        <h2 className="cart-title">Catalog Page</h2>
-      </Box>
-    </>
+    <Container>
+      <Typography variant="h1" gutterBottom>
+        Catalog
+      </Typography>
+      <Box></Box>
+    </Container>
   );
 };

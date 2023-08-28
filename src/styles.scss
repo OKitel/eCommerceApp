@@ -1,5 +1,4 @@
-@import './assets/fonts/Gramophone/scss/Gramophone.scss';
-@import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
+@import './theme/consts.scss';
 
 * {
   margin: 0;
@@ -9,11 +8,22 @@
 
 html {
   font-size: 14px;
-  font-family: 'GramophoneNF', Verdana, sans-serif;
+  font-family: $ff-default;
 }
 
 body {
   min-height: 100vh;
+  font-size: $fs-400;
+  color: $clr-text-primary;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $ff-heading;
 }
 
 #root {
@@ -23,4 +33,10 @@ body {
 .form-box {
   width: clamp(22rem, calc(100% - 4rem), 40rem);
   margin: 5rem auto;
+}
+
+/* Utility classes */
+
+.ff-accent {
+  font-family: $ff-accent;
 }

@@ -15,6 +15,7 @@ import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
 import './styles.scss';
 import { Stack } from '@mui/material';
 import { SearchBar } from '../SearchBar/SearchBar';
+import { CurrencySelector } from './CurrencySelector';
 
 export const Header: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
@@ -78,6 +79,7 @@ export const Header: React.FC = (): JSX.Element => {
                     </Button>
                   </>
                 )}
+                <CurrencySelector />
               </Stack>
             </div>
           </Hidden>
