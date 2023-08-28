@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { colors, fontSizes } from './consts';
+import { colors, fonts, fontSizes } from './consts';
 
 export const theme = createTheme({
   palette: {
@@ -16,6 +16,7 @@ export const theme = createTheme({
   },
   typography: {
     h1: {
+      fontFamily: fonts.heading,
       fontSize: fontSizes[800],
     },
   },
