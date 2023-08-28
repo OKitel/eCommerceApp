@@ -3,7 +3,7 @@ export const colors = {
   primaryDark: '#311b92',
   secondary: '#c6a7fd',
   secondaryContrast: '#fff',
-  textPrimary: '#453e53',
+  textPrimary: '#260b55',
 };
 
 export const fontSizes = {
