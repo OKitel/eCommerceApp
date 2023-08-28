@@ -40,16 +40,43 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
           </IconButton>
         </div>
         <Divider />
-        <Button component={RouterLink} to={LINKS.cart} variant="text" color="primary" className="burger-button">
+        <Button
+          component={RouterLink}
+          to={LINKS.cart}
+          variant="text"
+          color="primary"
+          className="burger-button"
+          onClick={(): void => {
+            setOpen(false);
+          }}
+        >
           <ShoppingCartRoundedIcon /> &nbsp;Cart
         </Button>
-        <Button component={RouterLink} to={LINKS.catalog} variant="text" color="primary" className="burger-button">
+        <Button
+          component={RouterLink}
+          to={LINKS.catalog}
+          variant="text"
+          color="primary"
+          className="burger-button"
+          onClick={(): void => {
+            setOpen(false);
+          }}
+        >
           Catalog
         </Button>
 
         {progressIntrospect ? null : customerData ? (
           <>
-            <Button component={RouterLink} to={LINKS.profile} variant="text" color="primary" className="burger-button">
+            <Button
+              component={RouterLink}
+              to={LINKS.profile}
+              variant="text"
+              color="primary"
+              className="burger-button"
+              onClick={(): void => {
+                setOpen(false);
+              }}
+            >
               Profile
             </Button>
             <Button
