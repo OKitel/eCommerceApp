@@ -1,4 +1,5 @@
 @import './assets/fonts/Gramophone/scss/Gramophone.scss';
+@import './theme/consts.scss';
 @import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
 
 * {
@@ -14,6 +15,8 @@ html {
 
 body {
   min-height: 100vh;
+  font-size: $fs-400;
+  color: $clr-text-primary;
 }
 
 #root {
