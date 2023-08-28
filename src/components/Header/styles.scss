@@ -19,6 +19,7 @@
 }
 
 .logo-main {
+  font-family: $ff-heading;
   text-decoration: none;
   font-size: 2rem;
   color: white;
@@ -27,7 +28,7 @@
 }
 
 .logo-sub {
-  font-family: 'Mr Dafoe', cursive;
+  font-family: $ff-accent;
   font-size: 1.3rem;
   position: absolute;
   bottom: -1rem;
