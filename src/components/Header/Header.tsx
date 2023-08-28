@@ -37,10 +37,12 @@ export const Header: React.FC = (): JSX.Element => {
             </RouterLink>
           </div>
 
-          <div className="catalog-search_wrapper">
-            <Button component={RouterLink} to={LINKS.catalog} color="secondary" variant="contained">
-              Catalog
-            </Button>
+          <div className="search-wrapper">
+            <Hidden smDown>
+              <Button component={RouterLink} to={LINKS.catalog} color="secondary" variant="contained" sx={{ mr: 1 }}>
+                Catalog
+              </Button>
+            </Hidden>
             <SearchBar setSearchQuery={(query: string): void => setSearchQuery(query)} />
           </div>
           <Hidden smDown>

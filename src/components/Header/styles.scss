@@ -34,3 +34,10 @@
   left: 2rem;
   text-shadow: 0.2rem 0.2rem 0.2rem $color-dark-prim;
 }
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: center;
+}

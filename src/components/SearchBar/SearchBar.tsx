@@ -9,10 +9,10 @@ type Props = {
 export const SearchBar: React.FC<Props> = ({ setSearchQuery }: Props): React.ReactElement => {
   const [query, setQuery] = useState('');
   return (
-    <Paper>
+    <Paper sx={{ display: 'flex', maxWidth: '40rem', flexGrow: 1 }}>
       <InputBase
-        sx={{ ml: 1, flex: 1 }}
-        placeholder="Search here..."
+        sx={{ ml: 1, flexGrow: 1 }}
+        placeholder="Search..."
         inputProps={{ 'aria-label': 'search' }}
         value={query}
         onInput={(e: React.ChangeEvent<HTMLInputElement>): void => {
