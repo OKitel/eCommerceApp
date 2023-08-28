@@ -24,7 +24,13 @@ export const SearchBar: React.FC<Props> = ({ setSearchQuery }: Props): React.Rea
           }
         }}
       />
-      <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={(): void => setSearchQuery(query)}>
+      <IconButton
+        type="button"
+        sx={{ p: '10px' }}
+        aria-label="search"
+        onClick={(): void => setSearchQuery(query)}
+        data-testid="search-btn"
+      >
         <SearchIcon />
       </IconButton>
     </Paper>
