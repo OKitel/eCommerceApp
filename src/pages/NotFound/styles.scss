@@ -1,0 +1,60 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10rem auto;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vinyl {
+  width: 15rem;
+}
+
+.title {
+  font-size: 13rem;
+  margin: 0;
+  text-shadow: 0.2rem 0.2rem 0.2rem gray;
+}
+
+.subtitle {
+  font-size: 3rem;
+  text-transform: uppercase;
+  text-shadow: 0.2rem 0.2rem 0.2rem gray;
+  margin-bottom: 3rem;
+}
+
+.btn {
+  text-decoration: none;
+  border: 0.3rem solid black;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 2rem;
+  color: black;
+  transition: ease-in-out 0.3s;
+
+  &:hover {
+    background-color: #4753ff;
+    border-color: #4753ff;
+    color: white;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .vinyl {
+    width: 8rem;
+  }
+
+  .title {
+    font-size: 10rem;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+  }
+}

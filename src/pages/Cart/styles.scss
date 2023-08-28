@@ -1,0 +1,23 @@
+.cart-title {
+  margin: 1rem 0;
+}
+
+.wip-container {
+  position: relative;
+}
+
+.wip-image {
+  width: 20rem;
+  margin-top: 5rem;
+}
+
+.wip-text {
+  position: absolute;
+  top: 60%;
+  right: 0%;
+  color: white;
+  text-align: center;
+  font-size: 3rem;
+  letter-spacing: 0.1rem;
+  text-shadow: 0.2rem 0.2rem 0.2rem #311b92;
+}
