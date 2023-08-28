@@ -25,7 +25,7 @@ export const Header: React.FC = (): JSX.Element => {
   const handleClickAvatar = (): void => navigate(LINKS.profile);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box className="header" sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="toolbar">
           <div className="logo">
