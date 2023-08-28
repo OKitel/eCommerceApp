@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
 import { LINKS } from '../consts';
 import './styles.scss';
+import { CurrencySelector } from '../Header/CurrencySelector';
 
 export const BurgerMenu: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
@@ -93,6 +94,9 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
             </Button>
           </>
         )}
+        <div className="burger-selector">
+          <CurrencySelector />
+        </div>
       </SwipeableDrawer>
     </>
   );
