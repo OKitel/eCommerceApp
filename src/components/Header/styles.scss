@@ -35,3 +35,10 @@
   left: 2rem;
   text-shadow: 0.2rem 0.2rem 0.2rem $clr-primary-dark;
 }
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: center;
+}

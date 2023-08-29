@@ -3,8 +3,9 @@ import { useState } from 'react';
 import Hidden from '@mui/material/Hidden';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Divider from '@mui/material/Divider';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -19,8 +20,6 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const handleClickCart = (): void => navigate(LINKS.cart);
   const [open, setOpen] = useState(false);
 
   return (
@@ -42,37 +41,67 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
           </IconButton>
         </div>
         <Divider />
-        <IconButton
-          size="medium"
-          color="inherit"
+        <Button
+          component={RouterLink}
+          to={LINKS.cart}
+          variant="text"
+          color="primary"
+          className="burger-button"
           onClick={(): void => {
-            handleClickCart();
             setOpen(false);
           }}
         >
-          <ShoppingCartRoundedIcon />
-        </IconButton>
+          <ShoppingCartRoundedIcon /> &nbsp;Cart
+        </Button>
+        <Button
+          component={RouterLink}
+          to={LINKS.catalog}
+          variant="text"
+          color="primary"
+          className="burger-button"
+          onClick={(): void => {
+            setOpen(false);
+          }}
+        >
+          Catalog
+        </Button>
+
         {progressIntrospect ? null : customerData ? (
-          <Button
-            component={RouterLink}
-            to={LINKS.main}
-            variant="contained"
-            color="secondary"
-            className="burger-button"
-            onClick={(): void => {
-              dispatch(clearCustomerData());
-              setOpen(false);
-            }}
-          >
-            Logout
-          </Button>
+          <>
+            <Button
+              component={RouterLink}
+              to={LINKS.profile}
+              variant="text"
+              color="primary"
+              className="burger-button"
+              onClick={(): void => {
+                setOpen(false);
+              }}
+            >
+              Profile
+            </Button>
+            <Button
+              component={RouterLink}
+              to={LINKS.main}
+              variant="outlined"
+              color="primary"
+              className="burger-button"
+              onClick={(): void => {
+                dispatch(clearCustomerData());
+                setOpen(false);
+              }}
+            >
+              <LogoutRoundedIcon />
+              &nbsp;Logout
+            </Button>
+          </>
         ) : (
           <>
             <Button
               component={RouterLink}
               to={LINKS.login}
-              variant="contained"
-              color="secondary"
+              variant="text"
+              color="primary"
               className="burger-button"
               onClick={(): void => {
                 setOpen(false);
@@ -83,8 +112,8 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
             <Button
               component={RouterLink}
               to={LINKS.registration}
-              color="secondary"
-              variant="contained"
+              variant="text"
+              color="primary"
               className="burger-button"
               onClick={(): void => {
                 setOpen(false);

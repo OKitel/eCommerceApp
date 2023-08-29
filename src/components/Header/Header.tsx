@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Hidden from '@mui/material/Hidden';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,6 +14,7 @@ import { LINKS } from '../consts';
 import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
 import './styles.scss';
 import { Stack } from '@mui/material';
+import { SearchBar } from '../SearchBar/SearchBar';
 import { CurrencySelector } from './CurrencySelector';
 
 export const Header: React.FC = (): JSX.Element => {
@@ -23,6 +24,8 @@ export const Header: React.FC = (): JSX.Element => {
   const navigate = useNavigate();
   const handleClickCart = (): void => navigate(LINKS.cart);
   const handleClickAvatar = (): void => navigate(LINKS.profile);
+  const [searchQuery, setSearchQuery] = useState('');
+  console.log(searchQuery, 'TODO: send request to CT');
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -34,9 +37,15 @@ export const Header: React.FC = (): JSX.Element => {
               <span className="logo-sub">Market</span>
             </RouterLink>
           </div>
-          <Button component={RouterLink} to={LINKS.catalog} color="secondary" variant="contained">
-            Catalog
-          </Button>
+
+          <div className="search-wrapper">
+            <Hidden smDown>
+              <Button component={RouterLink} to={LINKS.catalog} color="secondary" variant="contained" sx={{ mr: 1 }}>
+                Catalog
+              </Button>
+            </Hidden>
+            <SearchBar setSearchQuery={(query: string): void => setSearchQuery(query)} />
+          </div>
           <Hidden smDown>
             <div>
               <Stack direction="row" spacing={1}>

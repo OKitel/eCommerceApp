@@ -44,4 +44,14 @@ describe('Header is displayed correctly', () => {
     await selectCurrency(selectorButton, 'EUR');
     expect(selectorButton).toHaveTextContent('EUR');
   });
+
+  test('Captures user input in search bar', async () => {
+    renderComponent();
+    const searchInput = screen.getByPlaceholderText('Search...');
+    if (searchInput && searchInput instanceof HTMLInputElement) {
+      await user.type(searchInput, 'Piano Casio');
+      await user.click(screen.getByTestId('search-btn'));
+      expect(searchInput.value).toBe('Piano Casio');
+    }
+  });
 });
