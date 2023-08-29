@@ -1,0 +1,16 @@
+.person-form {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.person-form_info {
+  padding: 0 0 1rem;
+}
+
+
+.person-form_controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
