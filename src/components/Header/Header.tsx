@@ -28,7 +28,7 @@ export const Header: React.FC = (): JSX.Element => {
   console.log(searchQuery, 'TODO: send request to CT');
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box className="header" sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="toolbar">
           <div className="logo">

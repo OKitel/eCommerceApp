@@ -13,6 +13,7 @@ import { Cart } from '../pages/Cart/Cart';
 import { Main } from '../pages/Main/Main';
 import { LINKS } from './consts';
 import { Profile } from '../pages/Profile/Profile';
+import { Footer } from './Footer/Footer';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ export const App: React.FC = (): JSX.Element => {
         <Route path={LINKS.profile} element={<Profile />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
       </Routes>
+      <Footer />
     </>
   );
 };
