@@ -49,6 +49,7 @@ export const ProductVariantSelector: React.FC<ProductVariantSelectorProps> = ({
         label="Select color"
         size="small"
         onChange={handleChangeColor}
+        data-testid="catalog-product-color-select"
       >
         {allVariants.map((variant) => {
           const variantColor = getVariantAttributeLocalizedEnumValue(variant, 'color', localization);
