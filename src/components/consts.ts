@@ -6,3 +6,9 @@ export const LINKS = {
   catalog: '/catalog',
   profile: '/profile',
 };
+
+export const TEXT_CONTENT = {
+  products: {
+    emptyPrice: 'Contact for price',
+  },
+};
