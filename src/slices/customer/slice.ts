@@ -5,6 +5,7 @@ import { TokenStoreTypes } from '../../lib/commercetools-sdk';
 import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '../../utils/localStorage';
 import { mapErrorMessage } from '../../api/mapError';
 import {
+  DeleteAddressRequest,
   PasswordChangeRequest,
   PersonalInfoUpdateRequest,
   RegistrationRequest,
@@ -15,6 +16,9 @@ import {
   reducerChangePasswordFulfilled,
   reducerChangePasswordPending,
   reducerChangePasswordRejected,
+  reducerDeleteAddressFulfilled,
+  reducerDeleteAddressPending,
+  reducerDeleteAddressRejected,
   reducerGetLoggedInCustomerFulfilled,
   reducerGetLoggedInCustomerPending,
   reducerGetLoggedInCustomerRejected,
@@ -125,6 +129,26 @@ export const updateCustomer = createAsyncThunk(
   },
 );
 
+export const deleteAddress = createAsyncThunk(
+  'customer/deleteAddress',
+  async (request: DeleteAddressRequest, { rejectWithValue }) => {
+    const { onSuccess, onError, id, version, addressId, actionType } = request;
+    try {
+      const response = await ServiceApi.updateCustomer(id, {
+        version,
+        actions: [{ action: actionType, addressId }],
+      });
+      onSuccess();
+
+      return response?.body;
+    } catch (error: unknown) {
+      const mappedServerError = mapErrorMessage(error);
+      onError(mappedServerError);
+      return rejectWithValue(mappedServerError);
+    }
+  },
+);
+
 export const changePassword = createAsyncThunk(
   'customer/changePassword',
   async (request: PasswordChangeRequest, { rejectWithValue }) => {
@@ -171,6 +195,10 @@ const customerSlice = createSlice({
     builder.addCase(changePassword.pending, reducerChangePasswordPending);
     builder.addCase(changePassword.fulfilled, reducerChangePasswordFulfilled);
     builder.addCase(changePassword.rejected, reducerChangePasswordRejected);
+
+    builder.addCase(deleteAddress.pending, reducerDeleteAddressPending);
+    builder.addCase(deleteAddress.fulfilled, reducerDeleteAddressFulfilled);
+    builder.addCase(deleteAddress.rejected, reducerDeleteAddressRejected);
   },
 });
 

@@ -7,9 +7,10 @@ import { Customer } from '@commercetools/platform-sdk';
 import { useAppSelector } from '../../store/hooks';
 import { PasswordChangeModal } from '../../components/PasswordChangeModal/PasswordChangeModal';
 import { AddressesAccordion } from '../../components/AddressesAccordion/AddressAccordion';
+import AddHomeRoundedIcon from '@mui/icons-material/AddHomeRounded';
 
 export const Profile: React.FC = (): React.ReactElement => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openChangePasswordModal, setOpenChangePasswordModal] = useState(false);
   const maybeCustomer: Customer | null = useAppSelector((state) => state.customer.customerData);
   if (!maybeCustomer) {
     return <></>;
@@ -27,7 +28,7 @@ export const Profile: React.FC = (): React.ReactElement => {
             Password
           </Typography>
           <div className="password-btn-container">
-            <Button variant="contained" color="primary" onClick={(): void => setOpenModal(true)}>
+            <Button variant="contained" color="primary" onClick={(): void => setOpenChangePasswordModal(true)}>
               <LockRoundedIcon />
               &nbsp;Change password
             </Button>
@@ -36,10 +37,18 @@ export const Profile: React.FC = (): React.ReactElement => {
           <Typography variant="h4" className="section-title">
             Addresses
           </Typography>
+          <Button variant="contained" color="primary" onClick={(): void => console.log('open new address modal')}>
+            <AddHomeRoundedIcon />
+            &nbsp;Add new
+          </Button>
           <AddressesAccordion customer={customer} />
         </Paper>
       </Box>
-      <PasswordChangeModal open={openModal} setOpen={(open): void => setOpenModal(open)} customer={customer} />
+      <PasswordChangeModal
+        open={openChangePasswordModal}
+        setOpen={(open): void => setOpenChangePasswordModal(open)}
+        customer={customer}
+      />
     </>
   );
 };

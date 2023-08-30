@@ -7,9 +7,14 @@ import { Address } from '@commercetools/platform-sdk';
 type Props = {
   defaultId: string;
   address: Address;
+  onDeleteRequested: () => void;
 };
 
-export const AccordionItem: React.FC<Props> = ({ defaultId, address }: Props): React.ReactElement => {
+export const AccordionItem: React.FC<Props> = ({
+  defaultId,
+  address,
+  onDeleteRequested,
+}: Props): React.ReactElement => {
   return (
     <AccordionDetails className="address-item">
       <div className="address-title">
@@ -22,7 +27,7 @@ export const AccordionItem: React.FC<Props> = ({ defaultId, address }: Props): R
         <IconButton onClick={(): void => console.log('edit mode true')} color="primary" className="edit-control">
           <EditRoundedIcon />
         </IconButton>
-        <IconButton onClick={(): void => console.log('delete address')} className="delete-control" color="error">
+        <IconButton onClick={onDeleteRequested} className="delete-control" color="error">
           <DeleteRoundedIcon />
         </IconButton>
       </div>

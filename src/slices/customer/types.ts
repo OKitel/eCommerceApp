@@ -64,3 +64,12 @@ export type PasswordChangeRequest = {
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
+
+export type DeleteAddressRequest = {
+  id: string;
+  addressId: string;
+  version: number;
+  actionType: 'removeBillingAddressId' | 'removeShippingAddressId';
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};

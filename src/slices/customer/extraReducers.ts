@@ -123,3 +123,28 @@ export function reducerChangePasswordRejected(state: Draft<TCustomerSliceState>,
 export function reducerChangePasswordPending(state: Draft<TCustomerSliceState>): void {
   state.progress.update = true;
 }
+
+export function reducerDeleteAddressFulfilled(
+  state: Draft<TCustomerSliceState>,
+  action: PayloadAction<Customer | undefined>,
+): void {
+  state.progress.update = false;
+  state.errorMessage = null;
+
+  if (action.payload) {
+    state.customerData = action.payload;
+  }
+}
+
+export function reducerDeleteAddressRejected(state: Draft<TCustomerSliceState>, action: PayloadAction<unknown>): void {
+  const { payload } = action;
+
+  state.progress.update = false;
+  if (payload && typeof payload === 'string') {
+    state.errorMessage = payload;
+  }
+}
+
+export function reducerDeleteAddressPending(state: Draft<TCustomerSliceState>): void {
+  state.progress.update = true;
+}
