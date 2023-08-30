@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Box, Paper, Typography, Divider, Button } from '@mui/material';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-
+import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { PersonalInfoSection } from '../../components/PesonalInfoSection/PersonalInfoSection';
 import './styles.scss';
 import { Customer } from '@commercetools/platform-sdk';
@@ -29,8 +28,8 @@ export const Profile: React.FC = (): React.ReactElement => {
 
           <div className="password-btn-container">
             <Button variant="contained" color="primary" onClick={(): void => setOpenModal(true)}>
-              Change password &nbsp;
-              <EditRoundedIcon />
+              <LockRoundedIcon />
+              &nbsp;Change password
             </Button>
           </div>
           <Divider />

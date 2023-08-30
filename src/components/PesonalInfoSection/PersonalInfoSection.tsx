@@ -121,13 +121,14 @@ export const PersonalInfoSection: React.FC<Props> = ({ customer }: Props): React
             readOnly={!editMode}
           />
         </div>
-        <div>
+        <div className="person-form_controls">
           {!editMode ? (
-            <Button onClick={(): void => setEditMode(true)} variant="contained">
+            <Button onClick={(): void => setEditMode(true)} variant="contained" className="edit-control">
               <EditRoundedIcon />
+              &nbsp;Edit
             </Button>
           ) : (
-            <div className="person-form_controls">
+            <div className="confirmation-controls">
               <Button variant="contained" color="secondary" onClick={discardChanges}>
                 Cancel
               </Button>
