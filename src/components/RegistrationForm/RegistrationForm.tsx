@@ -115,13 +115,29 @@ export const RegistrationForm: React.FC = (): React.ReactElement => {
           }}
         />
         <Divider sx={{ mt: 2, backgroundColor: '#673ab7' }} />
-        <AddressFields type="shipping" control={control} getValues={getValues} />
+        <Typography variant="h6" className="form-subtitle">
+          Shipping Address
+        </Typography>
+        <AddressFields control={control} getValues={getValues} />
         <FormCheckBox name={'defaultAddress'} control={control} label="Set address as default" />
         <FormCheckBox name={'billingAddress'} control={control} label="Billing address is THE SAME as shipping" />
         {showBillingAddress && (
           <>
             <Divider sx={{ mt: 1, backgroundColor: '#673ab7' }} />
-            <AddressFields type="billing" control={control} getValues={getValues} />
+            <Typography variant="h6" className="form-subtitle">
+              Billing Address
+            </Typography>
+            <AddressFields
+              withName
+              fieldNameMap={{
+                street: 'billingStreet',
+                city: 'billingCity',
+                country: 'billingCountry',
+                postCode: 'billingPostcode',
+              }}
+              control={control}
+              getValues={getValues}
+            />
           </>
         )}
         <div className="form-btn">

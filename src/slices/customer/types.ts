@@ -73,3 +73,12 @@ export type DeleteAddressRequest = {
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
+
+export type AddNewAddressRequest = {
+  type: 'billing' | 'shipping' | 'both';
+  address: Address;
+  id: string;
+  version: number;
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};

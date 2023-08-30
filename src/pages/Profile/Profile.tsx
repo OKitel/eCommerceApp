@@ -8,9 +8,11 @@ import { useAppSelector } from '../../store/hooks';
 import { PasswordChangeModal } from '../../components/PasswordChangeModal/PasswordChangeModal';
 import { AddressesAccordion } from '../../components/AddressesAccordion/AddressAccordion';
 import AddHomeRoundedIcon from '@mui/icons-material/AddHomeRounded';
+import { AddressModal } from '../../components/AddressModal/AddressModal';
 
 export const Profile: React.FC = (): React.ReactElement => {
   const [openChangePasswordModal, setOpenChangePasswordModal] = useState(false);
+  const [openAddressModal, setOpenAddressModal] = useState(false);
   const maybeCustomer: Customer | null = useAppSelector((state) => state.customer.customerData);
   if (!maybeCustomer) {
     return <></>;
@@ -27,7 +29,7 @@ export const Profile: React.FC = (): React.ReactElement => {
           <Typography variant="h4" className="section-title">
             Password
           </Typography>
-          <div className="password-btn-container">
+          <div className="password-btn_container">
             <Button variant="contained" color="primary" onClick={(): void => setOpenChangePasswordModal(true)}>
               <LockRoundedIcon />
               &nbsp;Change password
@@ -37,10 +39,12 @@ export const Profile: React.FC = (): React.ReactElement => {
           <Typography variant="h4" className="section-title">
             Addresses
           </Typography>
-          <Button variant="contained" color="primary" onClick={(): void => console.log('open new address modal')}>
-            <AddHomeRoundedIcon />
-            &nbsp;Add new
-          </Button>
+          <div className="new-address-btn_container">
+            <Button variant="contained" color="primary" onClick={(): void => setOpenAddressModal(true)}>
+              <AddHomeRoundedIcon />
+              &nbsp;Add new
+            </Button>
+          </div>
           <AddressesAccordion customer={customer} />
         </Paper>
       </Box>
@@ -49,6 +53,7 @@ export const Profile: React.FC = (): React.ReactElement => {
         setOpen={(open): void => setOpenChangePasswordModal(open)}
         customer={customer}
       />
+      <AddressModal open={openAddressModal} setOpen={(open): void => setOpenAddressModal(open)} customer={customer} />
     </>
   );
 };

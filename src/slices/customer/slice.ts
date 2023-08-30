@@ -5,6 +5,7 @@ import { TokenStoreTypes } from '../../lib/commercetools-sdk';
 import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '../../utils/localStorage';
 import { mapErrorMessage } from '../../api/mapError';
 import {
+  AddNewAddressRequest,
   DeleteAddressRequest,
   PasswordChangeRequest,
   PersonalInfoUpdateRequest,
@@ -13,12 +14,6 @@ import {
   TLoginRequest,
 } from './types';
 import {
-  reducerChangePasswordFulfilled,
-  reducerChangePasswordPending,
-  reducerChangePasswordRejected,
-  reducerDeleteAddressFulfilled,
-  reducerDeleteAddressPending,
-  reducerDeleteAddressRejected,
   reducerGetLoggedInCustomerFulfilled,
   reducerGetLoggedInCustomerPending,
   reducerGetLoggedInCustomerRejected,
@@ -32,6 +27,8 @@ import {
   reducerUpdateCustomerPending,
   reducerUpdateCustomerRejected,
 } from './extraReducers';
+import { CustomerUpdateAction } from '@commercetools/platform-sdk';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState: TCustomerSliceState = {
   customerData: null,
@@ -149,6 +146,35 @@ export const deleteAddress = createAsyncThunk(
   },
 );
 
+export const addAddress = createAsyncThunk(
+  'customer/addAddress',
+  async (request: AddNewAddressRequest, { rejectWithValue }) => {
+    const { onSuccess, onError, id, version, type, address } = request;
+    const addressKey = uuidv4();
+    const actions: CustomerUpdateAction[] = [{ action: 'addAddress', address: { key: addressKey, ...address } }];
+
+    if (type === 'shipping' || type === 'both') {
+      actions.push({ action: 'addShippingAddressId', addressKey });
+    }
+    if (type === 'billing' || type === 'both') {
+      actions.push({ action: 'addBillingAddressId', addressKey });
+    }
+    try {
+      const response = await ServiceApi.updateCustomer(id, {
+        version,
+        actions,
+      });
+      onSuccess();
+
+      return response?.body;
+    } catch (error: unknown) {
+      const mappedServerError = mapErrorMessage(error);
+      onError(mappedServerError);
+      return rejectWithValue(mappedServerError);
+    }
+  },
+);
+
 export const changePassword = createAsyncThunk(
   'customer/changePassword',
   async (request: PasswordChangeRequest, { rejectWithValue }) => {
@@ -192,13 +218,17 @@ const customerSlice = createSlice({
     builder.addCase(updateCustomer.fulfilled, reducerUpdateCustomerFulfilled);
     builder.addCase(updateCustomer.rejected, reducerUpdateCustomerRejected);
 
-    builder.addCase(changePassword.pending, reducerChangePasswordPending);
-    builder.addCase(changePassword.fulfilled, reducerChangePasswordFulfilled);
-    builder.addCase(changePassword.rejected, reducerChangePasswordRejected);
+    builder.addCase(changePassword.pending, reducerUpdateCustomerPending);
+    builder.addCase(changePassword.fulfilled, reducerUpdateCustomerFulfilled);
+    builder.addCase(changePassword.rejected, reducerUpdateCustomerRejected);
 
-    builder.addCase(deleteAddress.pending, reducerDeleteAddressPending);
-    builder.addCase(deleteAddress.fulfilled, reducerDeleteAddressFulfilled);
-    builder.addCase(deleteAddress.rejected, reducerDeleteAddressRejected);
+    builder.addCase(deleteAddress.pending, reducerUpdateCustomerPending);
+    builder.addCase(deleteAddress.fulfilled, reducerUpdateCustomerFulfilled);
+    builder.addCase(deleteAddress.rejected, reducerUpdateCustomerRejected);
+
+    builder.addCase(addAddress.pending, reducerUpdateCustomerPending);
+    builder.addCase(addAddress.fulfilled, reducerUpdateCustomerFulfilled);
+    builder.addCase(addAddress.rejected, reducerUpdateCustomerRejected);
   },
 });
 
