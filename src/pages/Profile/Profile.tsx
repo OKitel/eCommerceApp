@@ -6,6 +6,7 @@ import './styles.scss';
 import { Customer } from '@commercetools/platform-sdk';
 import { useAppSelector } from '../../store/hooks';
 import { PasswordChangeModal } from '../../components/PasswordChangeModal/PasswordChangeModal';
+import { AddressesAccordion } from '../../components/AddressesAccordion/AddressAccordion';
 
 export const Profile: React.FC = (): React.ReactElement => {
   const [openModal, setOpenModal] = useState(false);
@@ -25,7 +26,6 @@ export const Profile: React.FC = (): React.ReactElement => {
           <Typography variant="h4" className="section-title">
             Password
           </Typography>
-
           <div className="password-btn-container">
             <Button variant="contained" color="primary" onClick={(): void => setOpenModal(true)}>
               <LockRoundedIcon />
@@ -36,19 +36,7 @@ export const Profile: React.FC = (): React.ReactElement => {
           <Typography variant="h4" className="section-title">
             Addresses
           </Typography>
-          <h5>Shipping addresses</h5>
-          {/* <h6>Show default</h6>
-          <p>street, city, state, zip code, country</p>
-          <p>Edit button</p>
-          <p>Save button</p> 
-          <p>Delete button</p>*/}
-
-          <h5>Billing addresses</h5>
-          {/* <h6>Show default</h6>
-          <p>street, city, state, zip code, country</p>
-          <p>Edit button</p>
-          <p>Save button</p>
-          <p>Delete button</p> */}
+          <AddressesAccordion customer={customer} />
         </Paper>
       </Box>
       <PasswordChangeModal open={openModal} setOpen={(open): void => setOpenModal(open)} customer={customer} />
