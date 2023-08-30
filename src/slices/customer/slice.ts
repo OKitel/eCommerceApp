@@ -4,8 +4,17 @@ import ServiceApi from '../../api/Service';
 import { TokenStoreTypes } from '../../lib/commercetools-sdk';
 import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '../../utils/localStorage';
 import { mapErrorMessage } from '../../api/mapError';
-import { PersonalInfoUpdateRequest, RegistrationRequest, TCustomerSliceState, TLoginRequest } from './types';
 import {
+  PasswordChangeRequest,
+  PersonalInfoUpdateRequest,
+  RegistrationRequest,
+  TCustomerSliceState,
+  TLoginRequest,
+} from './types';
+import {
+  reducerChangePasswordFulfilled,
+  reducerChangePasswordPending,
+  reducerChangePasswordRejected,
   reducerGetLoggedInCustomerFulfilled,
   reducerGetLoggedInCustomerPending,
   reducerGetLoggedInCustomerRejected,
@@ -116,6 +125,23 @@ export const updateCustomer = createAsyncThunk(
   },
 );
 
+export const changePassword = createAsyncThunk(
+  'customer/changePassword',
+  async (request: PasswordChangeRequest, { rejectWithValue }) => {
+    const { onSuccess, onError, ...req } = request;
+    try {
+      const response = await ServiceApi.changePasswordOfCustomer({ ...req });
+      onSuccess();
+
+      return response?.body;
+    } catch (error: unknown) {
+      const mappedServerError = mapErrorMessage(error);
+      onError(mappedServerError);
+      return rejectWithValue(mappedServerError);
+    }
+  },
+);
+
 const customerSlice = createSlice({
   name: 'customer',
   initialState,
@@ -141,6 +167,10 @@ const customerSlice = createSlice({
     builder.addCase(updateCustomer.pending, reducerUpdateCustomerPending);
     builder.addCase(updateCustomer.fulfilled, reducerUpdateCustomerFulfilled);
     builder.addCase(updateCustomer.rejected, reducerUpdateCustomerRejected);
+
+    builder.addCase(changePassword.pending, reducerChangePasswordPending);
+    builder.addCase(changePassword.fulfilled, reducerChangePasswordFulfilled);
+    builder.addCase(changePassword.rejected, reducerChangePasswordRejected);
   },
 });
 

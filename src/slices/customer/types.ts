@@ -55,3 +55,12 @@ export type PersonalInfoUpdateRequest = {
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
+
+export type PasswordChangeRequest = {
+  id: string;
+  version: number;
+  currentPassword: string;
+  newPassword: string;
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};

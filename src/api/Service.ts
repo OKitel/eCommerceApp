@@ -4,6 +4,7 @@ import {
   CustomerSignInResult,
   Customer,
   CustomerUpdate,
+  CustomerChangePassword,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { CustomerDraft } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { TIntrospectResponse } from './types';
@@ -46,6 +47,17 @@ class ServiceApi {
   public async updateCustomer(id: string, customerData: CustomerUpdate): Promise<ClientResponse<Customer>> {
     const res = await retry<ClientResponse<Customer>>(
       () => serviceApiRoot.customers().withId({ ID: id }).post({ body: customerData }).execute(),
+      TokenStoreTypes.ServiceApiTokenStore,
+    );
+
+    return res;
+  }
+
+  public async changePasswordOfCustomer(
+    customerPasswordData: CustomerChangePassword,
+  ): Promise<ClientResponse<Customer>> {
+    const res = await retry<ClientResponse<Customer>>(
+      () => serviceApiRoot.customers().password().post({ body: customerPasswordData }).execute(),
       TokenStoreTypes.ServiceApiTokenStore,
     );
 
