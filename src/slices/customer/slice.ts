@@ -4,7 +4,7 @@ import ServiceApi from '../../api/Service';
 import { TokenStoreTypes } from '../../lib/commercetools-sdk';
 import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '../../utils/localStorage';
 import { mapErrorMessage } from '../../api/mapError';
-import { RegistrationRequest, TCustomerSliceState, TLoginRequest } from './types';
+import { PersonalInfoUpdateRequest, RegistrationRequest, TCustomerSliceState, TLoginRequest } from './types';
 import {
   reducerGetLoggedInCustomerFulfilled,
   reducerGetLoggedInCustomerPending,
@@ -15,6 +15,9 @@ import {
   reducerRegisterCustomerFulfilled,
   reducerRegisterCustomerPending,
   reducerRegisterCustomerRejected,
+  reducerUpdateCustomerFulfilled,
+  reducerUpdateCustomerPending,
+  reducerUpdateCustomerRejected,
 } from './extraReducers';
 
 const initialState: TCustomerSliceState = {
@@ -24,6 +27,7 @@ const initialState: TCustomerSliceState = {
     introspect: false,
     login: false,
     registration: false,
+    update: false,
   },
 };
 
@@ -87,6 +91,31 @@ export const registerCustomer = createAsyncThunk(
   },
 );
 
+export const updateCustomer = createAsyncThunk(
+  'customer/updateCustomer',
+  async (request: PersonalInfoUpdateRequest, { rejectWithValue }) => {
+    const { onSuccess, onError, id, version, firstName, lastName, email, dateOfBirth } = request;
+    try {
+      const response = await ServiceApi.updateCustomer(id, {
+        version,
+        actions: [
+          { action: 'setFirstName', firstName },
+          { action: 'setLastName', lastName },
+          { action: 'changeEmail', email },
+          { action: 'setDateOfBirth', dateOfBirth },
+        ],
+      });
+      onSuccess();
+
+      return response?.body;
+    } catch (error: unknown) {
+      const mappedServerError = mapErrorMessage(error);
+      onError(mappedServerError);
+      return rejectWithValue(mappedServerError);
+    }
+  },
+);
+
 const customerSlice = createSlice({
   name: 'customer',
   initialState,
@@ -108,6 +137,10 @@ const customerSlice = createSlice({
     builder.addCase(registerCustomer.pending, reducerRegisterCustomerPending);
     builder.addCase(registerCustomer.fulfilled, reducerRegisterCustomerFulfilled);
     builder.addCase(registerCustomer.rejected, reducerRegisterCustomerRejected);
+
+    builder.addCase(updateCustomer.pending, reducerUpdateCustomerPending);
+    builder.addCase(updateCustomer.fulfilled, reducerUpdateCustomerFulfilled);
+    builder.addCase(updateCustomer.rejected, reducerUpdateCustomerRejected);
   },
 });
 

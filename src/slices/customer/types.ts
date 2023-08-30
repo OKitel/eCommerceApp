@@ -5,6 +5,7 @@ type TCustomerSliceProgress = {
   introspect: boolean;
   login: boolean;
   registration: boolean;
+  update: boolean;
 };
 
 export type TCustomerSliceState = {
@@ -40,6 +41,17 @@ export type RegistrationRequest = {
   defaultBillingAddress?: number;
   shippingAddresses: number[];
   billingAddresses: number[];
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
+
+export type PersonalInfoUpdateRequest = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  version: number;
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
