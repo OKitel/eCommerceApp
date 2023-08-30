@@ -5,16 +5,27 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { PersonalInfoSection } from '../../components/PesonalInfoSection/PersonalInfoSection';
 import { Modal } from '../../components/Modal/Modal';
 import './styles.scss';
+import { useNavigate } from 'react-router-dom';
+import { Customer } from '@commercetools/platform-sdk';
+import { useAppSelector } from '../../store/hooks';
+import { LINKS } from '../../components/consts';
 
 export const Profile: React.FC = (): React.ReactElement => {
   const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
+  const maybeCustomer: Customer | null = useAppSelector((state) => state.customer.customerData);
+  if (!maybeCustomer) {
+    navigate(LINKS.main);
+    return <></>;
+  }
+  const customer: Customer = maybeCustomer;
 
   return (
     <>
       <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
-        <Paper elevation={3} sx={{ padding: '2rem', mt: 4 }}>
+        <Paper elevation={3} sx={{ padding: '2rem', mt: 5, mb: 4, ml: 2, mr: 2 }}>
           <h2 className="profile-title">Profile Settings</h2>
-          <PersonalInfoSection />
+          <PersonalInfoSection customer={customer} />
           <Divider />
           <Typography variant="h4" className="section-title">
             Password

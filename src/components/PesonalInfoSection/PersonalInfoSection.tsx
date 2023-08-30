@@ -17,12 +17,13 @@ import { ServerError } from '../../api/types';
 import { setFormServerError } from '../../utils/setFormServerError';
 import './styles.scss';
 
-export const PersonalInfoSection: React.FC = (): React.ReactElement => {
-  const dispatch = useAppDispatch();
-  const { firstName, lastName, dateOfBirth, email, id, version }: Customer = useAppSelector(
-    (state) => state.customer.customerData,
-  )!;
+type Props = {
+  customer: Customer;
+};
 
+export const PersonalInfoSection: React.FC<Props> = ({ customer }: Props): React.ReactElement => {
+  const dispatch = useAppDispatch();
+  const { id, version, firstName, lastName, email, dateOfBirth } = customer;
   const [editMode, setEditMode] = useState(false);
   const { control, handleSubmit, reset, setError } = useForm<FieldValues>({
     defaultValues: { name: firstName ?? '', surname: lastName ?? '', email, dateOfBirth: new Date(dateOfBirth ?? '') },
