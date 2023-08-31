@@ -59,4 +59,10 @@ describe('SPA api', () => {
 
     expect(responseCategories?.body.results).toEqual(expect.any(Array));
   });
+
+  it('gets products', async () => {
+    const responseProducts = await spaApi.searchProductProjections();
+
+    expect(responseProducts?.body.results).toEqual(expect.any(Array));
+  });
 });
