@@ -130,11 +130,12 @@ export const updateCustomer = createAsyncThunk(
 export const deleteAddress = createAsyncThunk(
   'customer/deleteAddress',
   async (request: DeleteAddressRequest, { rejectWithValue }) => {
-    const { onSuccess, onError, id, version, addressId, actionType } = request;
+    const { onSuccess, onError, id, version, addressId, type } = request;
+    const action = type === 'shipping' ? 'removeShippingAddressId' : 'removeBillingAddressId';
     try {
       const response = await ServiceApi.updateCustomer(id, {
         version,
-        actions: [{ action: actionType, addressId }],
+        actions: [{ action, addressId }],
       });
       onSuccess();
 

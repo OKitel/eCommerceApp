@@ -69,13 +69,13 @@ export type DeleteAddressRequest = {
   id: string;
   addressId: string;
   version: number;
-  actionType: 'removeBillingAddressId' | 'removeShippingAddressId';
+  type: 'shipping' | 'billing';
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
 
 export type AddNewAddressRequest = {
-  type: 'billing' | 'shipping' | 'both';
+  type: 'shipping' | 'billing' | 'both';
   address: Address;
   id: string;
   version: number;

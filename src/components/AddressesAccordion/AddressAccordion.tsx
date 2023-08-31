@@ -18,7 +18,7 @@ type Props = {
 export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.ReactElement => {
   const [expanded, setExpanded] = useState(true);
   const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
-  const [addressToDelete, setAddressToDelete] = useState<{ id: string; type: string } | undefined>();
+  const [addressToDelete, setAddressToDelete] = useState<{ id: string; type: 'shipping' | 'billing' } | undefined>();
   const dispatch = useAppDispatch();
   const { addresses, billingAddressIds, shippingAddressIds, defaultBillingAddressId, defaultShippingAddressId } =
     customer;
@@ -47,7 +47,7 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
         id: customer.id,
         addressId: addressToDelete.id,
         version: customer.version,
-        actionType: addressToDelete.type === 'shipping' ? 'removeShippingAddressId' : 'removeBillingAddressId',
+        type: addressToDelete.type,
         onSuccess,
         onError,
       };
