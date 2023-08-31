@@ -6,6 +6,7 @@ import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '.
 import { mapErrorMessage } from '../../api/mapError';
 import {
   AddNewAddressRequest,
+  ChangeAddressRequest,
   DeleteAddressRequest,
   PasswordChangeRequest,
   PersonalInfoUpdateRequest,
@@ -177,6 +178,26 @@ export const addAddress = createAsyncThunk(
   },
 );
 
+export const changeAddress = createAsyncThunk(
+  'customer/changeAddress',
+  async (request: ChangeAddressRequest, { rejectWithValue }) => {
+    const { onSuccess, onError, id, version, address, addressId } = request;
+    try {
+      const response = await ServiceApi.updateCustomer(id, {
+        version,
+        actions: [{ action: 'changeAddress', addressId, address }],
+      });
+      onSuccess();
+
+      return response?.body;
+    } catch (error: unknown) {
+      const mappedServerError = mapErrorMessage(error);
+      onError(mappedServerError);
+      return rejectWithValue(mappedServerError);
+    }
+  },
+);
+
 export const setDefaultAddress = createAsyncThunk(
   'customer/setDefaultAddress',
   async (request: SetDefaultAddressRequest, { rejectWithValue }) => {
@@ -256,6 +277,10 @@ const customerSlice = createSlice({
     builder.addCase(setDefaultAddress.pending, reducerUpdateCustomerPending);
     builder.addCase(setDefaultAddress.fulfilled, reducerUpdateCustomerFulfilled);
     builder.addCase(setDefaultAddress.rejected, reducerUpdateCustomerRejected);
+
+    builder.addCase(changeAddress.pending, reducerUpdateCustomerPending);
+    builder.addCase(changeAddress.fulfilled, reducerUpdateCustomerFulfilled);
+    builder.addCase(changeAddress.rejected, reducerUpdateCustomerRejected);
   },
 });
 

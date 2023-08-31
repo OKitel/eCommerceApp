@@ -9,6 +9,7 @@ type Props = {
   address: Address;
   onDeleteRequested: () => void;
   onDefaultChange: (id: string, isDefault: boolean) => void;
+  onEditRequest: () => void;
 };
 
 export const AccordionItem: React.FC<Props> = ({
@@ -16,6 +17,7 @@ export const AccordionItem: React.FC<Props> = ({
   address,
   onDeleteRequested,
   onDefaultChange,
+  onEditRequest,
 }: Props): React.ReactElement => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (address.id) {
@@ -34,7 +36,7 @@ export const AccordionItem: React.FC<Props> = ({
         <Tooltip title="Set as default" placement="top">
           <Switch checked={defaultId === address.id} onChange={handleChange} />
         </Tooltip>
-        <IconButton onClick={(): void => console.log('edit mode true')} color="primary" className="edit-control">
+        <IconButton onClick={onEditRequest} color="primary" className="edit-control">
           <EditRoundedIcon />
         </IconButton>
         <IconButton onClick={onDeleteRequested} className="delete-control" color="error">

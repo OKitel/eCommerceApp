@@ -1,45 +1,48 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Modal, Box, Typography, Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { Customer } from '@commercetools/platform-sdk';
-import { addAddress } from '../../slices/customer/slice';
-import { AddNewAddressRequest } from '../../slices/customer/types';
+import { Address, Customer } from '@commercetools/platform-sdk';
+import { changeAddress } from '../../slices/customer/slice';
+import { ChangeAddressRequest } from '../../slices/customer/types';
 
 import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
 import { AddressFields } from '../AddressFields/AddressFields';
 import './styles.scss';
-import { FormRadioGroup } from '../form-components/FormRadioGroup';
-
-const radioOptions = [
-  {
-    label: 'Shipping',
-    value: 'shipping',
-  },
-  {
-    label: 'Billing',
-    value: 'billing',
-  },
-  {
-    label: 'Both',
-    value: 'both',
-  },
-];
 
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
   customer: Customer;
+  address: Address;
 };
 
-export const AddressModal: React.FC<Props> = ({ open, setOpen, customer }: Props): React.ReactElement => {
+export const UpdateAddressModal: React.FC<Props> = ({
+  open,
+  setOpen,
+  customer,
+  address,
+}: Props): React.ReactElement => {
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
   const dispatch = useAppDispatch();
   const progressUpdating = useAppSelector((state) => state.customer.progress.update);
-  const { control, handleSubmit, reset, getValues } = useForm<FieldValues>({ defaultValues: { type: 'shipping' } });
   const { id, version } = customer;
+
+  const { control, handleSubmit, reset, getValues } = useForm<FieldValues>({
+    defaultValues: useMemo(
+      () => ({
+        firstName: address.firstName,
+        lastName: address.lastName,
+        street: address.streetName,
+        city: address.city,
+        country: address.country,
+        postcode: address.postalCode,
+      }),
+      [address],
+    ),
+  });
 
   const handleClose = useCallback((): void => setOpen(false), [setOpen]);
 
@@ -51,17 +54,18 @@ export const AddressModal: React.FC<Props> = ({ open, setOpen, customer }: Props
   const onSubmit = useCallback(
     (data: FieldValues): void => {
       const onSuccess = (): void => {
-        dispatch(setAlert({ message: 'New address was successfully added', severity: 'success' }));
+        dispatch(setAlert({ message: 'Your address was successfully updated', severity: 'success' }));
         handleClose();
         setIsSubmitSuccessful(true);
       };
       const onError = (error: ServerError): void => {
         dispatch(setAlert({ message: error.message, severity: 'error' }));
       };
-      const request: AddNewAddressRequest = {
+      if (!address.id) return;
+      const request: ChangeAddressRequest = {
         id,
         version,
-        type: data.type,
+        addressId: address.id,
         address: {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -73,24 +77,30 @@ export const AddressModal: React.FC<Props> = ({ open, setOpen, customer }: Props
         onSuccess,
         onError,
       };
-      dispatch(addAddress(request));
+      dispatch(changeAddress(request));
     },
-    [id, version, dispatch, handleClose],
+    [id, version, dispatch, handleClose, address.id],
   );
 
   useEffect(() => {
-    reset();
+    reset({
+      firstName: address.firstName,
+      lastName: address.lastName,
+      street: address.streetName,
+      city: address.city,
+      country: address.country,
+      postcode: address.postalCode,
+    });
     setIsSubmitSuccessful(false);
-  }, [isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset, address]);
 
   return (
     <Modal open={open} onClose={handleClose}>
       <Box className="modal-container">
         <Typography className="modal-title" variant="h5">
-          New address
+          Update address
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="add-address-form">
-          <FormRadioGroup options={radioOptions} name="type" control={control} />
           <AddressFields withName control={control} getValues={getValues} />
           <div className="address_controls">
             <Button variant="contained" color="secondary" onClick={discardChanges}>

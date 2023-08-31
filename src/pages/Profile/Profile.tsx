@@ -8,7 +8,7 @@ import { useAppSelector } from '../../store/hooks';
 import { PasswordChangeModal } from '../../components/PasswordChangeModal/PasswordChangeModal';
 import { AddressesAccordion } from '../../components/AddressesAccordion/AddressAccordion';
 import AddHomeRoundedIcon from '@mui/icons-material/AddHomeRounded';
-import { AddressModal } from '../../components/AddressModal/AddressModal';
+import { AddAddressModal } from '../../components/AddressModal/AddAddressModal';
 
 export const Profile: React.FC = (): React.ReactElement => {
   const [openChangePasswordModal, setOpenChangePasswordModal] = useState(false);
@@ -53,7 +53,11 @@ export const Profile: React.FC = (): React.ReactElement => {
         setOpen={(open): void => setOpenChangePasswordModal(open)}
         customer={customer}
       />
-      <AddressModal open={openAddressModal} setOpen={(open): void => setOpenAddressModal(open)} customer={customer} />
+      <AddAddressModal
+        open={openAddressModal}
+        setOpen={(open): void => setOpenAddressModal(open)}
+        customer={customer}
+      />
     </>
   );
 };

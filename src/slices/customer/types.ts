@@ -91,3 +91,12 @@ export type SetDefaultAddressRequest = {
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
+
+export type ChangeAddressRequest = {
+  addressId: string;
+  address: Address;
+  id: string;
+  version: number;
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};

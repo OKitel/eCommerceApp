@@ -11,6 +11,7 @@ import { DeleteAddressRequest, SetDefaultAddressRequest } from '../../slices/cus
 import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
 import { useAppDispatch } from '../../store/hooks';
+import { UpdateAddressModal } from '../AddressModal/UpdateAddressModal';
 
 type Props = {
   customer: Customer;
@@ -19,6 +20,8 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
   const [expanded, setExpanded] = useState(true);
   const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
   const [addressToDelete, setAddressToDelete] = useState<{ id: string; type: 'shipping' | 'billing' } | undefined>();
+  const [addressToEdit, setAddressToEdit] = useState<Address | undefined>();
+  const [openAddressModal, setOpenAddressModal] = useState(false);
   const dispatch = useAppDispatch();
   const { addresses, billingAddressIds, shippingAddressIds, defaultBillingAddressId, defaultShippingAddressId } =
     customer;
@@ -92,6 +95,10 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
               }}
               onDefaultChange={(id, isDefault): void => handleDefaultAddressChange(id, isDefault, 'shipping')}
               key={address.id}
+              onEditRequest={(): void => {
+                setAddressToEdit(addresses.find((a) => address.id === a.id));
+                setOpenAddressModal(true);
+              }}
             />
           );
         })}
@@ -111,6 +118,10 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
               }}
               onDefaultChange={(id, isDefault): void => handleDefaultAddressChange(id, isDefault, 'billing')}
               key={address.id}
+              onEditRequest={(): void => {
+                setAddressToEdit(addresses.find((a) => address.id === a.id));
+                setOpenAddressModal(true);
+              }}
             />
           );
         })}
@@ -129,6 +140,14 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
           setAddressToDelete(undefined);
         }}
       />
+      {addressToEdit && (
+        <UpdateAddressModal
+          open={openAddressModal}
+          setOpen={(open): void => setOpenAddressModal(open)}
+          customer={customer}
+          address={addressToEdit}
+        />
+      )}
     </>
   );
 };
