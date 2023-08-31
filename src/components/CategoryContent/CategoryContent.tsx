@@ -43,7 +43,7 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ category }): J
     return (
       <Box className="category-content">
         {productProjections.map((productProjection) => (
-          <CatalogProduct key={productProjection.id} product={productProjection} />
+          <CatalogProduct key={productProjection.id} productProjection={productProjection} />
         ))}
       </Box>
     );

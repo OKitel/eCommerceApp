@@ -11,28 +11,28 @@ import { findPriceWithCurrencyCode } from '../../utils/productsUtils';
 import './styles.scss';
 
 type CatalogProductProps = {
-  product: ProductProjection;
+  productProjection: ProductProjection;
 };
 
-export const CatalogProduct: React.FC<CatalogProductProps> = ({ product }): JSX.Element => {
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(product.masterVariant);
+export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjection }): JSX.Element => {
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(productProjection.masterVariant);
   const { localization, currency } = useAppSelector((state) => state.settings);
   const isButtonAddToCartDisabled = !findPriceWithCurrencyCode(selectedVariant.prices, currency);
 
   return (
     <Card className="catalog-product">
       <CardActionArea>
-        <ProductImage product={product} />
+        <ProductImage productProjection={productProjection} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {product.name[localization]}
+            {productProjection.name[localization]}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardContent className="catalog-product__controls">
         <Stack spacing={2} my={2}>
           <ProductVariantSelector
-            product={product}
+            productProjection={productProjection}
             selectedVariant={selectedVariant}
             setSelectedVariant={setSelectedVariant}
           />

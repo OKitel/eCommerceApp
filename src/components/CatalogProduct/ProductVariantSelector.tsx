@@ -6,21 +6,21 @@ import { useAppSelector } from '../../store/hooks';
 import { getVariantAttributeLocalizedEnumValue } from '../../utils/productsUtils';
 
 type ProductVariantSelectorProps = {
-  product: ProductProjection;
+  productProjection: ProductProjection;
   selectedVariant: ProductVariant;
   setSelectedVariant: React.Dispatch<React.SetStateAction<ProductVariant>>;
 };
 
 export const ProductVariantSelector: React.FC<ProductVariantSelectorProps> = ({
-  product,
+  productProjection,
   selectedVariant,
   setSelectedVariant,
 }): JSX.Element | null => {
   const localization = useAppSelector((state) => state.settings.localization);
-  const allVariants = [product.masterVariant, ...product.variants];
+  const allVariants = [productProjection.masterVariant, ...productProjection.variants];
   const selectedVariantColor = getVariantAttributeLocalizedEnumValue(selectedVariant, 'color', localization);
 
-  if (!product.variants.length) {
+  if (!productProjection.variants.length) {
     return null;
   }
 
