@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, Paper, Typography, Divider, Button } from '@mui/material';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
-import { PersonalInfoSection } from '../../components/PesonalInfoSection/PersonalInfoSection';
+import { PersonalInfoSection } from '../../components/PersonalInfoSection/PersonalInfoSection';
 import './styles.scss';
 import { Customer } from '@commercetools/platform-sdk';
 import { useAppSelector } from '../../store/hooks';

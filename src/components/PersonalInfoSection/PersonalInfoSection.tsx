@@ -123,13 +123,18 @@ export const PersonalInfoSection: React.FC<Props> = ({ customer }: Props): React
         </div>
         <div className="person-form_controls">
           {!editMode ? (
-            <Button onClick={(): void => setEditMode(true)} variant="contained" className="edit-control">
+            <Button
+              onClick={(): void => setEditMode(true)}
+              variant="contained"
+              className="edit-control"
+              data-testid="edit-person-btn"
+            >
               <EditRoundedIcon />
               &nbsp;Edit
             </Button>
           ) : (
             <div className="confirmation-controls">
-              <Button variant="contained" color="secondary" onClick={discardChanges}>
+              <Button variant="contained" color="secondary" onClick={discardChanges} data-testid="cancel-person-btn">
                 Cancel
               </Button>
               <LoadingButton loading={progressUpdating} type="submit" variant="contained" data-testid="submit-btn">
