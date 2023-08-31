@@ -10,6 +10,7 @@ import {
   PasswordChangeRequest,
   PersonalInfoUpdateRequest,
   RegistrationRequest,
+  SetDefaultAddressRequest,
   TCustomerSliceState,
   TLoginRequest,
 } from './types';
@@ -175,6 +176,27 @@ export const addAddress = createAsyncThunk(
   },
 );
 
+export const setDefaultAddress = createAsyncThunk(
+  'customer/setDefaultAddress',
+  async (request: SetDefaultAddressRequest, { rejectWithValue }) => {
+    const { onSuccess, onError, id, version, type, addressId } = request;
+    const action = type === 'shipping' ? 'setDefaultShippingAddress' : 'setDefaultBillingAddress';
+    try {
+      const response = await ServiceApi.updateCustomer(id, {
+        version,
+        actions: [{ action, addressId }],
+      });
+      onSuccess();
+
+      return response?.body;
+    } catch (error: unknown) {
+      const mappedServerError = mapErrorMessage(error);
+      onError(mappedServerError);
+      return rejectWithValue(mappedServerError);
+    }
+  },
+);
+
 export const changePassword = createAsyncThunk(
   'customer/changePassword',
   async (request: PasswordChangeRequest, { rejectWithValue }) => {
@@ -229,6 +251,10 @@ const customerSlice = createSlice({
     builder.addCase(addAddress.pending, reducerUpdateCustomerPending);
     builder.addCase(addAddress.fulfilled, reducerUpdateCustomerFulfilled);
     builder.addCase(addAddress.rejected, reducerUpdateCustomerRejected);
+
+    builder.addCase(setDefaultAddress.pending, reducerUpdateCustomerPending);
+    builder.addCase(setDefaultAddress.fulfilled, reducerUpdateCustomerFulfilled);
+    builder.addCase(setDefaultAddress.rejected, reducerUpdateCustomerRejected);
   },
 });
 

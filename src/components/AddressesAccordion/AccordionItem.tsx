@@ -1,4 +1,4 @@
-import { AccordionDetails, Typography, IconButton, Chip } from '@mui/material';
+import { AccordionDetails, Typography, IconButton, Chip, Switch, Tooltip } from '@mui/material';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
@@ -8,13 +8,20 @@ type Props = {
   defaultId: string;
   address: Address;
   onDeleteRequested: () => void;
+  onDefaultChange: (id: string, isDefault: boolean) => void;
 };
 
 export const AccordionItem: React.FC<Props> = ({
   defaultId,
   address,
   onDeleteRequested,
+  onDefaultChange,
 }: Props): React.ReactElement => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (address.id) {
+      onDefaultChange(address.id, event.target.checked);
+    }
+  };
   return (
     <AccordionDetails className="address-item">
       <div className="address-title">
@@ -24,6 +31,9 @@ export const AccordionItem: React.FC<Props> = ({
         )}
       </div>
       <div className="address-controls">
+        <Tooltip title="Set as default" placement="top">
+          <Switch checked={defaultId === address.id} onChange={handleChange} />
+        </Tooltip>
         <IconButton onClick={(): void => console.log('edit mode true')} color="primary" className="edit-control">
           <EditRoundedIcon />
         </IconButton>

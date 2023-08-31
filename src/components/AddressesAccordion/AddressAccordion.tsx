@@ -6,8 +6,8 @@ import { Customer, Address } from '@commercetools/platform-sdk';
 import { AccordionItem } from './AccordionItem';
 import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
 import { messages } from '../../messages';
-import { deleteAddress } from '../../slices/customer/slice';
-import { DeleteAddressRequest } from '../../slices/customer/types';
+import { deleteAddress, setDefaultAddress } from '../../slices/customer/slice';
+import { DeleteAddressRequest, SetDefaultAddressRequest } from '../../slices/customer/types';
 import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
 import { useAppDispatch } from '../../store/hooks';
@@ -55,6 +55,26 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
     }
   };
 
+  const handleDefaultAddressChange = (id: string, isDefault: boolean, type: 'shipping' | 'billing'): void => {
+    const onSuccess = (): void => {
+      dispatch(setAlert({ message: `Your ${type} address was successfully set as default`, severity: 'success' }));
+    };
+    const onError = (error: ServerError): void => {
+      dispatch(setAlert({ message: error.message, severity: 'error' }));
+    };
+    const request: SetDefaultAddressRequest = {
+      id: customer.id,
+      addressId: id,
+      version: customer.version,
+      type,
+      onSuccess,
+      onError,
+    };
+    if (isDefault) {
+      dispatch(setDefaultAddress(request));
+    }
+  };
+
   return (
     <>
       <Accordion expanded={expanded} onChange={(): void => setExpanded(!expanded)}>
@@ -70,6 +90,7 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
                 setAddressToDelete({ id: address.id ?? '', type: 'shipping' });
                 setOpenConfirmationModal(true);
               }}
+              onDefaultChange={(id, isDefault): void => handleDefaultAddressChange(id, isDefault, 'shipping')}
               key={address.id}
             />
           );
@@ -88,6 +109,7 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
                 setAddressToDelete({ id: address.id ?? '', type: 'billing' });
                 setOpenConfirmationModal(true);
               }}
+              onDefaultChange={(id, isDefault): void => handleDefaultAddressChange(id, isDefault, 'billing')}
               key={address.id}
             />
           );

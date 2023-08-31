@@ -82,3 +82,12 @@ export type AddNewAddressRequest = {
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
+
+export type SetDefaultAddressRequest = {
+  type: 'billing' | 'shipping';
+  addressId: string;
+  id: string;
+  version: number;
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
