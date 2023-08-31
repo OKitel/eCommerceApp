@@ -100,7 +100,7 @@ export const UpdateAddressModal: React.FC<Props> = ({
         <Typography className="modal-title" variant="h5">
           Update address
         </Typography>
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className="add-address-form">
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="edit-address-form">
           <AddressFields withName control={control} getValues={getValues} />
           <div className="address_controls">
             <Button variant="contained" color="secondary" onClick={discardChanges}>
