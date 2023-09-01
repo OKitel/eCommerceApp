@@ -19,5 +19,8 @@ export const theme = createTheme({
       fontFamily: fonts.heading,
       fontSize: fontSizes[800],
     },
+    h4: {
+      fontFamily: fonts.heading,
+    },
   },
 });
