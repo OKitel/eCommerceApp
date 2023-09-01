@@ -1,7 +1,10 @@
-import { TokenStoreTypes, getSpaApiRootWithPasswordFlow } from '../lib/commercetools-sdk';
+import { TokenStoreTypes, getSpaApiRootWithPasswordFlow, spaApiRoot } from '../lib/commercetools-sdk';
 import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder';
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
-import { CustomerSignInResult } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
+import {
+  CategoryPagedQueryResponse,
+  CustomerSignInResult,
+} from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { retry } from './utils';
 
 class SpaApi {
@@ -19,6 +22,19 @@ class SpaApi {
 
     const res = await retry<ClientResponse<CustomerSignInResult>>(
       () => apiRoot.me().login().post({ body: { email, password } }).execute(),
+      TokenStoreTypes.SpaApiTokenStore,
+    );
+
+    return res;
+  }
+
+  public async getCategories(): Promise<ClientResponse<CategoryPagedQueryResponse>> {
+    const res = await retry<ClientResponse<CategoryPagedQueryResponse>>(
+      () =>
+        spaApiRoot
+          .categories()
+          .get({ queryArgs: { limit: 40 } })
+          .execute(),
       TokenStoreTypes.SpaApiTokenStore,
     );
 

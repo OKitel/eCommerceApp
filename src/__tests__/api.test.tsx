@@ -53,4 +53,10 @@ describe('SPA api', () => {
 
     expect(responseLoginCustomer?.body.customer.email).toEqual(CREATED_TEST_CUSTOMER_EMAIL);
   });
+
+  it('gets categories', async () => {
+    const responseCategories = await spaApi.getCategories();
+
+    expect(responseCategories?.body.results).toEqual(expect.any(Array));
+  });
 });

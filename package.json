@@ -32,6 +32,7 @@
     "@mui/material": "^5.14.5",
     "@mui/x-date-pickers": "^6.11.1",
     "@reduxjs/toolkit": "^1.9.5",
+    "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "eslint-plugin-react-func": "^0.1.18",
