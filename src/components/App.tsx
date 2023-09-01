@@ -18,7 +18,7 @@ import { Login } from '../pages/Login/Login';
 import { Registration } from '../pages/Registration/Registration';
 import { Profile } from '../pages/Profile/Profile';
 
-import { LINKS } from './consts';
+import { LINKS, URL_PARAMS } from './consts';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -39,7 +39,7 @@ export const App: React.FC = (): JSX.Element => {
         <Route path={LINKS.cart} element={<Cart />}></Route>
         <Route path={LINKS.catalog}>
           <Route index element={<Catalog />}></Route>
-          <Route path=":categorySlug" element={<Category />}></Route>
+          <Route path={`:${URL_PARAMS.categorySlug}`} element={<Category />}></Route>
         </Route>
         <Route path={LINKS.profile} element={<Profile />}></Route>
         <Route path="/*" element={<NotFound />}></Route>

@@ -7,6 +7,10 @@ export const LINKS = {
   profile: '/profile',
 };
 
+export const URL_PARAMS = {
+  categorySlug: 'categorySlug',
+};
+
 export const TEXT_CONTENT = {
   products: {
     emptyPrice: 'Contact for price',

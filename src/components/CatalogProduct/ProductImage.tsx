@@ -5,19 +5,19 @@ import { ProductProjection } from '@commercetools/platform-sdk';
 import { useAppSelector } from '../../store/hooks';
 
 type ProductImageProps = {
-  product: ProductProjection;
+  productProjection: ProductProjection;
 };
 
-export const ProductImage: React.FC<ProductImageProps> = ({ product }): JSX.Element => {
+export const ProductImage: React.FC<ProductImageProps> = ({ productProjection }): JSX.Element => {
   const localization = useAppSelector((state) => state.settings.localization);
 
-  const { images } = product.masterVariant;
+  const { images } = productProjection.masterVariant;
   let firstImageUrl: string | undefined = undefined;
   let firstImageAlt: string | undefined = undefined;
 
   if (images && images.length) {
     firstImageUrl = images[0].url;
-    firstImageAlt = product.name[localization];
+    firstImageAlt = productProjection.name[localization];
   }
 
   return (

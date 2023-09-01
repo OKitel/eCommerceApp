@@ -11,7 +11,7 @@ describe('Catalog product is displayed correctly', () => {
   const renderComponent = (): void => {
     renderWithProviders(
       <MemoryRouter initialEntries={['/catalog']}>
-        <CatalogProduct product={product1} />
+        <CatalogProduct productProjection={product1} />
       </MemoryRouter>,
     );
   };

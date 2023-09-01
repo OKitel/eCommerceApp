@@ -4,8 +4,10 @@ import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/sr
 import {
   CategoryPagedQueryResponse,
   CustomerSignInResult,
+  ProductProjectionPagedQueryResponse,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { retry } from './utils';
+import { ProductProjectionSearchQueryArgs } from './types';
 
 class SpaApi {
   private spaApiRoot: ByProjectKeyRequestBuilder | null = null;
@@ -35,6 +37,17 @@ class SpaApi {
           .categories()
           .get({ queryArgs: { limit: 40 } })
           .execute(),
+      TokenStoreTypes.SpaApiTokenStore,
+    );
+
+    return res;
+  }
+
+  public async searchProductProjections(
+    queryArgs?: ProductProjectionSearchQueryArgs,
+  ): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> {
+    const res = await retry<ClientResponse<ProductProjectionPagedQueryResponse>>(
+      () => spaApiRoot.productProjections().search().get({ queryArgs }).execute(),
       TokenStoreTypes.SpaApiTokenStore,
     );
 

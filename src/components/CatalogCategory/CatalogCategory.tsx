@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
 import { Category } from '@commercetools/platform-sdk';
 
 import { useAppSelector } from '../../store/hooks';
+import { LINKS } from '../consts';
+
 import './styles.scss';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 type CatalogCategoryProps = {
   category: Category;
@@ -12,9 +14,8 @@ type CatalogCategoryProps = {
 
 export const CatalogCategory: React.FC<CatalogCategoryProps> = ({ category }): JSX.Element => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const { localization } = useAppSelector((state) => state.settings);
-  const categoryUrl = `${pathname}/${category.slug[localization]}`;
+  const categoryUrl = `${LINKS.catalog}/${category.slug[localization]}`;
 
   const handleClickCategory = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
     event.preventDefault();
