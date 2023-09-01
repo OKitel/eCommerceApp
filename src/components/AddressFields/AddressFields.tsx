@@ -1,22 +1,32 @@
-import { Typography } from '@mui/material';
 import { Control, FieldValues } from 'react-hook-form';
 import { FormInputText } from '../form-components/FormInputText';
 import { FormInputDropdown } from '../form-components/FormInputDropdown';
 import { postcodeValidator } from 'postcode-validator';
 
 type Props = {
-  type: 'shipping' | 'billing';
+  fieldNameMap?: { [key: string]: string };
+  withName?: boolean;
   control: Control<FieldValues>;
   getValues: (country: string) => string;
 };
 
-export const AddressFields: React.FC<Props> = ({ type, control, getValues }: Props): React.ReactElement => {
+export const AddressFields: React.FC<Props> = ({
+  fieldNameMap,
+  withName,
+  control,
+  getValues,
+}: Props): React.ReactElement => {
+  if (!fieldNameMap) {
+    fieldNameMap = {
+      street: 'street',
+      city: 'city',
+      country: 'country',
+      postCode: 'postcode',
+    };
+  }
   return (
     <>
-      <Typography variant="h6" className="form-subtitle">
-        {`${type === 'shipping' ? 'Shipping' : 'Billing'} Address`}
-      </Typography>
-      {type === 'shipping' ? null : (
+      {withName && (
         <>
           <FormInputText
             name={'firstName'}
@@ -39,7 +49,7 @@ export const AddressFields: React.FC<Props> = ({ type, control, getValues }: Pro
         </>
       )}
       <FormInputText
-        name={type === 'shipping' ? 'street' : 'billingStreet'}
+        name={fieldNameMap.street}
         control={control}
         label={'Street'}
         rules={{
@@ -47,7 +57,7 @@ export const AddressFields: React.FC<Props> = ({ type, control, getValues }: Pro
         }}
       />
       <FormInputText
-        name={type === 'shipping' ? 'city' : 'billingCity'}
+        name={fieldNameMap.city}
         control={control}
         label={'City'}
         rules={{
@@ -56,20 +66,21 @@ export const AddressFields: React.FC<Props> = ({ type, control, getValues }: Pro
         }}
       />
       <FormInputDropdown
-        name={type === 'shipping' ? 'country' : 'billingCountry'}
+        name={fieldNameMap.country}
         control={control}
         label={'Country'}
         rules={{ required: 'Country is required' }}
       />
       <FormInputText
-        name={type === 'shipping' ? 'postcode' : 'billingPostcode'}
+        name={fieldNameMap.postCode}
         control={control}
         label={'Postcode'}
         type="text"
         rules={{
           required: 'Postcode is required',
           validate: (value): string | boolean => {
-            const country = getValues('country');
+            const countryField = fieldNameMap?.country ?? 'country';
+            const country = getValues(countryField);
             if (!country) return true;
             if (!postcodeValidator(value, country)) {
               return 'Invalid postcode for provided country';

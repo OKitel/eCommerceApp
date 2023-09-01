@@ -5,6 +5,7 @@ type TCustomerSliceProgress = {
   introspect: boolean;
   login: boolean;
   registration: boolean;
+  update: boolean;
 };
 
 export type TCustomerSliceState = {
@@ -40,6 +41,62 @@ export type RegistrationRequest = {
   defaultBillingAddress?: number;
   shippingAddresses: number[];
   billingAddresses: number[];
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
+
+export type PersonalInfoUpdateRequest = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  version: number;
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
+
+export type PasswordChangeRequest = {
+  id: string;
+  version: number;
+  currentPassword: string;
+  newPassword: string;
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
+
+export type DeleteAddressRequest = {
+  id: string;
+  addressId: string;
+  version: number;
+  type: 'shipping' | 'billing';
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
+
+export type AddNewAddressRequest = {
+  type: 'shipping' | 'billing' | 'both';
+  address: Address;
+  id: string;
+  version: number;
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
+
+export type SetDefaultAddressRequest = {
+  type: 'billing' | 'shipping';
+  addressId: string;
+  id: string;
+  version: number;
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
+
+export type ChangeAddressRequest = {
+  addressId: string;
+  address: Address;
+  id: string;
+  version: number;
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
