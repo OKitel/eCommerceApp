@@ -9,6 +9,7 @@ import { ProductVariantSelector } from './ProductVariantSelector';
 import { findPriceWithCurrencyCode } from '../../utils/productsUtils';
 
 import './styles.scss';
+import { useNavigate } from 'react-router-dom';
 
 type CatalogProductProps = {
   productProjection: ProductProjection;
@@ -18,10 +19,17 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(productProjection.masterVariant);
   const { localization, currency } = useAppSelector((state) => state.settings);
   const isButtonAddToCartDisabled = !findPriceWithCurrencyCode(selectedVariant.prices, currency);
+  const navigate = useNavigate();
+  const { id, slug } = productProjection;
+  const productUrl = `/product/${id}/${slug[localization]}`;
+
+  const handleProductClick = (): void => {
+    navigate(productUrl);
+  };
 
   return (
     <Card className="catalog-product">
-      <CardActionArea>
+      <CardActionArea onClick={handleProductClick}>
         <ProductImage productProjection={productProjection} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

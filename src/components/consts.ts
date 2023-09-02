@@ -5,10 +5,13 @@ export const LINKS = {
   cart: '/cart',
   catalog: '/catalog',
   profile: '/profile',
+  product: '/product',
 };
 
 export const URL_PARAMS = {
   categorySlug: 'categorySlug',
+  productSlug: 'productSlug',
+  productId: 'productId',
 };
 
 export const TEXT_CONTENT = {
