@@ -11,3 +11,8 @@ export type TSettings = {
   localization?: Localizations;
   currency?: Currencies;
 };
+
+export type TPageParams = {
+  name: string;
+  slug: string;
+};

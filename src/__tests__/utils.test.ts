@@ -1,6 +1,9 @@
 import { ErrorResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { isErrorResponse, isValidationErrorResponse } from '../api/utils';
 import { ValidationErrorResponse } from '../api/types';
+import { createBreadcrumbs } from '../components/Breadcrumbs/utils';
+import { categories } from '../__mocks__/categories';
+import { Localizations } from '../types';
 
 describe('isErrorResponse', () => {
   it('should return true for valid ErrorResponse', () => {
@@ -36,5 +39,17 @@ describe('isValidationErrorResponse', () => {
     const okResponse = { statusCode: 200 };
 
     expect(isValidationErrorResponse(okResponse)).toBe(false);
+  });
+});
+
+describe('createBreadcrumbs', () => {
+  it('should return proper breadcrumbs array', () => {
+    const pathnames = ['catalog', 'keyboards-grand-pianos'];
+    const breadcrumbs = createBreadcrumbs(pathnames, Localizations.En, categories);
+
+    expect(breadcrumbs.length).toBe(3);
+    expect(breadcrumbs[0].label).toBe('Catalog');
+    expect(breadcrumbs[1].label).toBe('Keyboards');
+    expect(breadcrumbs[2].label).toBe('Grand pianos');
   });
 });

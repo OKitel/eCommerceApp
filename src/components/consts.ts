@@ -1,3 +1,5 @@
+import { TPageParams } from '../types';
+
 export const LINKS = {
   main: '/',
   login: '/login',
@@ -13,6 +15,13 @@ export const URL_PARAMS = {
   productSlug: 'productSlug',
   productId: 'productId',
 };
+
+export const PAGE_PARAMS: TPageParams[] = [
+  {
+    name: 'Catalog',
+    slug: LINKS.catalog.split('/').filter((x) => x)[0],
+  },
+];
 
 export const TEXT_CONTENT = {
   products: {

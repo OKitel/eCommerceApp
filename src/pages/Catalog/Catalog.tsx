@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getCategories } from '../../slices/categories/slice';
+import { ChipBreadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { CatalogCategory } from '../../components/CatalogCategory/CatalogCategory';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 
@@ -36,6 +37,9 @@ export const Catalog: React.FC = (): JSX.Element => {
 
   return (
     <Container>
+      <Box marginY={3}>
+        <ChipBreadcrumbs />
+      </Box>
       <Typography variant="h1" gutterBottom>
         Catalog
       </Typography>
