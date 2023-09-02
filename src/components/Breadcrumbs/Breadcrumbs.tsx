@@ -10,7 +10,8 @@ import { createBreadcrumbs } from './utils';
 import './styles.scss';
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
-  const backgroundColor = theme.palette.mode === 'light' ? theme.palette.grey[200] : theme.palette.grey[800];
+  const backgroundColor =
+    theme.palette.mode === 'light' ? theme.palette.secondary.contrastText : theme.palette.grey[800];
   return {
     backgroundColor,
     height: theme.spacing(4),
