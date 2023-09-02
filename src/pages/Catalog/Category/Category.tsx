@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { getCategories } from '../../../slices/categories/slice';
+import { ChipBreadcrumbs } from '../../../components/Breadcrumbs/Breadcrumbs';
 import { ProgressLoader } from '../../../components/ProgressLoader/ProgressLoader';
 import { CategoryContent } from '../../../components/CategoryContent/CategoryContent';
 import { URL_PARAMS } from '../../../components/consts';
@@ -34,6 +35,9 @@ export const Category: React.FC = (): JSX.Element => {
   if (!currentCategory) {
     return (
       <Container>
+        <Box marginY={3}>
+          <ChipBreadcrumbs />
+        </Box>
         <Typography variant="h1" gutterBottom>
           No category found
         </Typography>
@@ -43,6 +47,9 @@ export const Category: React.FC = (): JSX.Element => {
 
   return (
     <Container>
+      <Box marginY={3}>
+        <ChipBreadcrumbs />
+      </Box>
       <Typography variant="h1" gutterBottom>
         {currentCategory.name[localization]}
       </Typography>
