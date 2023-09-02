@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { searchProductProjections } from '../../slices/productProjections/slice';
 import { getMainProductType } from '../../slices/productTypes/slice';
 import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
+import { ProductFilterMain } from './ProductFilterMain';
 import { CatalogProduct } from '../CatalogProduct/CatalogProduct';
 
 import './styles.scss';
@@ -39,6 +40,7 @@ export const ContentProducts: React.FC<Props> = ({ categoryId }): JSX.Element =>
 
   return (
     <Box className="content-products">
+      <ProductFilterMain />
       <Box className="product-cards">
         {productProjections.map((productProjection) => (
           <CatalogProduct key={productProjection.id} productProjection={productProjection} />
