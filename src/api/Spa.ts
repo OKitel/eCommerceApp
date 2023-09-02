@@ -4,6 +4,7 @@ import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/sr
 import {
   CategoryPagedQueryResponse,
   CustomerSignInResult,
+  Product,
   ProductProjectionPagedQueryResponse,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { retry } from './utils';
@@ -37,6 +38,15 @@ class SpaApi {
           .categories()
           .get({ queryArgs: { limit: 40 } })
           .execute(),
+      TokenStoreTypes.SpaApiTokenStore,
+    );
+
+    return res;
+  }
+
+  public async getProduct(ID: string): Promise<ClientResponse<Product>> {
+    const res = await retry<ClientResponse<Product>>(
+      () => spaApiRoot.products().withId({ ID }).get().execute(),
       TokenStoreTypes.SpaApiTokenStore,
     );
 

@@ -19,7 +19,7 @@ import { Registration } from '../pages/Registration/Registration';
 import { Profile } from '../pages/Profile/Profile';
 
 import { LINKS, URL_PARAMS } from './consts';
-import { Product } from '../pages/Catalog/Category/Product/Product';
+import { ProductPage } from '../pages/Product/ProductPage';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -46,8 +46,8 @@ export const App: React.FC = (): JSX.Element => {
         </Route>
         <Route path={LINKS.product}>
           <Route path={`:${URL_PARAMS.productId}`}>
-            <Route index element={<Product />}></Route>
-            <Route path={`:${URL_PARAMS.productSlug}`} element={<Product />}></Route>
+            <Route index element={<ProductPage />}></Route>
+            <Route path={`:${URL_PARAMS.productSlug}`} element={<ProductPage />}></Route>
           </Route>
         </Route>
         <Route path={LINKS.profile} element={<Profile />}></Route>
