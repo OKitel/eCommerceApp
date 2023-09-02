@@ -38,10 +38,12 @@ export const ContentProducts: React.FC<Props> = ({ categoryId }): JSX.Element =>
   }
 
   return (
-    <Box className="category-content">
-      {productProjections.map((productProjection) => (
-        <CatalogProduct key={productProjection.id} productProjection={productProjection} />
-      ))}
+    <Box className="content-products">
+      <Box className="product-cards">
+        {productProjections.map((productProjection) => (
+          <CatalogProduct key={productProjection.id} productProjection={productProjection} />
+        ))}
+      </Box>
     </Box>
   );
 };

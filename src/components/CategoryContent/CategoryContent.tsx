@@ -23,7 +23,7 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ category }): J
 
   if (subcategories) {
     return (
-      <Box className="category-content">
+      <Box className="category-cards">
         {subcategories.map((subcategory) => (
           <CatalogCategory key={subcategory.id} category={subcategory} />
         ))}
