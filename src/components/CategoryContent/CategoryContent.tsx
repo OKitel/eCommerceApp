@@ -11,7 +11,7 @@ type CategoryContentProps = {
   category: Category;
 };
 
-export const CategoryContent: React.FC<CategoryContentProps> = ({ category }): JSX.Element | JSX.Element[] => {
+export const CategoryContent: React.FC<CategoryContentProps> = ({ category }): JSX.Element => {
   const { categories } = useAppSelector((state) => state.categories);
 
   const subcategories = categories?.filter((subcategory) => subcategory.parent?.id === category.id);
