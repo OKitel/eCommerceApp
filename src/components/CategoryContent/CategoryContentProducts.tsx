@@ -6,9 +6,11 @@ import { searchProductProjections } from '../../slices/productProjections/slice'
 import { getMainProductType } from '../../slices/productTypes/slice';
 import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
 import { ProductFilterMain } from './ProductFilterMain/ProductFilterMain';
+import { ProductSorting } from './ProductSorting/ProductSorting';
 import { CatalogProduct } from '../CatalogProduct/CatalogProduct';
 import { getFilterSearchQueryArg } from './ProductFilterMain/utils';
-import { TFilterAttributes } from './types';
+import { getSortingSearchQueryArg } from './ProductSorting/utils';
+import { TFilterAttributes, TSortingParams } from './types';
 
 import './styles.scss';
 
@@ -31,21 +33,28 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
   }, [dispatch, mainProductType]);
 
   const [filter, setFilter] = useState<TFilterAttributes>({});
+  const [sorting, setSorting] = useState<TSortingParams>({});
 
   const applyFilters = (filterAttributes: TFilterAttributes): void => {
     setFilter(filterAttributes);
   };
 
+  const applySorting = (sortingParams: TSortingParams): void => {
+    setSorting(sortingParams);
+  };
+
   useEffect(() => {
     const filterQueryArgArray = getFilterSearchQueryArg(filter);
+    const sortArg = getSortingSearchQueryArg(sorting);
 
     dispatch(
       searchProductProjections({
         filter: [`categories.id:"${categoryId}"`, ...filterQueryArgArray],
+        sort: sortArg,
         priceCurrency: currency,
       }),
     );
-  }, [categoryId, currency, dispatch, filter]);
+  }, [categoryId, currency, dispatch, filter, sorting]);
 
   const renderProductCards = (): React.ReactElement | React.ReactElement[] => {
     if (progress) {
@@ -68,7 +77,10 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
   return (
     <Box className="category-content-products">
       <ProductFilterMain applyFilters={applyFilters} />
-      <Box className="content-products">{renderProductCards()}</Box>
+      <Box className="content-products">
+        <ProductSorting applySorting={applySorting} />
+        {renderProductCards()}
+      </Box>
     </Box>
   );
 };
