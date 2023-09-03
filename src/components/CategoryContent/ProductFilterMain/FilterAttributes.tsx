@@ -22,6 +22,7 @@ import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import { AttributeBooleanType, AttributeDefinition, AttributeLocalizedEnumType } from '@commercetools/platform-sdk';
 
 import { useAppSelector } from '../../../store/hooks';
+import { getDefaultFilterAttributes } from './utils';
 import { AttributeDefinitionWithType, TFilterAttributes } from './types';
 
 import './styles.scss';
@@ -32,7 +33,11 @@ type Props = {
 
 export const FilterAttributes: React.FC<Props> = ({ attributes }): JSX.Element => {
   const { localization, currency } = useAppSelector((state) => state.settings);
-  const [filterAttributes, setFilterAttributes] = useState<TFilterAttributes>({});
+  const defaultFilterAttributes = getDefaultFilterAttributes(attributes);
+
+  const [filterAttributes, setFilterAttributes] = useState<TFilterAttributes>(defaultFilterAttributes);
+  const [appliedFilter, setAppliedFilter] = useState<TFilterAttributes>(defaultFilterAttributes);
+
   const attributesLenum: AttributeDefinitionWithType<AttributeLocalizedEnumType>[] = [];
   const attributesBoolean: AttributeDefinitionWithType<AttributeBooleanType>[] = [];
 
@@ -195,15 +200,23 @@ export const FilterAttributes: React.FC<Props> = ({ attributes }): JSX.Element =
       <Button
         fullWidth
         variant="outlined"
-        disabled={Object.values(filterAttributes).every((value) => value === undefined)}
-        onClick={(): void => setFilterAttributes({})}
+        disabled={Object.keys({ ...defaultFilterAttributes, ...appliedFilter }).every(
+          (key) => defaultFilterAttributes[key] === appliedFilter[key],
+        )}
+        onClick={(): void => {
+          setFilterAttributes(defaultFilterAttributes);
+          setAppliedFilter(defaultFilterAttributes);
+        }}
       >
-        Reset all filters
+        Reset applied filters
       </Button>
       <Button
         fullWidth
         variant="contained"
-        disabled={Object.values(filterAttributes).every((value) => value === undefined)}
+        disabled={Object.keys({ ...filterAttributes, ...appliedFilter }).every(
+          (key) => filterAttributes[key] === appliedFilter[key],
+        )}
+        onClick={(): void => setAppliedFilter(filterAttributes)}
       >
         Apply filters
       </Button>
