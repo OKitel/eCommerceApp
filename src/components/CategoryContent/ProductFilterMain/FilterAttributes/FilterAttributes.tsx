@@ -2,28 +2,23 @@ import { useState } from 'react';
 import { Button, Divider, SelectChangeEvent, Stack, Typography } from '@mui/material';
 import { AttributeBooleanType, AttributeDefinition, AttributeLocalizedEnumType } from '@commercetools/platform-sdk';
 
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { searchProductProjections } from '../../../../slices/productProjections/slice';
-import { getDefaultFilterAttributes, getFilterSearchQueryArg } from '../utils';
-import { ATTRIBUTE_NAME_LOWER_PRICE_BOUND, ATTRIBUTE_NAME_UPPER_PRICE_BOUND } from './consts';
-import { AttributeDefinitionWithType, TFilterAttributes } from '../types';
 import { LenumFilterAttributes } from './LenumFilterAttributes';
 import { PriceFilterAttributes } from './PriceFilterAttributes';
 import { BooleanFilterAttributes } from './BooleanFilterAttributes';
+import { getDefaultFilterAttributes } from '../utils';
+import { TFilterAttributes } from '../../types';
+import { AttributeDefinitionWithType } from '../types';
 
 type Props = {
   attributes: AttributeDefinition[];
-  categoryId: string;
+  applyFilters: (filterAttributes: TFilterAttributes) => void;
 };
 
-export const FilterAttributes: React.FC<Props> = ({ attributes, categoryId }): JSX.Element => {
-  const dispatch = useAppDispatch();
-  const { currency } = useAppSelector((state) => state.settings);
+export const FilterAttributes: React.FC<Props> = ({ attributes, applyFilters }): JSX.Element => {
   const defaultFilterAttributes = getDefaultFilterAttributes(attributes);
 
   const [filterAttributes, setFilterAttributes] = useState<TFilterAttributes>(defaultFilterAttributes);
   const [appliedFilter, setAppliedFilter] = useState<TFilterAttributes>(defaultFilterAttributes);
-  const [appliedFilterCurrency, setAppliedFilterCurrency] = useState(currency);
 
   const lenumAttributes: AttributeDefinitionWithType<AttributeLocalizedEnumType>[] = [];
   const booleanAttributes: AttributeDefinitionWithType<AttributeBooleanType>[] = [];
@@ -43,13 +38,9 @@ export const FilterAttributes: React.FC<Props> = ({ attributes, categoryId }): J
   const isFilterAttributesChanged = !Object.keys({ ...filterAttributes, ...appliedFilter }).every(
     (key) => filterAttributes[key] === appliedFilter[key],
   );
-  const isPriceFilterAttributeFilledIn =
-    !!filterAttributes[ATTRIBUTE_NAME_LOWER_PRICE_BOUND] || !!filterAttributes[ATTRIBUTE_NAME_UPPER_PRICE_BOUND];
-  const isCurrencySwitched = currency !== appliedFilterCurrency;
 
   const isButtonResetAppliedFiltersDisabled = !isFiltersApplied;
-  const isButtonApplyFiltersDisabled =
-    !isFilterAttributesChanged && !(isPriceFilterAttributeFilledIn && isCurrencySwitched);
+  const isButtonApplyFiltersDisabled = !isFilterAttributesChanged;
 
   const handleChangeFilterSelectAttribute = (event: SelectChangeEvent): void => {
     const { name, value } = event.target;
@@ -60,19 +51,14 @@ export const FilterAttributes: React.FC<Props> = ({ attributes, categoryId }): J
   const handleClickResetAppliedFilters = (): void => {
     setFilterAttributes(defaultFilterAttributes);
     setAppliedFilter(defaultFilterAttributes);
-    setAppliedFilterCurrency(currency);
 
-    dispatch(searchProductProjections({ filter: `categories.id:"${categoryId}"` }));
+    applyFilters({});
   };
 
   const handleClickApplyFilters = (): void => {
-    const filterQueryArgArray = getFilterSearchQueryArg(filterAttributes);
-    filterQueryArgArray.push(`categories.id:"${categoryId}"`);
-
     setAppliedFilter(filterAttributes);
-    setAppliedFilterCurrency(currency);
 
-    dispatch(searchProductProjections({ filter: filterQueryArgArray, priceCurrency: currency }));
+    applyFilters(filterAttributes);
   };
 
   const resetFilterAttribute = (attributeName: string): void => {

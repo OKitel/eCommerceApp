@@ -8,7 +8,7 @@ import {
   REGEXP_NUMERIC_ONLY,
   REGEXP_PRICE,
 } from './consts';
-import { TFilterAttributes } from '../types';
+import { TFilterAttributes } from '../../types';
 import { TPriceAttribute } from './types';
 
 type Props = {

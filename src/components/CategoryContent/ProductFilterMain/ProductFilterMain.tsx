@@ -5,14 +5,15 @@ import { FilterAttributes } from './FilterAttributes/FilterAttributes';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { getMainProductType } from '../../../slices/productTypes/slice';
 import { ProgressLoader } from '../../ProgressLoader/ProgressLoader';
+import { TFilterAttributes } from '../types';
 
 import './styles.scss';
 
 type Props = {
-  categoryId: string;
+  applyFilters: (filterAttributes: TFilterAttributes) => void;
 };
 
-export const ProductFilterMain: React.FC<Props> = ({ categoryId }): JSX.Element => {
+export const ProductFilterMain: React.FC<Props> = ({ applyFilters }): JSX.Element => {
   const dispatch = useAppDispatch();
   const {
     types: { main: mainProductType },
@@ -40,7 +41,7 @@ export const ProductFilterMain: React.FC<Props> = ({ categoryId }): JSX.Element 
       return <Box className="product-filter">No filters attributes available</Box>;
     }
 
-    return <FilterAttributes attributes={attributes} categoryId={categoryId} />;
+    return <FilterAttributes attributes={attributes} applyFilters={applyFilters} />;
   };
 
   return (
