@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { searchProductProjections } from '../../slices/productProjections/slice';
 import { getMainProductType } from '../../slices/productTypes/slice';
 import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
-import { ProductFilterMain } from './ProductFilterMain/ProductFilterMain';
 import { CatalogProduct } from '../CatalogProduct/CatalogProduct';
 
 import './styles.scss';
@@ -34,18 +33,15 @@ export const ContentProducts: React.FC<Props> = ({ categoryId }): JSX.Element =>
     return <ProgressLoader />;
   }
 
-  if (!productProjections) {
-    return <div>No products</div>;
+  if (!productProjections || (productProjections && !productProjections.length)) {
+    return <Typography variant="h5">No products found</Typography>;
   }
 
   return (
-    <Box className="content-products">
-      <ProductFilterMain />
-      <Box className="product-cards">
-        {productProjections.map((productProjection) => (
-          <CatalogProduct key={productProjection.id} productProjection={productProjection} />
-        ))}
-      </Box>
+    <Box className="product-cards">
+      {productProjections.map((productProjection) => (
+        <CatalogProduct key={productProjection.id} productProjection={productProjection} />
+      ))}
     </Box>
   );
 };

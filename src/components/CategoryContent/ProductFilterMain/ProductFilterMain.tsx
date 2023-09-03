@@ -6,7 +6,11 @@ import { ProgressLoader } from '../../ProgressLoader/ProgressLoader';
 
 import './styles.scss';
 
-export const ProductFilterMain: React.FC = (): JSX.Element => {
+type Props = {
+  categoryId: string;
+};
+
+export const ProductFilterMain: React.FC<Props> = ({ categoryId }): JSX.Element => {
   const {
     types: { main: mainProductType },
     progress,
@@ -27,7 +31,7 @@ export const ProductFilterMain: React.FC = (): JSX.Element => {
       return <Box className="product-filter">No filters attributes available</Box>;
     }
 
-    return <FilterAttributes attributes={attributes} />;
+    return <FilterAttributes attributes={attributes} categoryId={categoryId} />;
   };
 
   return (

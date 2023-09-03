@@ -21,17 +21,20 @@ import MusicNoteOutlinedIcon from '@mui/icons-material/MusicNoteOutlined';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import { AttributeBooleanType, AttributeDefinition, AttributeLocalizedEnumType } from '@commercetools/platform-sdk';
 
-import { useAppSelector } from '../../../store/hooks';
-import { getDefaultFilterAttributes } from './utils';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { searchProductProjections } from '../../../slices/productProjections/slice';
+import { getDefaultFilterAttributes, getFilterSearchQueryArg } from './utils';
 import { AttributeDefinitionWithType, TFilterAttributes } from './types';
 
 import './styles.scss';
 
 type Props = {
   attributes: AttributeDefinition[];
+  categoryId: string;
 };
 
-export const FilterAttributes: React.FC<Props> = ({ attributes }): JSX.Element => {
+export const FilterAttributes: React.FC<Props> = ({ attributes, categoryId }): JSX.Element => {
+  const dispatch = useAppDispatch();
   const { localization, currency } = useAppSelector((state) => state.settings);
   const defaultFilterAttributes = getDefaultFilterAttributes(attributes);
 
@@ -118,7 +121,7 @@ export const FilterAttributes: React.FC<Props> = ({ attributes }): JSX.Element =
                 if (filterAttributes.priceTo && Number(event.target.value) > Number(filterAttributes.priceTo)) {
                   setFilterAttributes({ ...filterAttributes, priceFrom: filterAttributes.priceTo });
                 } else {
-                  setFilterAttributes({ ...filterAttributes, priceFrom: event.target.value });
+                  setFilterAttributes({ ...filterAttributes, priceFrom: Number(event.target.value) });
                 }
               }
             }}
@@ -157,7 +160,7 @@ export const FilterAttributes: React.FC<Props> = ({ attributes }): JSX.Element =
                 if (filterAttributes.priceFrom && Number(event.target.value) < Number(filterAttributes.priceFrom)) {
                   setFilterAttributes({ ...filterAttributes, priceTo: filterAttributes.priceFrom });
                 } else {
-                  setFilterAttributes({ ...filterAttributes, priceTo: event.target.value || undefined });
+                  setFilterAttributes({ ...filterAttributes, priceTo: Number(event.target.value) });
                 }
               }
             }}
@@ -206,6 +209,8 @@ export const FilterAttributes: React.FC<Props> = ({ attributes }): JSX.Element =
         onClick={(): void => {
           setFilterAttributes(defaultFilterAttributes);
           setAppliedFilter(defaultFilterAttributes);
+
+          dispatch(searchProductProjections({ filter: `categories.id:"${categoryId}"` }));
         }}
       >
         Reset applied filters
@@ -216,7 +221,13 @@ export const FilterAttributes: React.FC<Props> = ({ attributes }): JSX.Element =
         disabled={Object.keys({ ...filterAttributes, ...appliedFilter }).every(
           (key) => filterAttributes[key] === appliedFilter[key],
         )}
-        onClick={(): void => setAppliedFilter(filterAttributes)}
+        onClick={(): void => {
+          setAppliedFilter(filterAttributes);
+          const filterQueryArgArray = getFilterSearchQueryArg(filterAttributes);
+          filterQueryArgArray.push(`categories.id:"${categoryId}"`);
+
+          dispatch(searchProductProjections({ filter: filterQueryArgArray, priceCurrency: currency }));
+        }}
       >
         Apply filters
       </Button>
