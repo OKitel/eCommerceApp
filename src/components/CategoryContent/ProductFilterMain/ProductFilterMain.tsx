@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import { FilterAttributes } from './FilterAttributes';
+import { FilterAttributes } from './FilterAttributes/FilterAttributes';
 
 import { useAppSelector } from '../../../store/hooks';
 import { ProgressLoader } from '../../ProgressLoader/ProgressLoader';

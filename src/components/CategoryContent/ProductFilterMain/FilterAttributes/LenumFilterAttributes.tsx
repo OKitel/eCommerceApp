@@ -2,8 +2,8 @@ import { FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEven
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { AttributeLocalizedEnumType } from '@commercetools/platform-sdk';
 
-import { useAppSelector } from '../../../store/hooks';
-import { AttributeDefinitionWithType, TFilterAttributes } from './types';
+import { useAppSelector } from '../../../../store/hooks';
+import { AttributeDefinitionWithType, TFilterAttributes } from '../types';
 
 type Props = {
   attributes: AttributeDefinitionWithType<AttributeLocalizedEnumType>[];

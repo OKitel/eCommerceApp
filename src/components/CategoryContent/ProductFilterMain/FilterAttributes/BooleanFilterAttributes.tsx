@@ -3,8 +3,8 @@ import MusicNoteOutlinedIcon from '@mui/icons-material/MusicNoteOutlined';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import { AttributeBooleanType } from '@commercetools/platform-sdk';
 
-import { useAppSelector } from '../../../store/hooks';
-import { AttributeDefinitionWithType, TFilterAttributes } from './types';
+import { useAppSelector } from '../../../../store/hooks';
+import { AttributeDefinitionWithType, TFilterAttributes } from '../types';
 
 type Props = {
   attributes: AttributeDefinitionWithType<AttributeBooleanType>[];

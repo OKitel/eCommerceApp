@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Button, Divider, SelectChangeEvent, Stack, Typography } from '@mui/material';
 import { AttributeBooleanType, AttributeDefinition, AttributeLocalizedEnumType } from '@commercetools/platform-sdk';
 
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { searchProductProjections } from '../../../slices/productProjections/slice';
-import { getDefaultFilterAttributes, getFilterSearchQueryArg } from './utils';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { searchProductProjections } from '../../../../slices/productProjections/slice';
+import { getDefaultFilterAttributes, getFilterSearchQueryArg } from '../utils';
 import { ATTRIBUTE_NAME_LOWER_PRICE_BOUND, ATTRIBUTE_NAME_UPPER_PRICE_BOUND } from './consts';
-import { AttributeDefinitionWithType, TFilterAttributes } from './types';
+import { AttributeDefinitionWithType, TFilterAttributes } from '../types';
 import { LenumFilterAttributes } from './LenumFilterAttributes';
 import { PriceFilterAttributes } from './PriceFilterAttributes';
 import { BooleanFilterAttributes } from './BooleanFilterAttributes';

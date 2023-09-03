@@ -1,14 +1,15 @@
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
-import { useAppSelector } from '../../../store/hooks';
+import { useAppSelector } from '../../../../store/hooks';
 import {
   ATTRIBUTE_NAME_LOWER_PRICE_BOUND,
   ATTRIBUTE_NAME_UPPER_PRICE_BOUND,
   REGEXP_NUMERIC_ONLY,
   REGEXP_PRICE,
 } from './consts';
-import { TFilterAttributes, TPriceAttribute } from './types';
+import { TFilterAttributes } from '../types';
+import { TPriceAttribute } from './types';
 
 type Props = {
   filterAttributes: TFilterAttributes;

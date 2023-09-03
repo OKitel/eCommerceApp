@@ -4,7 +4,7 @@ import {
   ATTRIBUTE_NAME_LOWER_PRICE_BOUND,
   ATTRIBUTE_NAME_UPPER_PRICE_BOUND,
   IGNORED_PRICE_FILTER_VALUE,
-} from './consts';
+} from './FilterAttributes/consts';
 
 export function getDefaultFilterAttributes(attributes: AttributeDefinition[]): TFilterAttributes {
   const filterAttributes: TFilterAttributes = {};
