@@ -119,11 +119,7 @@ export const FilterAttributes: React.FC<Props> = ({ attributes, categoryId }): J
               if (event.target.value === '') {
                 setFilterAttributes({ ...filterAttributes, priceFrom: undefined });
               } else if (regex.test(event.target.value)) {
-                if (filterAttributes.priceTo && Number(event.target.value) > Number(filterAttributes.priceTo)) {
-                  setFilterAttributes({ ...filterAttributes, priceFrom: filterAttributes.priceTo });
-                } else {
-                  setFilterAttributes({ ...filterAttributes, priceFrom: Number(event.target.value) });
-                }
+                setFilterAttributes({ ...filterAttributes, priceFrom: Number(event.target.value) });
               }
             }}
           />
@@ -158,11 +154,7 @@ export const FilterAttributes: React.FC<Props> = ({ attributes, categoryId }): J
               if (event.target.value === '') {
                 setFilterAttributes({ ...filterAttributes, priceTo: undefined });
               } else if (regex.test(event.target.value)) {
-                if (filterAttributes.priceFrom && Number(event.target.value) < Number(filterAttributes.priceFrom)) {
-                  setFilterAttributes({ ...filterAttributes, priceTo: filterAttributes.priceFrom });
-                } else {
-                  setFilterAttributes({ ...filterAttributes, priceTo: Number(event.target.value) });
-                }
+                setFilterAttributes({ ...filterAttributes, priceTo: Number(event.target.value) });
               }
             }}
           />
