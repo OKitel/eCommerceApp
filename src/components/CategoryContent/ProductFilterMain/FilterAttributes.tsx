@@ -40,6 +40,7 @@ export const FilterAttributes: React.FC<Props> = ({ attributes, categoryId }): J
 
   const [filterAttributes, setFilterAttributes] = useState<TFilterAttributes>(defaultFilterAttributes);
   const [appliedFilter, setAppliedFilter] = useState<TFilterAttributes>(defaultFilterAttributes);
+  const [appliedFilterCurrency, setAppliedFilterCurrency] = useState(currency);
 
   const attributesLenum: AttributeDefinitionWithType<AttributeLocalizedEnumType>[] = [];
   const attributesBoolean: AttributeDefinitionWithType<AttributeBooleanType>[] = [];
@@ -209,6 +210,7 @@ export const FilterAttributes: React.FC<Props> = ({ attributes, categoryId }): J
         onClick={(): void => {
           setFilterAttributes(defaultFilterAttributes);
           setAppliedFilter(defaultFilterAttributes);
+          setAppliedFilterCurrency(currency);
 
           dispatch(searchProductProjections({ filter: `categories.id:"${categoryId}"` }));
         }}
@@ -218,11 +220,18 @@ export const FilterAttributes: React.FC<Props> = ({ attributes, categoryId }): J
       <Button
         fullWidth
         variant="contained"
-        disabled={Object.keys({ ...filterAttributes, ...appliedFilter }).every(
-          (key) => filterAttributes[key] === appliedFilter[key],
-        )}
+        disabled={
+          Object.keys({ ...filterAttributes, ...appliedFilter }).every(
+            (key) => filterAttributes[key] === appliedFilter[key],
+          ) &&
+          !(
+            (Boolean(filterAttributes.priceFrom) || Boolean(filterAttributes.priceTo)) &&
+            currency !== appliedFilterCurrency
+          )
+        }
         onClick={(): void => {
           setAppliedFilter(filterAttributes);
+          setAppliedFilterCurrency(currency);
           const filterQueryArgArray = getFilterSearchQueryArg(filterAttributes);
           filterQueryArgArray.push(`categories.id:"${categoryId}"`);
 
