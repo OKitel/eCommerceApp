@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { searchProductProjections } from '../../slices/productProjections/slice';
 import { getMainProductType } from '../../slices/productTypes/slice';
 import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
+import { ProductFilterMain } from './ProductFilterMain/ProductFilterMain';
 import { CatalogProduct } from '../CatalogProduct/CatalogProduct';
 
 import './styles.scss';
@@ -13,7 +14,7 @@ type Props = {
   categoryId: string;
 };
 
-export const ContentProducts: React.FC<Props> = ({ categoryId }): JSX.Element => {
+export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const { productProjections, progress } = useAppSelector((state) => state.productProjections);
@@ -38,10 +39,13 @@ export const ContentProducts: React.FC<Props> = ({ categoryId }): JSX.Element =>
   }
 
   return (
-    <Box className="product-cards">
-      {productProjections.map((productProjection) => (
-        <CatalogProduct key={productProjection.id} productProjection={productProjection} />
-      ))}
+    <Box className="category-content-products">
+      <ProductFilterMain categoryId={categoryId} />
+      <Box className="product-cards">
+        {productProjections.map((productProjection) => (
+          <CatalogProduct key={productProjection.id} productProjection={productProjection} />
+        ))}
+      </Box>
     </Box>
   );
 };
