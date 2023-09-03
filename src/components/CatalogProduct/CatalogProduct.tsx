@@ -26,6 +26,7 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
   const handleProductClick = (): void => {
     navigate(productUrl);
   };
+  const allVariants = [productProjection.masterVariant, ...productProjection.variants];
 
   return (
     <Card className="catalog-product">
@@ -40,7 +41,7 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
       <CardContent className="catalog-product__controls">
         <Stack spacing={2} my={2}>
           <ProductVariantSelector
-            productProjection={productProjection}
+            allVariants={allVariants}
             selectedVariant={selectedVariant}
             setSelectedVariant={setSelectedVariant}
           />
