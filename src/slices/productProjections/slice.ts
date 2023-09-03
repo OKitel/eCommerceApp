@@ -30,7 +30,7 @@ export const searchProductProjections = createAsyncThunk(
 );
 
 const categoriesSlice = createSlice({
-  name: 'categories',
+  name: 'productProjections',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
