@@ -84,7 +84,7 @@
 
 #main-swiper_image {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 30rem;
   width: auto;
   height: auto;
   padding: 3rem;
@@ -92,7 +92,14 @@
 
 #thumbs-swiper_image {
   max-width: 60%;
-  max-height: 100%;
+  max-height: 5rem;
   width: auto;
   height: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .swiper-container {
+    max-width: 100%;
+    max-height: 50rem;
+  }
 }
