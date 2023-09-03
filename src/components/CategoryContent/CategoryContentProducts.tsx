@@ -3,6 +3,7 @@ import { Box, Typography } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { searchProductProjections } from '../../slices/productProjections/slice';
+import { getMainProductType } from '../../slices/productTypes/slice';
 import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
 import { ProductFilterMain } from './ProductFilterMain/ProductFilterMain';
 import { CatalogProduct } from '../CatalogProduct/CatalogProduct';
@@ -18,7 +19,16 @@ type Props = {
 export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.Element => {
   const dispatch = useAppDispatch();
   const { currency } = useAppSelector((state) => state.settings);
+  const {
+    types: { main: mainProductType },
+  } = useAppSelector((state) => state.productTypes);
   const { productProjections, progress } = useAppSelector((state) => state.productProjections);
+
+  useEffect(() => {
+    if (!mainProductType) {
+      dispatch(getMainProductType());
+    }
+  }, [dispatch, mainProductType]);
 
   const [filter, setFilter] = useState<TFilterAttributes>({});
 
@@ -58,7 +68,7 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
   return (
     <Box className="category-content-products">
       <ProductFilterMain applyFilters={applyFilters} />
-      {renderProductCards()}
+      <Box className="content-products">{renderProductCards()}</Box>
     </Box>
   );
 };

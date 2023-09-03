@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import { FilterAttributes } from './FilterAttributes/FilterAttributes';
 
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { getMainProductType } from '../../../slices/productTypes/slice';
+import { useAppSelector } from '../../../store/hooks';
 import { ProgressLoader } from '../../ProgressLoader/ProgressLoader';
 import { TFilterAttributes } from '../types';
 
@@ -14,17 +12,10 @@ type Props = {
 };
 
 export const ProductFilterMain: React.FC<Props> = ({ applyFilters }): JSX.Element => {
-  const dispatch = useAppDispatch();
   const {
     types: { main: mainProductType },
     progress,
   } = useAppSelector((state) => state.productTypes);
-
-  useEffect(() => {
-    if (!mainProductType) {
-      dispatch(getMainProductType());
-    }
-  }, [dispatch, mainProductType]);
 
   if (progress) {
     return <ProgressLoader />;
