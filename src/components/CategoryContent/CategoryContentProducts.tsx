@@ -30,12 +30,6 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
   const { productProjections, pageInfo, progress } = useAppSelector((state) => state.productProjections);
   const pageLimit = pageInfo ? pageInfo.limit : LIST_PAGE_LIMIT_DEFAULT;
 
-  useEffect(() => {
-    if (!mainProductType) {
-      dispatch(getMainProductType());
-    }
-  }, [dispatch, mainProductType]);
-
   const [filterAttributes, setFilterAttributes] = useState<TFilterAttributes>({});
   const [sortingParams, setSortingParams] = useState<TSortingParams>({});
 
@@ -59,6 +53,12 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
   );
 
   useEffect(() => {
+    if (!mainProductType) {
+      dispatch(getMainProductType());
+    }
+  }, [dispatch, mainProductType]);
+
+  useEffect(() => {
     searchProducts();
   }, [searchProducts]);
 
@@ -72,6 +72,18 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
 
   const changePage = (pageNumber: number): void => {
     searchProducts(pageNumber);
+  };
+
+  const renderProductCountInfo = (): React.ReactElement | null => {
+    if (progress || !pageInfo || (pageInfo && !pageInfo.total)) {
+      return null;
+    }
+
+    const { count, offset, total } = pageInfo;
+    const firstProductNumber = offset + 1;
+    const lastProductNumber = offset + count;
+
+    return <Typography variant="h5">{`Products ${firstProductNumber}-${lastProductNumber} of ${total}`}</Typography>;
   };
 
   const renderProductCards = (): React.ReactElement | React.ReactElement[] => {
@@ -97,6 +109,7 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
       <ProductFilterMain applyFilters={applyFilters} />
       <Box className="content-products">
         <ProductSorting applySorting={applySorting} />
+        {renderProductCountInfo()}
         {renderProductCards()}
         <ProductPagination changePage={changePage} />
       </Box>
