@@ -11,7 +11,7 @@ type Props = {
 export const ProductPagination: React.FC<Props> = ({ changePage }): JSX.Element | null => {
   const { pageInfo, progress } = useAppSelector((state) => state.productProjections);
 
-  if (!pageInfo) {
+  if (!pageInfo || (pageInfo && !pageInfo.total)) {
     return null;
   }
 
