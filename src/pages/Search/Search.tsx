@@ -1,7 +1,7 @@
 import { Container, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 
-import { CategoryContentProducts } from '../../components/CategoryContent/CategoryContentProducts';
+import { ProductsList } from '../../components/CategoryContent/ProductsList';
 import { SEARCH_QUERY_PARAM } from '../../consts';
 
 export const Search: React.FC = (): JSX.Element => {
@@ -14,7 +14,7 @@ export const Search: React.FC = (): JSX.Element => {
       <Typography mt={3} variant="h1" gutterBottom>
         Search results for "{searchQueryString || ''}"
       </Typography>
-      <CategoryContentProducts textSearch={searchQueryString} />
+      <ProductsList textSearch={searchQueryString} />
     </Container>
   );
 };

@@ -3,7 +3,7 @@ import { Category } from '@commercetools/platform-sdk';
 
 import { useAppSelector } from '../../store/hooks';
 import { CatalogCategory } from '../CatalogCategory/CatalogCategory';
-import { CategoryContentProducts } from './CategoryContentProducts';
+import { ProductsList } from './ProductsList';
 
 import './styles.scss';
 
@@ -18,7 +18,7 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ category }): J
   const isSubcategory = category && !subcategories?.length;
 
   if (isSubcategory) {
-    return <CategoryContentProducts categoryId={category.id} />;
+    return <ProductsList categoryId={category.id} />;
   }
 
   if (subcategories) {
