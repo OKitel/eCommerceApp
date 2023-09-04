@@ -8,6 +8,7 @@ export const LINKS = {
   catalog: '/catalog',
   profile: '/profile',
   product: '/product',
+  search: '/search',
 };
 
 export const URL_PARAMS = {

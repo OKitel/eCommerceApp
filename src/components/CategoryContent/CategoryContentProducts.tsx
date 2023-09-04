@@ -18,12 +18,13 @@ import { TFilterAttributes, TSortingParams } from './types';
 import './styles.scss';
 
 type Props = {
-  categoryId: string;
+  categoryId?: string;
+  textSearch?: string;
 };
 
-export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.Element => {
+export const CategoryContentProducts: React.FC<Props> = ({ categoryId, textSearch }): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { currency } = useAppSelector((state) => state.settings);
+  const { currency, localization } = useAppSelector((state) => state.settings);
   const {
     types: { main: mainProductType },
   } = useAppSelector((state) => state.productTypes);
@@ -35,21 +36,22 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
 
   const searchProducts = useCallback(
     (pageNumber?: number): void => {
-      const filter = getFilterSearchQueryArg(filterAttributes);
+      const filter = getFilterSearchQueryArg(filterAttributes, categoryId);
       const sort = getSortingSearchQueryArg(sortingParams);
       const offset = pageNumber ? getOffset(pageNumber, pageLimit) : undefined;
 
       dispatch(
         searchProductProjections({
-          filter: [`categories.id:"${categoryId}"`, ...filter],
+          filter,
           sort,
           offset,
           limit: pageLimit,
           priceCurrency: currency,
+          [`text.${localization}`]: textSearch,
         }),
       );
     },
-    [categoryId, currency, dispatch, filterAttributes, pageLimit, sortingParams],
+    [categoryId, currency, dispatch, filterAttributes, localization, pageLimit, sortingParams, textSearch],
   );
 
   useEffect(() => {
