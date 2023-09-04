@@ -11,6 +11,7 @@ import { ProductProjectionSearchQueryArgs } from '../../api/types';
 
 const initialState: TProductProjectionsSliceState = {
   productProjections: null,
+  pageInfo: null,
   progress: false,
   errorMessage: null,
 };
@@ -21,7 +22,7 @@ export const searchProductProjections = createAsyncThunk(
     try {
       const response = await spaApi.searchProductProjections(queryArgs);
 
-      return response?.body.results;
+      return response?.body;
     } catch (error: unknown) {
       const mappedServerError = mapErrorMessage(error);
       return rejectWithValue(mappedServerError);

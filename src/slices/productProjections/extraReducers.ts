@@ -1,19 +1,22 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
+import { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk';
 import { TProductProjectionsSliceState } from './types';
-import { ProductProjection } from '@commercetools/platform-sdk';
 
 export function reducerGetProductProjectionsPending(state: Draft<TProductProjectionsSliceState>): void {
   state.progress = true;
 }
 export function reducerGetProductProjectionsFulfilled(
   state: Draft<TProductProjectionsSliceState>,
-  action: PayloadAction<ProductProjection[] | undefined>,
+  action: PayloadAction<ProductProjectionPagedQueryResponse>,
 ): void {
   state.progress = false;
   state.errorMessage = null;
 
   if (action.payload) {
-    state.productProjections = action.payload;
+    const { count, limit, offset, total, results } = action.payload;
+
+    state.productProjections = results;
+    state.pageInfo = { count, limit, offset, total };
   }
 }
 export function reducerGetProductProjectionsRejected(
