@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -8,8 +8,11 @@ import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
 import { ProductFilterMain } from './ProductFilterMain/ProductFilterMain';
 import { ProductSorting } from './ProductSorting/ProductSorting';
 import { CatalogProduct } from '../CatalogProduct/CatalogProduct';
+import { ProductPagination } from './ProductPagination/ProductPagination';
 import { getFilterSearchQueryArg } from './ProductFilterMain/utils';
 import { getSortingSearchQueryArg } from './ProductSorting/utils';
+import { getOffset } from './ProductPagination/utils';
+import { LIST_PAGE_LIMIT_DEFAULT } from '../../consts';
 import { TFilterAttributes, TSortingParams } from './types';
 
 import './styles.scss';
@@ -24,7 +27,30 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
   const {
     types: { main: mainProductType },
   } = useAppSelector((state) => state.productTypes);
-  const { productProjections, progress } = useAppSelector((state) => state.productProjections);
+  const { productProjections, pageInfo, progress } = useAppSelector((state) => state.productProjections);
+  const pageLimit = pageInfo ? pageInfo.limit : LIST_PAGE_LIMIT_DEFAULT;
+
+  const [filterAttributes, setFilterAttributes] = useState<TFilterAttributes>({});
+  const [sortingParams, setSortingParams] = useState<TSortingParams>({});
+
+  const searchProducts = useCallback(
+    (pageNumber?: number): void => {
+      const filter = getFilterSearchQueryArg(filterAttributes);
+      const sort = getSortingSearchQueryArg(sortingParams);
+      const offset = pageNumber ? getOffset(pageNumber, pageLimit) : undefined;
+
+      dispatch(
+        searchProductProjections({
+          filter: [`categories.id:"${categoryId}"`, ...filter],
+          sort,
+          offset,
+          limit: pageLimit,
+          priceCurrency: currency,
+        }),
+      );
+    },
+    [categoryId, currency, dispatch, filterAttributes, pageLimit, sortingParams],
+  );
 
   useEffect(() => {
     if (!mainProductType) {
@@ -32,29 +58,33 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
     }
   }, [dispatch, mainProductType]);
 
-  const [filter, setFilter] = useState<TFilterAttributes>({});
-  const [sorting, setSorting] = useState<TSortingParams>({});
-
-  const applyFilters = (filterAttributes: TFilterAttributes): void => {
-    setFilter(filterAttributes);
-  };
-
-  const applySorting = (sortingParams: TSortingParams): void => {
-    setSorting(sortingParams);
-  };
-
   useEffect(() => {
-    const filterQueryArgArray = getFilterSearchQueryArg(filter);
-    const sortArg = getSortingSearchQueryArg(sorting);
+    searchProducts();
+  }, [searchProducts]);
 
-    dispatch(
-      searchProductProjections({
-        filter: [`categories.id:"${categoryId}"`, ...filterQueryArgArray],
-        sort: sortArg,
-        priceCurrency: currency,
-      }),
-    );
-  }, [categoryId, currency, dispatch, filter, sorting]);
+  const applyFilters = (attributes: TFilterAttributes): void => {
+    setFilterAttributes(attributes);
+  };
+
+  const applySorting = (params: TSortingParams): void => {
+    setSortingParams(params);
+  };
+
+  const changePage = (pageNumber: number): void => {
+    searchProducts(pageNumber);
+  };
+
+  const renderProductCountInfo = (): React.ReactElement | null => {
+    if (progress || !pageInfo || (pageInfo && !pageInfo.total)) {
+      return null;
+    }
+
+    const { count, offset, total } = pageInfo;
+    const firstProductNumber = offset + 1;
+    const lastProductNumber = offset + count;
+
+    return <Typography variant="h5">{`Products ${firstProductNumber}-${lastProductNumber} of ${total}`}</Typography>;
+  };
 
   const renderProductCards = (): React.ReactElement | React.ReactElement[] => {
     if (progress) {
@@ -79,7 +109,9 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId }): JSX.El
       <ProductFilterMain applyFilters={applyFilters} />
       <Box className="content-products">
         <ProductSorting applySorting={applySorting} />
+        {renderProductCountInfo()}
         {renderProductCards()}
+        <ProductPagination changePage={changePage} />
       </Box>
     </Box>
   );

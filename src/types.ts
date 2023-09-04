@@ -19,6 +19,13 @@ export type TPageParams = {
   slug: string;
 };
 
+export type TListPageInfo = {
+  count: number;
+  limit: number;
+  offset: number;
+  total?: number;
+};
+
 export type TProductTypes = {
   main: ProductType | null;
 };

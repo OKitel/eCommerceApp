@@ -1,3 +1,5 @@
+export const LIST_PAGE_LIMIT_DEFAULT = 20;
+
 export const EMAIL_REGEXP =
   /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 
