@@ -10,9 +10,9 @@ const initialState: TProductSliceState = {
   errorMessage: null,
 };
 
-export const getProduct = createAsyncThunk('product/getProduct', async (id: string, { rejectWithValue }) => {
+export const getProductById = createAsyncThunk('product/getProductById', async (id: string, { rejectWithValue }) => {
   try {
-    const response = await spaApi.getProduct(id);
+    const response = await spaApi.getProductById(id);
 
     return response?.body;
   } catch (error: unknown) {
@@ -26,9 +26,9 @@ const productSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getProduct.pending, reducerGetProductPending);
-    builder.addCase(getProduct.fulfilled, reducerGetProductFulfilled);
-    builder.addCase(getProduct.rejected, reducerGetProductRejected);
+    builder.addCase(getProductById.pending, reducerGetProductPending);
+    builder.addCase(getProductById.fulfilled, reducerGetProductFulfilled);
+    builder.addCase(getProductById.rejected, reducerGetProductRejected);
   },
 });
 

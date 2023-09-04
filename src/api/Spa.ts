@@ -44,7 +44,7 @@ class SpaApi {
     return res;
   }
 
-  public async getProduct(ID: string): Promise<ClientResponse<Product>> {
+  public async getProductById(ID: string): Promise<ClientResponse<Product>> {
     const res = await retry<ClientResponse<Product>>(
       () => spaApiRoot.products().withId({ ID }).get().execute(),
       TokenStoreTypes.SpaApiTokenStore,

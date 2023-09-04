@@ -10,6 +10,7 @@ import { findPriceWithCurrencyCode } from '../../utils/productsUtils';
 
 import './styles.scss';
 import { useNavigate } from 'react-router-dom';
+import { LINKS } from '../consts';
 
 type CatalogProductProps = {
   productProjection: ProductProjection;
@@ -21,7 +22,7 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
   const isButtonAddToCartDisabled = !findPriceWithCurrencyCode(selectedVariant.prices, currency);
   const navigate = useNavigate();
   const { id, slug } = productProjection;
-  const productUrl = `/product/${id}/${slug[localization]}`;
+  const productUrl = `${LINKS.product}/${id}/${slug[localization]}`;
 
   const handleProductClick = (): void => {
     navigate(productUrl);

@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { URL_PARAMS } from '../../components/consts';
-import { getProduct } from '../../slices/product/slice';
+import { getProductById } from '../../slices/product/slice';
 import { ChipBreadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 import { SwiperComponent } from '../../components/Swiper/Swiper';
@@ -19,7 +19,7 @@ export const ProductPage: React.FC = (): React.ReactElement => {
 
   useEffect(() => {
     if (productId && productId !== maybeProduct?.id) {
-      dispatch(getProduct(productId));
+      dispatch(getProductById(productId));
     }
   }, [dispatch, maybeProduct, productId]);
 
