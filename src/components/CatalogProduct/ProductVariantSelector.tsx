@@ -1,26 +1,25 @@
 import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { ProductProjection, ProductVariant } from '@commercetools/platform-sdk';
+import { ProductVariant } from '@commercetools/platform-sdk';
 
 import { useAppSelector } from '../../store/hooks';
 import { getVariantAttributeLocalizedEnumValue } from '../../utils/productsUtils';
 
 type ProductVariantSelectorProps = {
-  productProjection: ProductProjection;
+  allVariants: ProductVariant[];
   selectedVariant: ProductVariant;
   setSelectedVariant: React.Dispatch<React.SetStateAction<ProductVariant>>;
 };
 
 export const ProductVariantSelector: React.FC<ProductVariantSelectorProps> = ({
-  productProjection,
+  allVariants,
   selectedVariant,
   setSelectedVariant,
 }): JSX.Element | null => {
   const localization = useAppSelector((state) => state.settings.localization);
-  const allVariants = [productProjection.masterVariant, ...productProjection.variants];
   const selectedVariantColor = getVariantAttributeLocalizedEnumValue(selectedVariant, 'color', localization);
 
-  if (!productProjection.variants.length) {
+  if (allVariants.length <= 1) {
     return null;
   }
 

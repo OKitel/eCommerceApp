@@ -1,0 +1,27 @@
+.product-container {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 35%;
+}
+
+.description-container {
+  padding: 2rem;
+  margin-bottom: 2rem;
+
+  & .description-title {
+    padding: 0 0 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .product-container {
+    flex-direction: column;
+  }
+}

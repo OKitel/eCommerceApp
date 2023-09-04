@@ -1,0 +1,25 @@
+.image-modal_container {
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.image-modal_btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.image-modal_img {
+  max-width: 80%;
+}
+
+.img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

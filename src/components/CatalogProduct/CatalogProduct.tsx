@@ -9,6 +9,8 @@ import { ProductVariantSelector } from './ProductVariantSelector';
 import { findPriceWithCurrencyCode } from '../../utils/productsUtils';
 
 import './styles.scss';
+import { useNavigate } from 'react-router-dom';
+import { LINKS } from '../consts';
 
 type CatalogProductProps = {
   productProjection: ProductProjection;
@@ -18,10 +20,18 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(productProjection.masterVariant);
   const { localization, currency } = useAppSelector((state) => state.settings);
   const isButtonAddToCartDisabled = !findPriceWithCurrencyCode(selectedVariant.prices, currency);
+  const navigate = useNavigate();
+  const { id, slug } = productProjection;
+  const productUrl = `${LINKS.product}/${id}/${slug[localization]}`;
+
+  const handleProductClick = (): void => {
+    navigate(productUrl);
+  };
+  const allVariants = [productProjection.masterVariant, ...productProjection.variants];
 
   return (
     <Card className="catalog-product">
-      <CardActionArea>
+      <CardActionArea onClick={handleProductClick}>
         <ProductImage productProjection={productProjection} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -32,7 +42,7 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
       <CardContent className="catalog-product__controls">
         <Stack spacing={2} my={2}>
           <ProductVariantSelector
-            productProjection={productProjection}
+            allVariants={allVariants}
             selectedVariant={selectedVariant}
             setSelectedVariant={setSelectedVariant}
           />
