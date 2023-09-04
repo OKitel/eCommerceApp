@@ -3,6 +3,8 @@ import { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk
 import { TProductProjectionsSliceState } from './types';
 
 export function reducerGetProductProjectionsPending(state: Draft<TProductProjectionsSliceState>): void {
+  state.productProjections = null;
+  state.pageInfo = null;
   state.progress = true;
 }
 export function reducerGetProductProjectionsFulfilled(
