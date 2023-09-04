@@ -9,13 +9,21 @@ import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 import { SwiperComponent } from '../../components/Swiper/Swiper';
 import { ProductDetails } from '../../components/ProductDetails/ProductDetails';
 import './styles.scss';
+import { getCategories } from '../../slices/categories/slice';
 
 export const ProductPage: React.FC = (): React.ReactElement => {
   const { [URL_PARAMS.productId]: productId } = useParams();
   const dispatch = useAppDispatch();
 
+  const { categories } = useAppSelector((state) => state.categories);
   const { product: maybeProduct, progress: progressProduct } = useAppSelector((state) => state.product);
   const { localization } = useAppSelector((state) => state.settings);
+
+  useEffect(() => {
+    if (!categories) {
+      dispatch(getCategories());
+    }
+  }, [categories, dispatch]);
 
   useEffect(() => {
     if (productId && productId !== maybeProduct?.id) {

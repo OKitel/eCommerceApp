@@ -1,6 +1,6 @@
-import { Category } from '@commercetools/platform-sdk';
+import { Category, Product } from '@commercetools/platform-sdk';
 
-import { PAGE_PARAMS } from '../consts';
+import { LINKS, PAGE_PARAMS } from '../consts';
 import { TBreadcrumb } from './types';
 import { Localizations } from '../../types';
 
@@ -53,19 +53,42 @@ export function createBreadcrumbs(
   pathnames: string[],
   localization: Localizations,
   categories: Category[],
+  product: Product | null,
 ): TBreadcrumb[] {
   const breadcrumbs: TBreadcrumb[] = [];
 
-  if (pathnames[0]) {
-    const pageBreadCrumb = getPageBreadcrumb(pathnames[0]);
+  if (pathnames.length) {
+    const productPathName = LINKS.product.split('/').filter((x) => x)[0];
 
-    breadcrumbs.push(pageBreadCrumb);
-  }
+    if (pathnames[0] !== productPathName) {
+      const pageBreadCrumb = getPageBreadcrumb(pathnames[0]);
 
-  if (pathnames[1]) {
-    const categoryBreadcrumbs = getCategoryBreadcrumbs(pathnames[0], pathnames[1], localization, categories);
+      breadcrumbs.push(pageBreadCrumb);
 
-    breadcrumbs.push(...categoryBreadcrumbs);
+      if (pathnames[1]) {
+        const categoryBreadcrumbs = getCategoryBreadcrumbs(pathnames[0], pathnames[1], localization, categories);
+
+        breadcrumbs.push(...categoryBreadcrumbs);
+      }
+    } else if (product) {
+      const catalogPathName = LINKS.catalog.split('/').filter((x) => x)[0];
+      const pageBreadCrumb = getPageBreadcrumb(catalogPathName);
+
+      breadcrumbs.push(pageBreadCrumb);
+
+      const productCategory = categories.find(
+        (category) => category.id === product.masterData.current.categories[0].id,
+      );
+
+      if (productCategory) {
+        const categorySlug = productCategory.slug[localization];
+        const categoryBreadcrumbs = getCategoryBreadcrumbs(catalogPathName, categorySlug, localization, categories);
+
+        breadcrumbs.push(...categoryBreadcrumbs);
+      }
+
+      breadcrumbs.push({ link: '', label: product.masterData.current.name[localization] });
+    }
   }
 
   return breadcrumbs;
