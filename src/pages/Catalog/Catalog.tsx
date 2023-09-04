@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Box, Container, Typography } from '@mui/material';
-import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getCategories } from '../../slices/categories/slice';
@@ -13,7 +12,6 @@ import './styles.scss';
 export const Catalog: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { categories, progress } = useAppSelector((state) => state.categories);
-  const contentClassName = classNames({ catalog: categories });
 
   useEffect(() => {
     if (!categories) {
@@ -21,7 +19,7 @@ export const Catalog: React.FC = (): JSX.Element => {
     }
   }, [categories, dispatch]);
 
-  const renderRootCategories = (): React.ReactElement | React.ReactElement[] | null => {
+  const renderCatalogContent = (): React.ReactElement | React.ReactElement[] | null => {
     if (progress) {
       return <ProgressLoader />;
     }
@@ -32,7 +30,13 @@ export const Catalog: React.FC = (): JSX.Element => {
 
     const rootCategories = categories.filter((category) => !category.parent);
 
-    return rootCategories.map((category) => <CatalogCategory key={category.id} category={category} />);
+    return (
+      <Box className="category-cards">
+        {rootCategories.map((category) => (
+          <CatalogCategory key={category.id} category={category} />
+        ))}
+      </Box>
+    );
   };
 
   return (
@@ -43,7 +47,7 @@ export const Catalog: React.FC = (): JSX.Element => {
       <Typography variant="h1" gutterBottom>
         Catalog
       </Typography>
-      <Box className={contentClassName}>{renderRootCategories()}</Box>
+      {renderCatalogContent()}
     </Container>
   );
 };

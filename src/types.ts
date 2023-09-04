@@ -1,3 +1,5 @@
+import { ProductType } from '@commercetools/platform-sdk';
+
 export enum Localizations {
   En = 'en',
 }
@@ -15,4 +17,8 @@ export type TSettings = {
 export type TPageParams = {
   name: string;
   slug: string;
+};
+
+export type TProductTypes = {
+  main: ProductType | null;
 };
