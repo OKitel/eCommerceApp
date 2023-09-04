@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
 import { Category } from '@commercetools/platform-sdk';
@@ -17,6 +17,11 @@ export const CatalogCategory: React.FC<CatalogCategoryProps> = ({ category }): J
   const { localization } = useAppSelector((state) => state.settings);
   const categoryUrl = `${LINKS.catalog}/${category.slug[localization]}`;
 
+  const showSaleRibbon = useMemo(() => {
+    const discountedCategories = ['Digital Pianos', 'Bass guitars', 'Saxophones', 'Drums'];
+    return discountedCategories.includes(category.name[localization]);
+  }, [category, localization]);
+
   const handleClickCategory = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
     event.preventDefault();
     navigate(categoryUrl);
@@ -25,6 +30,7 @@ export const CatalogCategory: React.FC<CatalogCategoryProps> = ({ category }): J
   return (
     <Card className="catalog-category">
       <CardActionArea className="catalog-category__button" href={categoryUrl} onClick={handleClickCategory}>
+        {showSaleRibbon && <div className="sale-ribbon">Sale</div>}
         <CardContent className="catalog-category__content">
           <Typography variant="h4" component="div">
             {category.name[localization]}

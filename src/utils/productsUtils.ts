@@ -1,4 +1,4 @@
-import { AttributeLocalizedEnumValue, Price, ProductVariant } from '@commercetools/platform-sdk';
+import { AttributeLocalizedEnumValue, DiscountedPrice, Price, ProductVariant } from '@commercetools/platform-sdk';
 import { Currencies, Localizations } from '../types';
 
 export function formatPriceCents(value: number, localization: Localizations, currency: Currencies): string {
@@ -30,5 +30,14 @@ export function getVariantAttributeLocalizedEnumValue(
 export function findPriceWithCurrencyCode(prices: Price[] | undefined, currency: Currencies): Price | undefined {
   if (prices && prices.length) {
     return prices.find((price) => price.value.currencyCode === currency);
+  }
+}
+
+export function findDiscountPriceWithCurrencyCode(
+  prices: Price[] | undefined,
+  currency: Currencies,
+): DiscountedPrice | undefined {
+  if (prices && prices.length) {
+    return prices.find((price) => price.discounted?.value.currencyCode === currency)?.discounted;
   }
 }

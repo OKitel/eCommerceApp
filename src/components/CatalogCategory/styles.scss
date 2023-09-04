@@ -1,6 +1,22 @@
+@import '../../theme/consts.scss';
+
 .catalog-category {
+  position: relative;
+
   &__button,
   &__content {
     height: 100%;
   }
+}
+
+.sale-ribbon {
+  color: white;
+  text-shadow: 0.2rem 0.2rem 0.2rem $clr-primary-dark;
+  position: absolute;
+  background-color: $clr-primary;
+  rotate: 45deg;
+  top: 12px;
+  right: -30px;
+  padding: 0 2rem;
+  letter-spacing: 0.1rem;
 }
