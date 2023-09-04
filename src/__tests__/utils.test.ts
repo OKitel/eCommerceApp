@@ -4,6 +4,7 @@ import { ValidationErrorResponse } from '../api/types';
 import { createBreadcrumbs } from '../components/Breadcrumbs/utils';
 import { categories } from '../__mocks__/categories';
 import { Localizations } from '../types';
+import { mockProduct } from '../__mocks__/products';
 
 describe('isErrorResponse', () => {
   it('should return true for valid ErrorResponse', () => {
@@ -45,7 +46,7 @@ describe('isValidationErrorResponse', () => {
 describe('createBreadcrumbs', () => {
   it('should return proper breadcrumbs array', () => {
     const pathnames = ['catalog', 'keyboards-grand-pianos'];
-    const breadcrumbs = createBreadcrumbs(pathnames, Localizations.En, categories);
+    const breadcrumbs = createBreadcrumbs(pathnames, Localizations.En, categories, mockProduct);
 
     expect(breadcrumbs.length).toBe(3);
     expect(breadcrumbs[0].label).toBe('Catalog');

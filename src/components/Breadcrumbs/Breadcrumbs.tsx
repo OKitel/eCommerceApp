@@ -32,11 +32,12 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
 export const ChipBreadcrumbs = (): JSX.Element => {
   const { localization } = useAppSelector((state) => state.settings);
   const { categories } = useAppSelector((state) => state.categories);
+  const { product } = useAppSelector((state) => state.product);
   const location = useLocation();
   const navigate = useNavigate();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
-  const breadcrumbs = createBreadcrumbs(pathnames, localization, categories || []);
+  const breadcrumbs = createBreadcrumbs(pathnames, localization, categories || [], product);
   const activeBreadcrumb = breadcrumbs.pop();
 
   const handleClickBreadcrumb = (event: React.MouseEvent<Element, MouseEvent>): void => {

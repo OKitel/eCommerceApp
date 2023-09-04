@@ -24,14 +24,15 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
   const { id, slug } = productProjection;
   const productUrl = `${LINKS.product}/${id}/${slug[localization]}`;
 
-  const handleProductClick = (): void => {
+  const handleProductClick = (event: React.MouseEvent<HTMLElement>): void => {
+    event.preventDefault();
     navigate(productUrl);
   };
   const allVariants = [productProjection.masterVariant, ...productProjection.variants];
 
   return (
     <Card className="catalog-product">
-      <CardActionArea onClick={handleProductClick}>
+      <CardActionArea href={productUrl} onClick={handleProductClick}>
         <ProductImage productProjection={productProjection} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
