@@ -6,11 +6,12 @@ import { MiniSwiper } from '../Swiper/MiniSwiper';
 
 type Props = {
   images: { url: string }[] | undefined;
+  imageUrl: string;
   open: boolean;
   setOpen: (open: boolean) => void;
 };
 
-export const ImageModal: React.FC<Props> = ({ images, open, setOpen }: Props): React.ReactElement => {
+export const ImageModal: React.FC<Props> = ({ images, imageUrl, open, setOpen }: Props): React.ReactElement => {
   const handleClose = useCallback((): void => setOpen(false), [setOpen]);
 
   return (
@@ -22,7 +23,7 @@ export const ImageModal: React.FC<Props> = ({ images, open, setOpen }: Props): R
           </IconButton>
         </Box>
         <Box className="img-container">
-          <MiniSwiper images={images} />
+          <MiniSwiper images={images} imageUrl={imageUrl} />
         </Box>
       </Box>
     </Modal>

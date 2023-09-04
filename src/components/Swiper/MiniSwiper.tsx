@@ -9,9 +9,11 @@ import './styles.scss';
 
 type Props = {
   images: { url: string }[] | undefined;
+  imageUrl: string;
 };
 
-export const MiniSwiper: React.FC<Props> = ({ images }: Props): React.ReactElement => {
+export const MiniSwiper: React.FC<Props> = ({ images, imageUrl }: Props): React.ReactElement => {
+  const clickedImage = images?.findIndex((image) => image.url === imageUrl);
   return (
     <>
       <SwiperReact
@@ -20,6 +22,7 @@ export const MiniSwiper: React.FC<Props> = ({ images }: Props): React.ReactEleme
         spaceBetween={50}
         pagination
         navigation
+        initialSlide={clickedImage}
         className="main-swiper"
       >
         {!images && <Typography variant="h3">No image found</Typography>}
