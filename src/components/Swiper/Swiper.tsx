@@ -16,7 +16,6 @@ type Props = {
 
 export const SwiperComponent: React.FC<Props> = ({ images }: Props): React.ReactElement => {
   const [thumbsSwiper, setThumbsSwiper] = useState<Swiper | null>(null);
-  const [clickedImage, setClickedImage] = useState<string>('');
   const [openImageModal, setOpenImageModal] = useState(false);
   return (
     <>
@@ -39,7 +38,6 @@ export const SwiperComponent: React.FC<Props> = ({ images }: Props): React.React
                     src={image.url}
                     alt="product image"
                     onClick={(): void => {
-                      setClickedImage(image.url);
                       setOpenImageModal(true);
                     }}
                   />
@@ -67,7 +65,7 @@ export const SwiperComponent: React.FC<Props> = ({ images }: Props): React.React
             })}
         </SwiperReact>
       </Paper>
-      <ImageModal imageUrl={clickedImage} open={openImageModal} setOpen={(open): void => setOpenImageModal(open)} />
+      <ImageModal images={images} open={openImageModal} setOpen={(open): void => setOpenImageModal(open)} />
     </>
   );
 };

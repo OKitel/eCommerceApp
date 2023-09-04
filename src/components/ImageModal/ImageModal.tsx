@@ -2,14 +2,15 @@ import { Modal, Box, IconButton } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { useCallback } from 'react';
 import './styles.scss';
+import { MiniSwiper } from '../Swiper/MiniSwiper';
 
 type Props = {
-  imageUrl: string;
+  images: { url: string }[] | undefined;
   open: boolean;
   setOpen: (open: boolean) => void;
 };
 
-export const ImageModal: React.FC<Props> = ({ imageUrl, open, setOpen }: Props): React.ReactElement => {
+export const ImageModal: React.FC<Props> = ({ images, open, setOpen }: Props): React.ReactElement => {
   const handleClose = useCallback((): void => setOpen(false), [setOpen]);
 
   return (
@@ -21,7 +22,7 @@ export const ImageModal: React.FC<Props> = ({ imageUrl, open, setOpen }: Props):
           </IconButton>
         </Box>
         <Box className="img-container">
-          <img className="image-modal_img" src={imageUrl} alt="full size product image" />
+          <MiniSwiper images={images} />
         </Box>
       </Box>
     </Modal>
