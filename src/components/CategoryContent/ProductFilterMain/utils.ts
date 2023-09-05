@@ -46,7 +46,7 @@ export function getFilterSearchQueryArg(attributes: TFilterAttributes, categoryI
   });
 
   if (priceFrom !== IGNORED_PRICE_FILTER_VALUE || priceTo !== IGNORED_PRICE_FILTER_VALUE) {
-    filterSearchQueryArg.push(`variants.scopedPrice.value.centAmount:range (${priceFrom} to ${priceTo})`);
+    filterSearchQueryArg.push(`variants.scopedPrice.currentValue.centAmount:range (${priceFrom} to ${priceTo})`);
   }
 
   if (categoryId) {
