@@ -22,7 +22,7 @@ type Props = {
   textSearch?: string;
 };
 
-export const ProductsList: React.FC<Props> = ({ categoryId, textSearch }): JSX.Element => {
+export const ProductList: React.FC<Props> = ({ categoryId, textSearch }): JSX.Element => {
   const dispatch = useAppDispatch();
   const { currency, localization } = useAppSelector((state) => state.settings);
   const {
