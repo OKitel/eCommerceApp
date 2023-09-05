@@ -32,9 +32,9 @@ export const SwiperComponent: React.FC<Props> = ({ images }: Props): React.React
         >
           {!images && <Typography variant="h3">No image found</Typography>}
           {images &&
-            images.map((image) => {
+            images.map((image, i) => {
               return (
-                <SwiperSlide key={image.url}>
+                <SwiperSlide key={`${i}_${image.url}`}>
                   <img
                     id="main-swiper_image"
                     src={image.url}
@@ -59,9 +59,9 @@ export const SwiperComponent: React.FC<Props> = ({ images }: Props): React.React
           className="thumbs-swiper"
         >
           {images &&
-            images.map((image) => {
+            images.map((image, i) => {
               return (
-                <SwiperSlide key={image.url}>
+                <SwiperSlide key={`${i}_${image.url}`}>
                   <img id="thumbs-swiper_image" src={image.url} alt="product image thumb" />
                 </SwiperSlide>
               );

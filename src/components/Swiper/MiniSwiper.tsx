@@ -27,9 +27,9 @@ export const MiniSwiper: React.FC<Props> = ({ images, imageUrl }: Props): React.
       >
         {!images && <Typography variant="h3">No image found</Typography>}
         {images &&
-          images.map((image) => {
+          images.map((image, i) => {
             return (
-              <SwiperSlide key={image.url}>
+              <SwiperSlide key={`${i}_${image.url}`}>
                 <img id="mini-swiper_image" src={image.url} alt="product image" />
               </SwiperSlide>
             );
