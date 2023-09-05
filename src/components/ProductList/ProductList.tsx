@@ -22,7 +22,7 @@ type Props = {
   textSearch?: string;
 };
 
-export const CategoryContentProducts: React.FC<Props> = ({ categoryId, textSearch }): JSX.Element => {
+export const ProductList: React.FC<Props> = ({ categoryId, textSearch }): JSX.Element => {
   const dispatch = useAppDispatch();
   const { currency, localization } = useAppSelector((state) => state.settings);
   const {
@@ -107,7 +107,7 @@ export const CategoryContentProducts: React.FC<Props> = ({ categoryId, textSearc
   };
 
   return (
-    <Box className="category-content-products">
+    <Box className="product-list">
       <ProductFilterMain applyFilters={applyFilters} />
       <Box className="content-products">
         <ProductSorting applySorting={applySorting} />
