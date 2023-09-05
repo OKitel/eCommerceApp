@@ -3,9 +3,7 @@ import { Category } from '@commercetools/platform-sdk';
 
 import { useAppSelector } from '../../store/hooks';
 import { CatalogCategory } from '../CatalogCategory/CatalogCategory';
-import { ProductsList } from './ProductsList';
-
-import './styles.scss';
+import { ProductsList } from '../ProductList/ProductsList';
 
 type CategoryContentProps = {
   category: Category;

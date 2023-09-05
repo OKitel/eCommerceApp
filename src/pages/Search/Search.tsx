@@ -1,7 +1,7 @@
 import { Container, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 
-import { ProductsList } from '../../components/CategoryContent/ProductsList';
+import { ProductsList } from '../../components/ProductList/ProductsList';
 import { SEARCH_QUERY_PARAM } from '../../consts';
 
 export const Search: React.FC = (): JSX.Element => {
