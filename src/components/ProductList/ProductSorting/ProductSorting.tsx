@@ -15,10 +15,11 @@ import {
 
 import { useAppSelector } from '../../../store/hooks';
 import { ProgressLoader } from '../../ProgressLoader/ProgressLoader';
+import { getSortingOptions } from './utils';
+import { SORTING_ORDER_LABEL } from './consts';
 import { TSortingOrder, TSortingParams } from '../types';
 
 import './styles.scss';
-import { getSortingOptions } from './utils';
 
 type Props = {
   applySorting: (sortingParams: TSortingParams) => void;
@@ -76,60 +77,67 @@ export const ProductSorting: React.FC<Props> = ({ applySorting }): JSX.Element =
   return (
     <Card className="product-sorting">
       <CardContent>
-        <Stack direction="row" justifyContent="end" alignItems="center" gap="1rem" flexWrap="wrap">
-          <Typography variant="h5" component="div">
-            Sort
-          </Typography>
-          <Stack direction="row" gap="1rem">
-            <FormControl>
-              <InputLabel size="small" id={'sorting-by-select-label'}>
-                By
-              </InputLabel>
-              <Select
-                sx={{ width: '10rem' }}
-                labelId={'sorting-by-select-label'}
-                id={'sorting-by-select'}
-                value={sortingParam}
-                label="By"
-                size="small"
-                onChange={(event: SelectChangeEvent): void => setSortingParam(event.target.value)}
-              >
-                {sortingOptions.map((sortingOption) => (
-                  <MenuItem key={sortingOption.key} value={sortingOption.key}>
-                    {sortingOption.label}
+        <Stack gap="1rem">
+          <Stack direction="row" justifyContent="end" alignItems="center" gap="1rem" flexWrap="wrap">
+            <Typography variant="h5" component="div">
+              Sort
+            </Typography>
+            <Stack direction="row" gap="1rem">
+              <FormControl>
+                <InputLabel size="small" id={'sorting-by-select-label'}>
+                  By
+                </InputLabel>
+                <Select
+                  sx={{ width: '10rem' }}
+                  labelId={'sorting-by-select-label'}
+                  id={'sorting-by-select'}
+                  value={sortingParam}
+                  label="By"
+                  size="small"
+                  onChange={(event: SelectChangeEvent): void => setSortingParam(event.target.value)}
+                >
+                  {sortingOptions.map((sortingOption) => (
+                    <MenuItem key={sortingOption.key} value={sortingOption.key}>
+                      {sortingOption.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl>
+                <InputLabel size="small" id={'sorting-order-select-label'}>
+                  In order
+                </InputLabel>
+                <Select
+                  sx={{ width: '10rem' }}
+                  labelId={'sorting-order-select-label'}
+                  id={'sorting-order-select'}
+                  value={sortingOrder}
+                  label="In order"
+                  size="small"
+                  onChange={(event: SelectChangeEvent): void => setSortingOrder(event.target.value as TSortingOrder)}
+                >
+                  <MenuItem key="asc" value="asc">
+                    Ascending
                   </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl>
-              <InputLabel size="small" id={'sorting-order-select-label'}>
-                In order
-              </InputLabel>
-              <Select
-                sx={{ width: '10rem' }}
-                labelId={'sorting-order-select-label'}
-                id={'sorting-order-select'}
-                value={sortingOrder}
-                label="In order"
-                size="small"
-                onChange={(event: SelectChangeEvent): void => setSortingOrder(event.target.value as TSortingOrder)}
-              >
-                <MenuItem key="asc" value="asc">
-                  Ascending
-                </MenuItem>
-                <MenuItem key="desc" value="desc">
-                  Descending
-                </MenuItem>
-              </Select>
-            </FormControl>
+                  <MenuItem key="desc" value="desc">
+                    Descending
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Stack>
+            <Stack direction="row" gap="1rem">
+              <Button variant="outlined" disabled={isButtonResetDisabled} onClick={handleClickResetSorting}>
+                Reset
+              </Button>
+              <Button variant="contained" disabled={isButtonApplyDisabled} onClick={handleClickApplySorting}>
+                Apply
+              </Button>
+            </Stack>
           </Stack>
-          <Stack direction="row" gap="1rem">
-            <Button variant="outlined" disabled={isButtonResetDisabled} onClick={handleClickResetSorting}>
-              Reset
-            </Button>
-            <Button variant="contained" disabled={isButtonApplyDisabled} onClick={handleClickApplySorting}>
-              Apply
-            </Button>
+          <Stack direction="row" justifyContent="end" alignItems="center" gap="1rem" flexWrap="wrap">
+            {!appliedSortingParam || !appliedSortingOrder
+              ? 'There is no sorting applied'
+              : `Now sorted by ${appliedSortingParam} ${SORTING_ORDER_LABEL[appliedSortingOrder]}`}
           </Stack>
         </Stack>
       </CardContent>
