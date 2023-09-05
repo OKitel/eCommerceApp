@@ -16,7 +16,7 @@ export function getDefaultFilterAttributes(attributes: AttributeDefinition[]): T
   return filterAttributes;
 }
 
-export function getFilterSearchQueryArg(attributes: TFilterAttributes): string[] {
+export function getFilterSearchQueryArg(attributes: TFilterAttributes, categoryId?: string): string[] {
   const filterSearchQueryArg: string[] = [];
   let priceFrom = IGNORED_PRICE_FILTER_VALUE;
   let priceTo = IGNORED_PRICE_FILTER_VALUE;
@@ -47,6 +47,10 @@ export function getFilterSearchQueryArg(attributes: TFilterAttributes): string[]
 
   if (priceFrom !== IGNORED_PRICE_FILTER_VALUE || priceTo !== IGNORED_PRICE_FILTER_VALUE) {
     filterSearchQueryArg.push(`variants.scopedPrice.value.centAmount:range (${priceFrom} to ${priceTo})`);
+  }
+
+  if (categoryId) {
+    filterSearchQueryArg.push(`categories.id:"${categoryId}"`);
   }
 
   return filterSearchQueryArg;

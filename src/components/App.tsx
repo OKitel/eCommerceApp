@@ -17,9 +17,10 @@ import { Cart } from '../pages/Cart/Cart';
 import { Login } from '../pages/Login/Login';
 import { Registration } from '../pages/Registration/Registration';
 import { Profile } from '../pages/Profile/Profile';
+import { ProductPage } from '../pages/Product/ProductPage';
+import { Search } from '../pages/Search/Search';
 
 import { LINKS, URL_PARAMS } from './consts';
-import { ProductPage } from '../pages/Product/ProductPage';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -51,6 +52,7 @@ export const App: React.FC = (): JSX.Element => {
           </Route>
         </Route>
         <Route path={LINKS.profile} element={<Profile />}></Route>
+        <Route path={LINKS.search} element={<Search />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
       </Routes>
       <Footer />

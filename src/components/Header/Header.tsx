@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Hidden from '@mui/material/Hidden';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,10 +12,11 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
 import { LINKS } from '../consts';
 import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
-import './styles.scss';
 import { Stack } from '@mui/material';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { CurrencySelector } from './CurrencySelector';
+import { SEARCH_QUERY_PARAM } from '../../consts';
+import './styles.scss';
 
 export const Header: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
@@ -24,8 +25,6 @@ export const Header: React.FC = (): JSX.Element => {
   const navigate = useNavigate();
   const handleClickCart = (): void => navigate(LINKS.cart);
   const handleClickAvatar = (): void => navigate(LINKS.profile);
-  const [searchQuery, setSearchQuery] = useState('');
-  console.log(searchQuery, 'TODO: send request to CT');
 
   return (
     <Box className="header" sx={{ flexGrow: 1 }}>
@@ -44,7 +43,9 @@ export const Header: React.FC = (): JSX.Element => {
                 Catalog
               </Button>
             </Hidden>
-            <SearchBar setSearchQuery={(query: string): void => setSearchQuery(query)} />
+            <SearchBar
+              setSearchQuery={(query: string): void => navigate(`${LINKS.search}?${SEARCH_QUERY_PARAM}=${query}`)}
+            />
           </div>
           <Hidden smDown>
             <div>
