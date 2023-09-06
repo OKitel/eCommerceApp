@@ -48,6 +48,7 @@ export const ProductList: React.FC<Props> = ({ categoryId, textSearch }): JSX.El
           limit: pageLimit,
           priceCurrency: currency,
           [`text.${localization}`]: textSearch,
+          fuzzy: textSearch ? true : undefined,
         }),
       );
     },
