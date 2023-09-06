@@ -10,6 +10,15 @@
     height: 10rem;
   }
 
+  &__description {
+    display: -webkit-box;
+    overflow: hidden;
+    line-height: 1.5em;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    -webkit-box-orient: vertical;
+  }
+
   &__controls {
     margin-top: auto;
   }

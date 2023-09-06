@@ -38,6 +38,11 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
           <Typography gutterBottom variant="h5" component="div">
             {productProjection.name[localization]}
           </Typography>
+          {productProjection.description && (
+            <Typography className="catalog-product__description">
+              {productProjection.description[localization]}
+            </Typography>
+          )}
         </CardContent>
       </CardActionArea>
       <CardContent className="catalog-product__controls">
