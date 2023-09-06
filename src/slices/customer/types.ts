@@ -85,7 +85,7 @@ export type AddNewAddressRequest = {
 
 export type SetDefaultAddressRequest = {
   type: 'billing' | 'shipping';
-  addressId: string;
+  addressId: string | undefined;
   id: string;
   version: number;
   onSuccess: () => void;

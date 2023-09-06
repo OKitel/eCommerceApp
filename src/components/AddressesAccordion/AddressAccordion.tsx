@@ -58,24 +58,22 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
     }
   };
 
-  const handleDefaultAddressChange = (id: string, isDefault: boolean, type: 'shipping' | 'billing'): void => {
+  const handleDefaultAddressChange = (id: string, checked: boolean, type: 'shipping' | 'billing'): void => {
     const onSuccess = (): void => {
-      dispatch(setAlert({ message: `Your ${type} address was successfully set as default`, severity: 'success' }));
+      dispatch(setAlert({ message: `Your default ${type} address was successfully changed`, severity: 'success' }));
     };
     const onError = (error: ServerError): void => {
       dispatch(setAlert({ message: error.message, severity: 'error' }));
     };
     const request: SetDefaultAddressRequest = {
       id: customer.id,
-      addressId: id,
+      addressId: checked ? id : undefined,
       version: customer.version,
       type,
       onSuccess,
       onError,
     };
-    if (isDefault) {
-      dispatch(setDefaultAddress(request));
-    }
+    dispatch(setDefaultAddress(request));
   };
 
   return (
@@ -93,7 +91,7 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
                 setAddressToDelete({ id: address.id ?? '', type: 'shipping' });
                 setOpenConfirmationModal(true);
               }}
-              onDefaultChange={(id, isDefault): void => handleDefaultAddressChange(id, isDefault, 'shipping')}
+              onDefaultChange={(id, checked): void => handleDefaultAddressChange(id, checked, 'shipping')}
               key={address.id}
               onEditRequest={(): void => {
                 setAddressToEdit(addresses.find((a) => address.id === a.id));
@@ -116,7 +114,7 @@ export const AddressesAccordion: React.FC<Props> = ({ customer }: Props): React.
                 setAddressToDelete({ id: address.id ?? '', type: 'billing' });
                 setOpenConfirmationModal(true);
               }}
-              onDefaultChange={(id, isDefault): void => handleDefaultAddressChange(id, isDefault, 'billing')}
+              onDefaultChange={(id, checked): void => handleDefaultAddressChange(id, checked, 'billing')}
               key={address.id}
               onEditRequest={(): void => {
                 setAddressToEdit(addresses.find((a) => address.id === a.id));
