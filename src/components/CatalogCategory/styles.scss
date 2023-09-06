@@ -3,6 +3,10 @@
 .catalog-category {
   position: relative;
 
+  &:hover {
+    box-shadow: 0 0 0.5rem $clr-primary;
+  }
+
   &__button,
   &__content {
     height: 100%;
