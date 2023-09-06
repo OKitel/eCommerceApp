@@ -21,7 +21,7 @@ export const Profile: React.FC = (): React.ReactElement => {
 
   useEffect(() => {
     if (maybeCustomer === null) {
-      navigate(LINKS.main);
+      navigate(LINKS.login);
     }
   }, [maybeCustomer, navigate]);
 
