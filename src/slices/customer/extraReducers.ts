@@ -26,7 +26,7 @@ export function reducerGetLoggedInCustomerRejected(
   action: PayloadAction<unknown>,
 ): void {
   const { payload } = action;
-
+  state.customerData = null;
   state.progress.introspect = false;
   if (payload && typeof payload === 'string') {
     state.errorMessage = payload;
