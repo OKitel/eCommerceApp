@@ -1,9 +1,11 @@
+@import '../../theme/consts.scss';
+
 .catalog-product {
   display: grid;
   grid-template-rows: auto 1fr;
 
   &:hover {
-    box-shadow: 4;
+    box-shadow: 0rem 0rem 0.5rem $clr-secondary;
   }
 
   &__preview-image {
