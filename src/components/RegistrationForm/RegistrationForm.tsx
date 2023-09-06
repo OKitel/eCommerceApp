@@ -62,7 +62,7 @@ export const RegistrationForm: React.FC = (): React.ReactElement => {
           label={'First Name'}
           rules={{
             required: 'Name is required',
-            pattern: { value: /^[a-zA-Z]+$/, message: 'Only letters allowed' },
+            pattern: { value: /^[\p{L} ]+$/u, message: 'Only letters allowed' },
           }}
         />
         <FormInputText
@@ -71,7 +71,7 @@ export const RegistrationForm: React.FC = (): React.ReactElement => {
           label={'Last Name'}
           rules={{
             required: 'Last name is required',
-            pattern: { value: /^[a-zA-Z]+$/, message: 'Only letters allowed' },
+            pattern: { value: /^[\p{L} ]+$/u, message: 'Only letters allowed' },
           }}
         />
         <FormInputText

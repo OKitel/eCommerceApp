@@ -34,7 +34,7 @@ export const AddressFields: React.FC<Props> = ({
             label={'First Name'}
             rules={{
               required: 'Name is required',
-              pattern: { value: /^[a-zA-Z]+$/, message: 'Only letters allowed' },
+              pattern: { value: /^[\p{L} ]+$/u, message: 'Only letters allowed' },
             }}
           />
           <FormInputText
@@ -43,7 +43,7 @@ export const AddressFields: React.FC<Props> = ({
             label={'Last Name'}
             rules={{
               required: 'Last name is required',
-              pattern: { value: /^[a-zA-Z]+$/, message: 'Only letters allowed' },
+              pattern: { value: /^[\p{L} ]+$/u, message: 'Only letters allowed' },
             }}
           />
         </>
