@@ -33,6 +33,7 @@ export const PasswordChangeModal: React.FC<Props> = ({ open, setOpen, customer }
     (data: FieldValues): void => {
       const onSuccess = (): void => {
         dispatch(setAlert({ message: 'Password was successfully updated', severity: 'success' }));
+        reset({ password: '', newPassword: '', newPasswordConfirmation: '' });
         handleClose();
       };
       const onError = (error: ServerError): void => {
@@ -48,7 +49,7 @@ export const PasswordChangeModal: React.FC<Props> = ({ open, setOpen, customer }
       };
       dispatch(changePassword(request));
     },
-    [id, version, dispatch, handleClose],
+    [id, version, dispatch, handleClose, reset],
   );
 
   return (
