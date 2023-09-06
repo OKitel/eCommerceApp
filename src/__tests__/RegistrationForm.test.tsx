@@ -63,13 +63,6 @@ describe('Registration form validation', () => {
     expect(screen.getByText('Only letters allowed')).toBeInTheDocument();
   });
 
-  test('Registration form valid first name validation', async () => {
-    renderComponent();
-    const firstNameInput = screen.getByTestId('name').querySelector('input');
-    if (firstNameInput) await user.type(firstNameInput, 'John');
-    await user.click(screen.getByTestId('submit-btn'));
-    expect(screen.queryByText('Only letters allowed')).not.toBeInTheDocument();
-  });
   test('Registration form invalid last name validation', async () => {
     renderComponent();
     const firstNameInput = screen.getByTestId('surname').querySelector('input');
@@ -78,12 +71,28 @@ describe('Registration form validation', () => {
     expect(screen.getByText('Only letters allowed')).toBeInTheDocument();
   });
 
-  test('Registration form valid first name validation', async () => {
-    renderComponent();
-    const firstNameInput = screen.getByTestId('surname').querySelector('input');
-    if (firstNameInput) await user.type(firstNameInput, 'Doe');
-    await user.click(screen.getByTestId('submit-btn'));
-    expect(screen.queryByText('Only letters allowed')).not.toBeInTheDocument();
+  const namesToTest = ['John', 'Abu Nasr', 'Élise', 'A', 'Александр'];
+
+  namesToTest.forEach((name) => {
+    test(`Registration form valid first name (${name}) validation`, async () => {
+      renderComponent();
+      const firstNameInput = screen.getByTestId('name').querySelector('input');
+      if (firstNameInput) await user.type(firstNameInput, name);
+      await user.click(screen.getByTestId('submit-btn'));
+      expect(screen.queryByText('Only letters allowed')).not.toBeInTheDocument();
+    });
+  });
+
+  const surnamesToTest = ['Doe', 'Al Farabi', 'Müller', 'B', 'Иванов'];
+
+  surnamesToTest.forEach((surname) => {
+    test(`Registration form valid surname (${surname}) validation`, async () => {
+      renderComponent();
+      const surnameInput = screen.getByTestId('surname').querySelector('input');
+      if (surnameInput) await user.type(surnameInput, surname);
+      await user.click(screen.getByTestId('submit-btn'));
+      expect(screen.queryByText('Only letters allowed')).not.toBeInTheDocument();
+    });
   });
 
   test('Registration form invalid password validation', async () => {
