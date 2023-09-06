@@ -7,6 +7,7 @@ import { ProductImage } from './ProductImage';
 import { ProductPrice } from './ProductPrice';
 import { ProductVariantSelector } from './ProductVariantSelector';
 import { findPriceWithCurrencyCode } from '../../utils/productsUtils';
+import { removeTags } from '../../utils/helpers';
 
 import './styles.scss';
 import { useNavigate } from 'react-router-dom';
@@ -40,7 +41,7 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
           </Typography>
           {productProjection.description && (
             <Typography className="catalog-product__description">
-              {productProjection.description[localization]}
+              {removeTags(productProjection.description[localization])}
             </Typography>
           )}
         </CardContent>
