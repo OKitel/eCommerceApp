@@ -33,7 +33,7 @@ import { CustomerUpdateAction } from '@commercetools/platform-sdk';
 import { v4 as uuidv4 } from 'uuid';
 
 const initialState: TCustomerSliceState = {
-  customerData: undefined,
+  customerData: null,
   errorMessage: null,
   progress: {
     introspect: false,
@@ -55,8 +55,6 @@ export const getLoggedInCustomer = createAsyncThunk('customer/getLoggedInCustome
         const response = await ServiceApi.getCustomerById(loggedInCustomerId);
 
         return response.body;
-      } else {
-        return rejectWithValue('');
       }
     } catch (error) {
       let errorMessage = 'An unknown error occurred';
@@ -67,8 +65,6 @@ export const getLoggedInCustomer = createAsyncThunk('customer/getLoggedInCustome
 
       return rejectWithValue(errorMessage);
     }
-  } else {
-    return rejectWithValue('');
   }
 });
 

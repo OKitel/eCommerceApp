@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Box, Paper, Typography, Divider, Button } from '@mui/material';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import { PersonalInfoSection } from '../../components/PersonalInfoSection/PersonalInfoSection';
@@ -9,26 +9,14 @@ import { PasswordChangeModal } from '../../components/PasswordChangeModal/Passwo
 import { AddressesAccordion } from '../../components/AddressesAccordion/AddressAccordion';
 import AddHomeRoundedIcon from '@mui/icons-material/AddHomeRounded';
 import { AddAddressModal } from '../../components/AddressModal/AddAddressModal';
-import { useNavigate } from 'react-router-dom';
-import { LINKS } from '../../components/consts';
-import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 
 export const Profile: React.FC = (): React.ReactElement => {
   const [openChangePasswordModal, setOpenChangePasswordModal] = useState(false);
   const [openAddressModal, setOpenAddressModal] = useState(false);
-  const maybeCustomer: Customer | null | undefined = useAppSelector((state) => state.customer.customerData);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (maybeCustomer === null) {
-      navigate(LINKS.main);
-    }
-  }, [maybeCustomer, navigate]);
-
+  const maybeCustomer: Customer | null = useAppSelector((state) => state.customer.customerData);
   if (!maybeCustomer) {
-    return <ProgressLoader />;
+    return <></>;
   }
-
   const customer: Customer = maybeCustomer;
 
   return (

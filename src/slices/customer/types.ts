@@ -9,7 +9,7 @@ type TCustomerSliceProgress = {
 };
 
 export type TCustomerSliceState = {
-  customerData: Customer | null | undefined;
+  customerData: Customer | null;
   errorMessage: string | null;
   progress: TCustomerSliceProgress;
 };
