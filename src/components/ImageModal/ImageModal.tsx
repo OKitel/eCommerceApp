@@ -15,10 +15,10 @@ export const ImageModal: React.FC<Props> = ({ images, imageUrl, open, setOpen }:
   const handleClose = useCallback((): void => setOpen(false), [setOpen]);
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleClose} data-testid="image-modal">
       <Box className="image-modal_container">
         <Box className="image-modal_btn">
-          <IconButton onClick={handleClose}>
+          <IconButton onClick={handleClose} data-testid="close-button">
             <CloseRoundedIcon />
           </IconButton>
         </Box>
