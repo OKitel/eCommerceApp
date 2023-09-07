@@ -16,7 +16,11 @@ export function getDefaultFilterAttributes(attributes: AttributeDefinition[]): T
   return filterAttributes;
 }
 
-export function getFilterSearchQueryArg(attributes: TFilterAttributes, categoryId?: string): string[] {
+export function getFilterSearchQueryArg(
+  attributes: TFilterAttributes,
+  categoryId?: string,
+  subtree?: boolean,
+): string[] {
   const filterSearchQueryArg: string[] = [];
   let priceFrom = IGNORED_PRICE_FILTER_VALUE;
   let priceTo = IGNORED_PRICE_FILTER_VALUE;
@@ -48,9 +52,12 @@ export function getFilterSearchQueryArg(attributes: TFilterAttributes, categoryI
   if (priceFrom !== IGNORED_PRICE_FILTER_VALUE || priceTo !== IGNORED_PRICE_FILTER_VALUE) {
     filterSearchQueryArg.push(`variants.scopedPrice.currentValue.centAmount:range (${priceFrom} to ${priceTo})`);
   }
-
   if (categoryId) {
-    filterSearchQueryArg.push(`categories.id:"${categoryId}"`);
+    if (subtree) {
+      filterSearchQueryArg.push(`categories.id:subtree("${categoryId}")`);
+    } else {
+      filterSearchQueryArg.push(`categories.id:"${categoryId}"`);
+    }
   }
 
   return filterSearchQueryArg;

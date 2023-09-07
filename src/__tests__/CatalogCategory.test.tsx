@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Category } from '@commercetools/platform-sdk';
 import { renderWithProviders } from './test-utils';
-import { CatalogCategory } from '../components/CatalogCategory/CatalogCategory';
+import { CatalogCategory } from '../components/CatalogCategoryCard/CatalogCategoryCard';
 import { categories } from '../__mocks__/categories';
 
 describe('Catalog category is displayed correctly', () => {

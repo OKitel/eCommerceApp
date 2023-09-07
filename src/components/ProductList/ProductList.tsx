@@ -19,10 +19,11 @@ import './styles.scss';
 
 type Props = {
   categoryId?: string;
+  subtree?: boolean;
   textSearch?: string;
 };
 
-export const ProductList: React.FC<Props> = ({ categoryId, textSearch }): JSX.Element => {
+export const ProductList: React.FC<Props> = ({ categoryId, subtree, textSearch }): JSX.Element => {
   const dispatch = useAppDispatch();
   const { currency, localization } = useAppSelector((state) => state.settings);
   const {
@@ -36,7 +37,7 @@ export const ProductList: React.FC<Props> = ({ categoryId, textSearch }): JSX.El
 
   const searchProducts = useCallback(
     (pageNumber?: number): void => {
-      const filter = getFilterSearchQueryArg(filterAttributes, categoryId);
+      const filter = getFilterSearchQueryArg(filterAttributes, categoryId, subtree);
       const sort = getSortingSearchQueryArg(sortingParams);
       const offset = pageNumber ? getOffset(pageNumber, pageLimit) : undefined;
 
@@ -52,7 +53,7 @@ export const ProductList: React.FC<Props> = ({ categoryId, textSearch }): JSX.El
         }),
       );
     },
-    [categoryId, currency, dispatch, filterAttributes, localization, pageLimit, sortingParams, textSearch],
+    [categoryId, currency, dispatch, filterAttributes, localization, pageLimit, sortingParams, subtree, textSearch],
   );
 
   useEffect(() => {

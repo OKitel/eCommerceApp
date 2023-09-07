@@ -1,8 +1,8 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Category } from '@commercetools/platform-sdk';
 
 import { useAppSelector } from '../../store/hooks';
-import { CatalogCategory } from '../CatalogCategory/CatalogCategory';
+import { CatalogCategoryCard } from '../CatalogCategoryCard/CatalogCategoryCard';
 import { ProductList } from '../ProductList/ProductList';
 
 type CategoryContentProps = {
@@ -13,21 +13,41 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ category }): J
   const { categories } = useAppSelector((state) => state.categories);
 
   const subcategories = categories?.filter((subcategory) => subcategory.parent?.id === category.id);
-  const isSubcategory = category && !subcategories?.length;
+  const isRootCategory = category && !!subcategories?.length;
 
-  if (isSubcategory) {
-    return <ProductList categoryId={category.id} />;
-  }
+  const renderSubcategoryCards = (): React.ReactElement => {
+    if (isRootCategory) {
+      return (
+        subcategories && (
+          <Box className="category-cards">
+            {subcategories.map((subcategory) => (
+              <CatalogCategoryCard key={subcategory.id} category={subcategory} />
+            ))}
+          </Box>
+        )
+      );
+    }
 
-  if (subcategories) {
+    const rootCategoryId = category.parent?.id;
+    const siblingSubcategories = rootCategoryId
+      ? categories?.filter((subcategory) => subcategory.parent?.id === rootCategoryId)
+      : [];
+
     return (
       <Box className="category-cards">
-        {subcategories.map((subcategory) => (
-          <CatalogCategory key={subcategory.id} category={subcategory} />
-        ))}
+        {siblingSubcategories &&
+          siblingSubcategories.map((subcategory) => (
+            <CatalogCategoryCard active={subcategory.id === category.id} key={subcategory.id} category={subcategory} />
+          ))}
       </Box>
     );
-  }
+  };
 
-  return <div>No content</div>;
+  return (
+    <>
+      <Typography variant="h5">Subcategories</Typography>
+      {renderSubcategoryCards()}
+      <ProductList categoryId={category.id} subtree={isRootCategory} />
+    </>
+  );
 };

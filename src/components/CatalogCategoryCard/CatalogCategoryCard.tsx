@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classNames';
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
 import { Category } from '@commercetools/platform-sdk';
 
@@ -8,11 +9,12 @@ import { LINKS } from '../consts';
 
 import './styles.scss';
 
-type CatalogCategoryProps = {
+type Props = {
   category: Category;
+  active?: boolean;
 };
 
-export const CatalogCategory: React.FC<CatalogCategoryProps> = ({ category }): JSX.Element => {
+export const CatalogCategoryCard: React.FC<Props> = ({ category, active }): JSX.Element => {
   const navigate = useNavigate();
   const { localization } = useAppSelector((state) => state.settings);
   const categoryUrl = `${LINKS.catalog}/${category.slug[localization]}`;
@@ -27,14 +29,19 @@ export const CatalogCategory: React.FC<CatalogCategoryProps> = ({ category }): J
     navigate(categoryUrl);
   };
 
+  const className = classNames('catalog-category-card', { 'catalog-category-card_active': active });
+
   return (
-    <Card className="catalog-category">
-      <CardActionArea className="catalog-category__button" href={categoryUrl} onClick={handleClickCategory}>
+    <Card className={className}>
+      <CardActionArea
+        disabled={active}
+        className="catalog-category__button"
+        href={categoryUrl}
+        onClick={handleClickCategory}
+      >
         {showSaleRibbon && <div className="sale-ribbon">Sale</div>}
-        <CardContent className="catalog-category__content">
-          <Typography variant="h4" component="div">
-            {category.name[localization]}
-          </Typography>
+        <CardContent className="catalog-category__content" sx={{ paddingBlock: 1 }}>
+          <Typography>{category.name[localization]}</Typography>
         </CardContent>
       </CardActionArea>
     </Card>

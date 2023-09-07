@@ -7,6 +7,7 @@ import { getCategories } from '../../../slices/categories/slice';
 import { ChipBreadcrumbs } from '../../../components/Breadcrumbs/Breadcrumbs';
 import { ProgressLoader } from '../../../components/ProgressLoader/ProgressLoader';
 import { CategoryContent } from '../../../components/CategoryContent/CategoryContent';
+import { CatalogCategoryCard } from '../../../components/CatalogCategoryCard/CatalogCategoryCard';
 import { URL_PARAMS } from '../../../components/consts';
 
 export const Category: React.FC = (): JSX.Element => {
@@ -45,6 +46,9 @@ export const Category: React.FC = (): JSX.Element => {
     );
   }
 
+  const rootCategories = categories?.filter((category) => !category.parent);
+  const rootCategoryId = currentCategory.parent ? currentCategory.parent.id : currentCategory.id;
+
   return (
     <Container>
       <Box marginY={3}>
@@ -53,6 +57,14 @@ export const Category: React.FC = (): JSX.Element => {
       <Typography variant="h1" gutterBottom>
         {currentCategory.name[localization]}
       </Typography>
+      <Typography variant="h5">Categories</Typography>
+      {rootCategories && (
+        <Box className="category-cards">
+          {rootCategories.map((category) => (
+            <CatalogCategoryCard active={category.id === rootCategoryId} key={category.id} category={category} />
+          ))}
+        </Box>
+      )}
       <CategoryContent category={currentCategory} />
     </Container>
   );

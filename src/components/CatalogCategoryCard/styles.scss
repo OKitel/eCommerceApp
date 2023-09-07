@@ -1,15 +1,21 @@
 @import '../../theme/consts.scss';
 
-.catalog-category {
+.catalog-category-card {
   position: relative;
 
-  &:hover {
+  &:not(&_active):hover {
     box-shadow: 0 0 0.5rem $clr-primary;
   }
 
   &__button,
   &__content {
     height: 100%;
+  }
+}
+
+.category-cards .catalog-category-card {
+  &_active {
+    background-color: $clr-secondary;
   }
 }
 
