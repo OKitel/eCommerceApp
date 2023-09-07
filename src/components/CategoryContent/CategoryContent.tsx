@@ -10,6 +10,7 @@ type CategoryContentProps = {
 };
 
 export const CategoryContent: React.FC<CategoryContentProps> = ({ category }): JSX.Element => {
+  const { localization } = useAppSelector((state) => state.settings);
   const { categories } = useAppSelector((state) => state.categories);
 
   const subcategories = categories?.filter((subcategory) => subcategory.parent?.id === category.id);
@@ -47,6 +48,9 @@ export const CategoryContent: React.FC<CategoryContentProps> = ({ category }): J
     <>
       <Typography variant="h5">Subcategories</Typography>
       {renderSubcategoryCards()}
+      <Typography variant="h1" mt={3} gutterBottom>
+        {category.name[localization]}
+      </Typography>
       <ProductList categoryId={category.id} subtree={isRootCategory} />
     </>
   );

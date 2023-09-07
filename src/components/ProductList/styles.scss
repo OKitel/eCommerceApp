@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: max(30%, 20rem) 1fr;
   gap: 2rem;
-  padding-block: 2rem;
+  padding-bottom: 2rem;
   align-items: start;
 
   @media (max-width: 50rem) {

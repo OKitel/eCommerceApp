@@ -40,7 +40,7 @@ export const CatalogCategoryCard: React.FC<Props> = ({ category, active }): JSX.
         onClick={handleClickCategory}
       >
         {showSaleRibbon && <div className="sale-ribbon">Sale</div>}
-        <CardContent className="catalog-category__content" sx={{ paddingBlock: 1 }}>
+        <CardContent className="catalog-category__content" sx={{ paddingBlock: 1, paddingInline: 3.5 }}>
           <Typography>{category.name[localization]}</Typography>
         </CardContent>
       </CardActionArea>

@@ -55,7 +55,7 @@ export const Category: React.FC = (): JSX.Element => {
         <ChipBreadcrumbs />
       </Box>
       <Typography variant="h1" gutterBottom>
-        {currentCategory.name[localization]}
+        Catalog
       </Typography>
       <Typography variant="h5">Categories</Typography>
       {rootCategories && (
