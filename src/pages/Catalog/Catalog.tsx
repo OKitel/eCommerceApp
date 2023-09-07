@@ -4,8 +4,9 @@ import { Box, Container, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getCategories } from '../../slices/categories/slice';
 import { ChipBreadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
-import { CatalogCategory } from '../../components/CatalogCategory/CatalogCategory';
+import { CatalogCategoryCard } from '../../components/CatalogCategoryCard/CatalogCategoryCard';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
+import { ProductList } from '../../components/ProductList/ProductList';
 
 import './styles.scss';
 
@@ -31,11 +32,14 @@ export const Catalog: React.FC = (): JSX.Element => {
     const rootCategories = categories.filter((category) => !category.parent);
 
     return (
-      <Box className="category-cards">
-        {rootCategories.map((category) => (
-          <CatalogCategory key={category.id} category={category} />
-        ))}
-      </Box>
+      <>
+        <Typography variant="h5">Categories</Typography>
+        <Box className="category-cards">
+          {rootCategories.map((category) => (
+            <CatalogCategoryCard key={category.id} category={category} />
+          ))}
+        </Box>
+      </>
     );
   };
 
@@ -48,6 +52,7 @@ export const Catalog: React.FC = (): JSX.Element => {
         Catalog
       </Typography>
       {renderCatalogContent()}
+      <ProductList />
     </Container>
   );
 };

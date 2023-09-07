@@ -1,9 +1,8 @@
 .category-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: space-between;
-  gap: 3rem;
-  padding-block: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-block: 1rem;
 
   @media (max-width: 50rem) {
     grid-template-columns: repeat(2, 1fr);
