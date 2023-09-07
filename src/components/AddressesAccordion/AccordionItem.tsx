@@ -39,7 +39,12 @@ export const AccordionItem: React.FC<Props> = ({
   return (
     <AccordionDetails className="address-item">
       <Accordion expanded={expanded} onChange={(): void => setExpanded(!expanded)} sx={{ width: '100%' }}>
-        <AccordionSummary expandIcon={<ExpandMoreRoundedIcon />} aria-controls="panel1a-content" id="panel1a-header">
+        <AccordionSummary
+          expandIcon={<ExpandMoreRoundedIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+          className="address-summary"
+        >
           <div className="address-title">
             <Typography>{address.streetName}</Typography>
             {defaultId === address.id && (
