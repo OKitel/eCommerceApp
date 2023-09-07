@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import classNames from 'classNames';
+import classNames from 'classnames';
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
 import { Category } from '@commercetools/platform-sdk';
 
