@@ -21,3 +21,9 @@
   align-items: center;
   justify-content: space-around;
 }
+
+@media screen and (max-width: 600px) {
+  .modal-container {
+    min-width: 70%;
+  }
+}

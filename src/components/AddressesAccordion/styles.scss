@@ -1,7 +1,16 @@
 .address-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.address-summary {
+  .MuiAccordionSummary-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 }
 
 .address-title {

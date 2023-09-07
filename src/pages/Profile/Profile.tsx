@@ -34,7 +34,7 @@ export const Profile: React.FC = (): React.ReactElement => {
   return (
     <>
       <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
-        <Paper elevation={3} sx={{ padding: '2rem', mt: 5, mb: 4, ml: 2, mr: 2 }}>
+        <Paper elevation={3} sx={{ padding: '2rem', mt: 5, mb: 4 }} className="profile-wrapper">
           <h2 className="profile-title">Profile Settings</h2>
           <PersonalInfoSection customer={customer} />
           <Divider />
