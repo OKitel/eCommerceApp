@@ -1,4 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { CustomerUpdateAction } from '@commercetools/platform-sdk';
+import { v4 as uuidv4 } from 'uuid';
+
 import spaApi from '../../api/Spa';
 import ServiceApi from '../../api/Service';
 import { TokenStoreTypes } from '../../lib/commercetools-sdk';
@@ -29,8 +32,6 @@ import {
   reducerUpdateCustomerPending,
   reducerUpdateCustomerRejected,
 } from './extraReducers';
-import { CustomerUpdateAction } from '@commercetools/platform-sdk';
-import { v4 as uuidv4 } from 'uuid';
 
 const initialState: TCustomerSliceState = {
   customerData: undefined,

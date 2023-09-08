@@ -1,6 +1,7 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
-import { TCategoriesSliceState } from './types';
 import { Category } from '@commercetools/platform-sdk';
+
+import { TCategoriesSliceState } from './types';
 
 export function reducerGetCategoriesPending(state: Draft<TCategoriesSliceState>): void {
   state.progress = true;

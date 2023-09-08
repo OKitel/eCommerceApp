@@ -1,6 +1,7 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
-import { TProductSliceState } from './types';
 import { Product } from '@commercetools/platform-sdk';
+
+import { TProductSliceState } from './types';
 
 export function reducerGetProductPending(state: Draft<TProductSliceState>): void {
   state.progress = true;
