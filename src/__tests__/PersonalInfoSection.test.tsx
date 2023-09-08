@@ -1,7 +1,9 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PersonalInfoSection } from '../components/PersonalInfoSection/PersonalInfoSection';
+
 import { renderWithProviders } from './test-utils';
+
+import { PersonalInfoSection } from '../components/PersonalInfoSection/PersonalInfoSection';
 
 describe('PersonalInfoSection', () => {
   const user = userEvent.setup();

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+
 import { Main } from '../pages/Main/Main';
 
 test('Render main page correctly', () => {

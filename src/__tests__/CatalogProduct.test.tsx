@@ -1,9 +1,11 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
+
 import { renderWithProviders } from './test-utils';
-import { CatalogProduct } from '../components/CatalogProduct/CatalogProduct';
 import { product1 } from '../__mocks__/productProjections';
+
+import { CatalogProduct } from '../components/CatalogProduct/CatalogProduct';
 
 describe('Catalog product is displayed correctly', () => {
   const user = userEvent.setup();

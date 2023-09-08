@@ -1,7 +1,9 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PasswordChangeModal } from '../components/PasswordChangeModal/PasswordChangeModal';
+
 import { renderWithProviders } from './test-utils';
+
+import { PasswordChangeModal } from '../components/PasswordChangeModal/PasswordChangeModal';
 
 describe('PasswordChangeModal', () => {
   const user = userEvent.setup();

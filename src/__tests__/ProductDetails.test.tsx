@@ -1,5 +1,7 @@
 import { screen } from '@testing-library/react';
+
 import { renderWithProviders } from './test-utils';
+
 import { ProductDetails } from '../components/ProductDetails/ProductDetails';
 
 describe('ProductDetails', () => {

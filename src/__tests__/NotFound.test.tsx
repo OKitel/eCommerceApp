@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { NotFound } from '../pages/NotFound/NotFound';
 import { MemoryRouter } from 'react-router-dom';
+
+import { NotFound } from '../pages/NotFound/NotFound';
 
 test('Render app correctly', () => {
   render(
