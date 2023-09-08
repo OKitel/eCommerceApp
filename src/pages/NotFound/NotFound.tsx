@@ -1,7 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
-import vinylUrl from '../../assets/images/vinyl.png';
-import './styles.scss';
 import { Button } from '@mui/material';
+
+import vinylUrl from '../../assets/images/vinyl.png';
+
+import './styles.scss';
 
 export const NotFound: React.FC = (): JSX.Element => {
   return (

@@ -3,6 +3,7 @@ import { Box, Container, Typography } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getCategories } from '../../slices/categories/slice';
+
 import { ChipBreadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { CatalogCategoryCard } from '../../components/CatalogCategoryCard/CatalogCategoryCard';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';

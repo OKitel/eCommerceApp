@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Paper, Typography, Divider, Button } from '@mui/material';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
-import { PersonalInfoSection } from '../../components/PersonalInfoSection/PersonalInfoSection';
-import './styles.scss';
 import { Customer } from '@commercetools/platform-sdk';
+import AddHomeRoundedIcon from '@mui/icons-material/AddHomeRounded';
+
 import { useAppSelector } from '../../store/hooks';
+import { LINKS } from '../../components/consts';
+
+import { PersonalInfoSection } from '../../components/PersonalInfoSection/PersonalInfoSection';
 import { PasswordChangeModal } from '../../components/PasswordChangeModal/PasswordChangeModal';
 import { AddressesAccordion } from '../../components/AddressesAccordion/AddressAccordion';
-import AddHomeRoundedIcon from '@mui/icons-material/AddHomeRounded';
 import { AddAddressModal } from '../../components/AddressModal/AddAddressModal';
-import { useNavigate } from 'react-router-dom';
-import { LINKS } from '../../components/consts';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
+
+import './styles.scss';
 
 export const Profile: React.FC = (): React.ReactElement => {
   const [openChangePasswordModal, setOpenChangePasswordModal] = useState(false);
