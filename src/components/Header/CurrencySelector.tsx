@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormControl, MenuItem, Select } from '@mui/material';
+
 import { Currencies } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { changeSettings } from '../../slices/settings/slice';

@@ -10,11 +10,14 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Divider from '@mui/material/Divider';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import IconButton from '@mui/material/IconButton';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
 import { LINKS } from '../consts';
-import './styles.scss';
+
 import { CurrencySelector } from '../Header/CurrencySelector';
+
+import './styles.scss';
 
 export const BurgerMenu: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);

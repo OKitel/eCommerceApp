@@ -6,8 +6,6 @@ import { LoadingButton } from '@mui/lab';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { Customer } from '@commercetools/platform-sdk';
 
-import { FormInputText } from '../form-components/FormInputText';
-import { FormInputDate } from '../form-components/FormInputDate';
 import { EMAIL_REGEXP } from '../../consts';
 import { getLoggedInCustomer, updateCustomer } from '../../slices/customer/slice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -15,6 +13,10 @@ import { PersonalInfoUpdateRequest } from '../../slices/customer/types';
 import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
 import { setFormServerError } from '../../utils/setFormServerError';
+
+import { FormInputText } from '../form-components/FormInputText';
+import { FormInputDate } from '../form-components/FormInputDate';
+
 import './styles.scss';
 
 type Props = {

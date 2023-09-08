@@ -2,16 +2,18 @@ import { useCallback } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Modal, Box, Typography, Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import './styles.scss';
-import { PASSWORD_REGEXP } from '../../consts';
-import { FormInputPassword } from '../form-components/FormInputPassword';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Customer } from '@commercetools/platform-sdk';
+
+import { PASSWORD_REGEXP } from '../../consts';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { changePassword } from '../../slices/customer/slice';
 import { PasswordChangeRequest } from '../../slices/customer/types';
-
 import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
+
+import { FormInputPassword } from '../form-components/FormInputPassword';
+
+import './styles.scss';
 
 type Props = {
   open: boolean;

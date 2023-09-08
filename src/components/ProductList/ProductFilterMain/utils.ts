@@ -1,4 +1,5 @@
 import { AttributeDefinition } from '@commercetools/platform-sdk';
+
 import { TFilterAttributes } from '../types';
 import {
   ATTRIBUTE_NAME_LOWER_PRICE_BOUND,

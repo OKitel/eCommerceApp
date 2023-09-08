@@ -2,14 +2,16 @@ import { useCallback, useState, useEffect, useMemo } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Modal, Box, Typography, Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Address, Customer } from '@commercetools/platform-sdk';
+
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { changeAddress } from '../../slices/customer/slice';
 import { ChangeAddressRequest } from '../../slices/customer/types';
-
 import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
+
 import { AddressFields } from '../AddressFields/AddressFields';
+
 import './styles.scss';
 
 type Props = {

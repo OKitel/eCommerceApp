@@ -1,17 +1,20 @@
+import { useState } from 'react';
 import { Accordion, AccordionSummary, Typography } from '@mui/material';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-import './styles.scss';
-import { useState } from 'react';
 import { Customer, Address } from '@commercetools/platform-sdk';
-import { AccordionItem } from './AccordionItem';
-import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
+
 import { messages } from '../../messages';
 import { deleteAddress, setDefaultAddress } from '../../slices/customer/slice';
 import { DeleteAddressRequest, SetDefaultAddressRequest } from '../../slices/customer/types';
 import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
 import { useAppDispatch } from '../../store/hooks';
+
+import { AccordionItem } from './AccordionItem';
 import { UpdateAddressModal } from '../AddressModal/UpdateAddressModal';
+import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
+
+import './styles.scss';
 
 type Props = {
   customer: Customer;

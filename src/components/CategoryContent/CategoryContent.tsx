@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { Category } from '@commercetools/platform-sdk';
 
 import { useAppSelector } from '../../store/hooks';
+
 import { CatalogCategoryCard } from '../CatalogCategoryCard/CatalogCategoryCard';
 import { ProductList } from '../ProductList/ProductList';
 

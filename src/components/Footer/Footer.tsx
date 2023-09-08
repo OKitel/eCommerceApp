@@ -1,9 +1,8 @@
-import * as React from 'react';
 import { Box, Toolbar } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+
 import { LINKS } from '../consts';
 
-import '../Header/styles.scss';
 import './styles.scss';
 
 export const Footer: React.FC = (): JSX.Element => {

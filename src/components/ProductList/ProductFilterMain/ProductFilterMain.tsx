@@ -1,9 +1,10 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import { FilterAttributes } from './FilterAttributes/FilterAttributes';
 
 import { useAppSelector } from '../../../store/hooks';
-import { ProgressLoader } from '../../ProgressLoader/ProgressLoader';
 import { TFilterAttributes } from '../types';
+
+import { ProgressLoader } from '../../ProgressLoader/ProgressLoader';
+import { FilterAttributes } from './FilterAttributes/FilterAttributes';
 
 import './styles.scss';
 

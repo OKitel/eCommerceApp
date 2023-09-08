@@ -5,6 +5,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Typography } from '@mui/material';
+
 import './styles.scss';
 
 type Props = {

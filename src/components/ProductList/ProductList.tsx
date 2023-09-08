@@ -4,16 +4,17 @@ import { Box, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { searchProductProjections } from '../../slices/productProjections/slice';
 import { getMainProductType } from '../../slices/productTypes/slice';
-import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
-import { ProductFilterMain } from './ProductFilterMain/ProductFilterMain';
-import { ProductSorting } from './ProductSorting/ProductSorting';
-import { CatalogProduct } from '../CatalogProduct/CatalogProduct';
-import { ProductPagination } from './ProductPagination/ProductPagination';
 import { getFilterSearchQueryArg } from './ProductFilterMain/utils';
 import { getSortingSearchQueryArg } from './ProductSorting/utils';
 import { getOffset } from './ProductPagination/utils';
 import { LIST_PAGE_LIMIT_DEFAULT } from '../../consts';
 import { TFilterAttributes, TSortingParams } from './types';
+
+import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
+import { ProductFilterMain } from './ProductFilterMain/ProductFilterMain';
+import { ProductSorting } from './ProductSorting/ProductSorting';
+import { CatalogProduct } from '../CatalogProduct/CatalogProduct';
+import { ProductPagination } from './ProductPagination/ProductPagination';
 
 import './styles.scss';
 

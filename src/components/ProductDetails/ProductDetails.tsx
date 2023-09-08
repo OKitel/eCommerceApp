@@ -1,13 +1,16 @@
 import { Button, Typography, IconButton, Box, Rating } from '@mui/material';
-import { ProductVariantSelector } from '../CatalogProduct/ProductVariantSelector';
-import { ProductPrice } from '../CatalogProduct/ProductPrice';
 import { ProductData, ProductVariant } from '@commercetools/platform-sdk';
-import { useAppSelector } from '../../store/hooks';
 import { useState } from 'react';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
+
+import { useAppSelector } from '../../store/hooks';
+
+import { ProductVariantSelector } from '../CatalogProduct/ProductVariantSelector';
+import { ProductPrice } from '../CatalogProduct/ProductPrice';
+
 import './styles.scss';
 
 type Props = {
