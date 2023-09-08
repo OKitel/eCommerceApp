@@ -1,4 +1,5 @@
 import { TokenStore } from '@commercetools/sdk-client-v2';
+
 import { TokenStoreTypes } from '../lib/commercetools-sdk';
 import { TSettings } from '../types';
 import { isCurrency, isLocalization } from './typesUtils';
