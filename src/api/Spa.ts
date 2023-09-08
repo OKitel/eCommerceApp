@@ -1,4 +1,3 @@
-import { TokenStoreTypes, getSpaApiRootWithPasswordFlow, spaApiRoot } from '../lib/commercetools-sdk';
 import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder';
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 import {
@@ -8,9 +7,11 @@ import {
   ProductProjectionPagedQueryResponse,
   ProductType,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
+
 import { retry } from './utils';
-import { ProductProjectionSearchQueryArgs } from './types';
 import { TProductTypes } from '../types';
+import { ProductProjectionSearchQueryArgs } from './types';
+import { TokenStoreTypes, getSpaApiRootWithPasswordFlow, spaApiRoot } from '../lib/commercetools-sdk';
 
 class SpaApi {
   private spaApiRoot: ByProjectKeyRequestBuilder | null = null;
