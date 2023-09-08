@@ -15,6 +15,8 @@ import { Address } from '@commercetools/platform-sdk';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import { useState } from 'react';
 
+import { getCountryByCode } from '../../utils/typesUtils';
+
 type Props = {
   defaultId: string;
   address: Address;
@@ -36,6 +38,21 @@ export const AccordionItem: React.FC<Props> = ({
       onDefaultChange(address.id, event.target.checked);
     }
   };
+
+  const stopPropagation = (event: React.MouseEvent<HTMLElement>): void => {
+    event.stopPropagation();
+  };
+
+  const handleEditClick = (event: React.MouseEvent<HTMLElement>): void => {
+    stopPropagation(event);
+    onEditRequest();
+  };
+
+  const handleDeleteClick = (event: React.MouseEvent<HTMLElement>): void => {
+    stopPropagation(event);
+    onDeleteRequested();
+  };
+
   return (
     <AccordionDetails className="address-item">
       <Accordion expanded={expanded} onChange={(): void => setExpanded(!expanded)} sx={{ width: '100%' }}>
@@ -60,22 +77,30 @@ export const AccordionItem: React.FC<Props> = ({
           </div>
           <div className="address-controls">
             <Tooltip title="Set as default" placement="top">
-              <Switch checked={defaultId === address.id} onChange={handleChange} data-testid="default-switch" />
+              <Switch
+                checked={defaultId === address.id}
+                onChange={handleChange}
+                onClick={stopPropagation}
+                data-testid="default-switch"
+              />
             </Tooltip>
-            <IconButton onClick={onEditRequest} color="primary" className="edit-control" data-testid="edit-btn">
+            <IconButton onClick={handleEditClick} color="primary" className="edit-control" data-testid="edit-btn">
               <EditRoundedIcon />
             </IconButton>
-            <IconButton onClick={onDeleteRequested} className="delete-control" color="error" data-testid="delete-btn">
+            <IconButton onClick={handleDeleteClick} className="delete-control" color="error" data-testid="delete-btn">
               <DeleteRoundedIcon />
             </IconButton>
           </div>
         </AccordionSummary>
         <AccordionDetails className="address-item">
-          {address.firstName && <Typography>Name: {address.firstName}</Typography>}
-          {address.lastName && <Typography>Surname: {address.lastName}</Typography>}
+          {(address.firstName || address.lastName) && (
+            <Typography>
+              {address.firstName} {address.lastName}
+            </Typography>
+          )}
           <Typography>Street: {address.streetName}</Typography>
           <Typography>City: {address.city}</Typography>
-          <Typography>Country: {address.country}</Typography>
+          <Typography>Country: {getCountryByCode(address.country)}</Typography>
           <Typography>Postal Code: {address.postalCode}</Typography>
         </AccordionDetails>
       </Accordion>
