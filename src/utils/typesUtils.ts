@@ -1,3 +1,4 @@
+import { countries } from '../consts';
 import { Currencies, Localizations } from '../types';
 
 export function isLocalization(value: string): value is Localizations {
@@ -15,3 +16,15 @@ export function isCurrency(value: string): value is Currencies {
 
   return false;
 }
+
+const isCountryCode = (code: string): code is keyof typeof countries => {
+  return code in countries;
+};
+
+export const getCountryByCode = (code: string): string => {
+  if (isCountryCode(code)) {
+    return countries[code];
+  } else {
+    return code;
+  }
+};

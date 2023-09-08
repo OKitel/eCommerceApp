@@ -9,3 +9,10 @@ export const PASSWORD_REGEXP =
 export const PASSWORD_REGEXP_WITHOUT_SPECIALS = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 export const SEARCH_QUERY_PARAM = 'q';
+
+export const countries = {
+  US: 'USA',
+  AT: 'Austria',
+  DE: 'Germany',
+  NL: 'Netherlands',
+};
