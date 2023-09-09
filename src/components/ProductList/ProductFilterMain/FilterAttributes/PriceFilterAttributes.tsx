@@ -63,6 +63,7 @@ export const PriceFilterAttributes: React.FC<Props> = ({
           color="error"
           disabled={!filterAttributes[ATTRIBUTE_NAME_LOWER_PRICE_BOUND]}
           onClick={(): void => resetFilterAttribute(ATTRIBUTE_NAME_LOWER_PRICE_BOUND)}
+          data-testid="reset-price-from-btn"
         >
           <CloseRoundedIcon />
         </IconButton>
@@ -87,6 +88,7 @@ export const PriceFilterAttributes: React.FC<Props> = ({
           color="error"
           disabled={!filterAttributes[ATTRIBUTE_NAME_UPPER_PRICE_BOUND]}
           onClick={(): void => resetFilterAttribute(ATTRIBUTE_NAME_UPPER_PRICE_BOUND)}
+          data-testid="reset-price-to-btn"
         >
           <CloseRoundedIcon />
         </IconButton>
