@@ -47,6 +47,7 @@ export const LenumFilterAttributes: React.FC<Props> = ({
         color="error"
         disabled={!filterAttributes[attribute.name]}
         onClick={(): void => resetFilterAttribute(attribute.name)}
+        aria-label="reset-button"
       >
         <CloseRoundedIcon />
       </IconButton>
