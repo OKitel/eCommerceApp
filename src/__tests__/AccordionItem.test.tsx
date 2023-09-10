@@ -1,7 +1,9 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { AccordionItem } from '../components/AddressesAccordion/AccordionItem';
+
 import { renderWithProviders } from './test-utils';
+
+import { AccordionItem } from '../components/AddressesAccordion/AccordionItem';
 
 describe('AccordionItem', () => {
   const mockAddress = {

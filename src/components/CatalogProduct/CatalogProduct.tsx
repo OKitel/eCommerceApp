@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { Button, Card, CardActionArea, CardContent, Stack, Typography } from '@mui/material';
 import { ProductProjection, ProductVariant } from '@commercetools/platform-sdk';
+import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../../store/hooks';
+import { findPriceWithCurrencyCode } from '../../utils/productsUtils';
+import { removeTags } from '../../utils/helpers';
+import { LINKS } from '../consts';
+
 import { ProductImage } from './ProductImage';
 import { ProductPrice } from './ProductPrice';
 import { ProductVariantSelector } from './ProductVariantSelector';
-import { findPriceWithCurrencyCode } from '../../utils/productsUtils';
-import { removeTags } from '../../utils/helpers';
 
 import './styles.scss';
-import { useNavigate } from 'react-router-dom';
-import { LINKS } from '../consts';
 
 type CatalogProductProps = {
   productProjection: ProductProjection;

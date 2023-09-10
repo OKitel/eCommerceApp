@@ -1,4 +1,3 @@
-import { TokenStoreTypes, serviceApiRoot } from '../lib/commercetools-sdk';
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 import {
   CustomerSignInResult,
@@ -7,8 +6,10 @@ import {
   CustomerChangePassword,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { CustomerDraft } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
-import { TIntrospectResponse } from './types';
+
 import { retry } from './utils';
+import { TIntrospectResponse } from './types';
+import { TokenStoreTypes, serviceApiRoot } from '../lib/commercetools-sdk';
 
 class ServiceApi {
   public async introspectToken(token: string): Promise<TIntrospectResponse> {

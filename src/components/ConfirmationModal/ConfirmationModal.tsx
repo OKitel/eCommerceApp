@@ -1,5 +1,6 @@
 import { Modal, Typography, Box, Button } from '@mui/material';
 import { useCallback } from 'react';
+
 import './styles.scss';
 
 type Props = {

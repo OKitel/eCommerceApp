@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Paper, Box, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { FormInputText } from '../form-components/FormInputText';
-import { FormInputPassword } from '../form-components/FormInputPassword';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { loginCustomer } from '../../slices/customer/slice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
@@ -14,8 +13,12 @@ import { setFormServerError } from '../../utils/setFormServerError';
 import { LINKS } from '../consts';
 import { getMessageErrorLogin } from './utils';
 import { LABELS, TEXT_CONTENT, TITLES } from './consts';
-import './styles.scss';
+
 import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
+import { FormInputText } from '../form-components/FormInputText';
+import { FormInputPassword } from '../form-components/FormInputPassword';
+
+import './styles.scss';
 
 export const LoginForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit, setError } = useForm();

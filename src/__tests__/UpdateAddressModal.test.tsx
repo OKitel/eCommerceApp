@@ -1,7 +1,9 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { UpdateAddressModal } from '../components/AddressModal/UpdateAddressModal';
+
 import { renderWithProviders } from './test-utils';
+
+import { UpdateAddressModal } from '../components/AddressModal/UpdateAddressModal';
 
 describe('UpdateAddressModal', () => {
   const user = userEvent.setup();

@@ -1,10 +1,12 @@
 import { ErrorResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
-import { isErrorResponse, isValidationErrorResponse } from '../api/utils';
+
 import { ValidationErrorResponse } from '../api/types';
-import { createBreadcrumbs } from '../components/Breadcrumbs/utils';
-import { categories } from '../__mocks__/categories';
 import { Localizations } from '../types';
+import { isErrorResponse, isValidationErrorResponse } from '../api/utils';
+import { createBreadcrumbs } from '../components/Breadcrumbs/utils';
+
 import { mockProduct } from '../__mocks__/products';
+import { categories } from '../__mocks__/categories';
 
 describe('isErrorResponse', () => {
   it('should return true for valid ErrorResponse', () => {

@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { Localizations, Currencies } from '../../types';
 import { TSettingsSliceState } from './types';
 import { getSettings, saveSettings } from '../../utils/localStorage';

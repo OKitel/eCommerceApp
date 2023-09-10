@@ -1,4 +1,5 @@
 import { Customer } from '@commercetools/platform-sdk';
+
 import { ServerError } from '../../api/types';
 
 type TCustomerSliceProgress = {

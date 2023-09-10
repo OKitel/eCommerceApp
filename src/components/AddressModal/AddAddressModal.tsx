@@ -2,16 +2,18 @@ import { useCallback, useState, useEffect } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Modal, Box, Typography, Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Customer } from '@commercetools/platform-sdk';
+
 import { addAddress } from '../../slices/customer/slice';
 import { AddNewAddressRequest } from '../../slices/customer/types';
-
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
-import { AddressFields } from '../AddressFields/AddressFields';
-import './styles.scss';
+
 import { FormRadioGroup } from '../form-components/FormRadioGroup';
+import { AddressFields } from '../AddressFields/AddressFields';
+
+import './styles.scss';
 
 const radioOptions = [
   {

@@ -1,6 +1,7 @@
 import { FieldValues } from 'react-hook-form';
-import { Address, RegistrationRequest } from '../../slices/customer/types';
 import moment from 'moment';
+
+import { Address, RegistrationRequest } from '../../slices/customer/types';
 import { ServerError } from '../../api/types';
 
 export const mapFormDataToRequest = (

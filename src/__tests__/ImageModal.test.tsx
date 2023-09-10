@@ -1,7 +1,9 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ImageModal } from '../components/ImageModal/ImageModal';
+
 import { renderWithProviders } from './test-utils';
+
+import { ImageModal } from '../components/ImageModal/ImageModal';
 
 // mock swiper component to fix https://alobovskiy-1691010266635.atlassian.net/browse/ECA-150
 jest.mock('swiper/react', () => ({

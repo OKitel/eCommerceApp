@@ -8,14 +8,17 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
+import { Stack } from '@mui/material';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
 import { LINKS } from '../consts';
+import { SEARCH_QUERY_PARAM } from '../../consts';
+
 import { BurgerMenu } from '../BurgerMenu/BurgerMenu';
-import { Stack } from '@mui/material';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { CurrencySelector } from './CurrencySelector';
-import { SEARCH_QUERY_PARAM } from '../../consts';
+
 import './styles.scss';
 
 export const Header: React.FC = (): JSX.Element => {

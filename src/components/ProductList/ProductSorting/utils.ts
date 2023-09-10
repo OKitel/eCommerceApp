@@ -1,4 +1,5 @@
 import { AttributeDefinition } from '@commercetools/platform-sdk';
+
 import { TSortingSelectorOption } from './types';
 import { PRICE_SORTING_PARAM_KEY, PRICE_SORTING_PARAM_LABEL, ATTRIBUTE_SORTING_PARAMS } from './consts';
 import { Localizations } from '../../../types';

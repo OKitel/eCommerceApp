@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { getCategories } from '../../../slices/categories/slice';
+import { URL_PARAMS } from '../../../components/consts';
+
 import { ChipBreadcrumbs } from '../../../components/Breadcrumbs/Breadcrumbs';
 import { ProgressLoader } from '../../../components/ProgressLoader/ProgressLoader';
 import { CategoryContent } from '../../../components/CategoryContent/CategoryContent';
 import { CatalogCategoryCard } from '../../../components/CatalogCategoryCard/CatalogCategoryCard';
-import { URL_PARAMS } from '../../../components/consts';
 
 export const Category: React.FC = (): JSX.Element => {
   const { [URL_PARAMS.categorySlug]: categorySlug } = useParams();

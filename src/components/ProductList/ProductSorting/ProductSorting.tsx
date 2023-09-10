@@ -14,10 +14,11 @@ import {
 } from '@mui/material';
 
 import { useAppSelector } from '../../../store/hooks';
-import { ProgressLoader } from '../../ProgressLoader/ProgressLoader';
 import { getSortingOptions } from './utils';
 import { SORTING_ORDER_LABEL } from './consts';
 import { TSortingOrder, TSortingParams } from '../types';
+
+import { ProgressLoader } from '../../ProgressLoader/ProgressLoader';
 
 import './styles.scss';
 

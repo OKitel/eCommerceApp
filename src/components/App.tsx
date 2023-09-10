@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useAppDispatch } from '../store/hooks';
 import { initSettings } from '../slices/settings/slice';
 import { getLoggedInCustomer } from '../slices/customer/slice';
+import { LINKS, URL_PARAMS } from './consts';
 
 import { AlertsSnackbar } from './AlertsSnackbar/AlertsSnackbar';
 import { Header } from './Header/Header';
@@ -19,8 +20,6 @@ import { Registration } from '../pages/Registration/Registration';
 import { Profile } from '../pages/Profile/Profile';
 import { ProductPage } from '../pages/Product/ProductPage';
 import { Search } from '../pages/Search/Search';
-
-import { LINKS, URL_PARAMS } from './consts';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();

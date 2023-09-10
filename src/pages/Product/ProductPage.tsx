@@ -1,15 +1,18 @@
 import { Box, Container, Typography, Paper } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { URL_PARAMS } from '../../components/consts';
 import { getProductById } from '../../slices/product/slice';
+import { getCategories } from '../../slices/categories/slice';
+
 import { ChipBreadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 import { SwiperComponent } from '../../components/Swiper/Swiper';
 import { ProductDetails } from '../../components/ProductDetails/ProductDetails';
+
 import './styles.scss';
-import { getCategories } from '../../slices/categories/slice';
 
 export const ProductPage: React.FC = (): React.ReactElement => {
   const { [URL_PARAMS.productId]: productId } = useParams();

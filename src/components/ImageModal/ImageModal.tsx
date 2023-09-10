@@ -1,8 +1,10 @@
+import { useCallback } from 'react';
 import { Modal, Box, IconButton } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { useCallback } from 'react';
-import './styles.scss';
+
 import { MiniSwiper } from '../Swiper/MiniSwiper';
+
+import './styles.scss';
 
 type Props = {
   images: { url: string }[] | undefined;

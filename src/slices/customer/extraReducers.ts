@@ -1,6 +1,7 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
-import { TCustomerSliceState } from './types';
 import { Customer } from '@commercetools/platform-sdk';
+
+import { TCustomerSliceState } from './types';
 import { clearLoggedInCustomerId, clearTokenStore, saveLoggedInCustomerId } from '../../utils/localStorage';
 import { TokenStoreTypes } from '../../lib/commercetools-sdk';
 

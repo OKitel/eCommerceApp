@@ -7,8 +7,10 @@ import 'swiper/css/scrollbar';
 import { Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import { Swiper } from 'swiper/types';
-import './styles.scss';
+
 import { ImageModal } from '../ImageModal/ImageModal';
+
+import './styles.scss';
 
 type Props = {
   images: { url: string }[] | undefined;

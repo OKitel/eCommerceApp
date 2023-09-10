@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Button, Divider, SelectChangeEvent, Stack, Typography } from '@mui/material';
 import { AttributeBooleanType, AttributeDefinition, AttributeLocalizedEnumType } from '@commercetools/platform-sdk';
 
-import { LenumFilterAttributes } from './LenumFilterAttributes';
-import { PriceFilterAttributes } from './PriceFilterAttributes';
-import { BooleanFilterAttributes } from './BooleanFilterAttributes';
 import { getDefaultFilterAttributes } from '../utils';
 import { TFilterAttributes } from '../../types';
 import { AttributeDefinitionWithType } from '../types';
+
+import { LenumFilterAttributes } from './LenumFilterAttributes';
+import { PriceFilterAttributes } from './PriceFilterAttributes';
+import { BooleanFilterAttributes } from './BooleanFilterAttributes';
 
 type Props = {
   attributes: AttributeDefinition[];

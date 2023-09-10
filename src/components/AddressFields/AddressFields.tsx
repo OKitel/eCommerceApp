@@ -1,7 +1,8 @@
 import { Control, FieldValues } from 'react-hook-form';
+import { postcodeValidator } from 'postcode-validator';
+
 import { FormInputText } from '../form-components/FormInputText';
 import { FormInputDropdown } from '../form-components/FormInputDropdown';
-import { postcodeValidator } from 'postcode-validator';
 
 type Props = {
   fieldNameMap?: { [key: string]: string };

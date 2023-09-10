@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+
 import { colors, fonts, fontSizes } from './consts';
 
 export const theme = createTheme({

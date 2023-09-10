@@ -1,9 +1,11 @@
 import { screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Category } from '@commercetools/platform-sdk';
+
 import { renderWithProviders } from './test-utils';
-import { CatalogCategoryCard } from '../components/CatalogCategoryCard/CatalogCategoryCard';
 import { categories } from '../__mocks__/categories';
+
+import { CatalogCategoryCard } from '../components/CatalogCategoryCard/CatalogCategoryCard';
 
 describe('Catalog category is displayed correctly', () => {
   const renderComponent = (category: Category): void => {

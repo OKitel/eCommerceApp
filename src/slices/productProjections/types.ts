@@ -1,4 +1,5 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
+
 import { TListPageInfo } from '../../types';
 
 export type TProductProjectionsSliceState = {

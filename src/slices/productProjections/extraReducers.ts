@@ -1,5 +1,6 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
 import { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk';
+
 import { TProductProjectionsSliceState } from './types';
 
 export function reducerGetProductProjectionsPending(state: Draft<TProductProjectionsSliceState>): void {

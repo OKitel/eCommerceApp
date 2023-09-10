@@ -3,6 +3,7 @@ import {
   ErrorResponse,
   AuthErrorResponse,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
+
 import { TokenStoreTypes } from '../lib/commercetools-sdk';
 import { clearTokenStore } from '../utils/localStorage';
 import { ValidationErrorResponse } from './types';

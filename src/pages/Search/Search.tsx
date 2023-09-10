@@ -1,8 +1,9 @@
 import { Container, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 
-import { ProductList } from '../../components/ProductList/ProductList';
 import { SEARCH_QUERY_PARAM } from '../../consts';
+
+import { ProductList } from '../../components/ProductList/ProductList';
 
 export const Search: React.FC = (): JSX.Element => {
   const { search } = useLocation();

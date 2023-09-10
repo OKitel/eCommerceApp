@@ -1,7 +1,9 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ConfirmationModal } from '../components/ConfirmationModal/ConfirmationModal';
+
 import { renderWithProviders } from './test-utils';
+
+import { ConfirmationModal } from '../components/ConfirmationModal/ConfirmationModal';
 
 describe('Delete address confirmation modal', () => {
   const user = userEvent.setup();

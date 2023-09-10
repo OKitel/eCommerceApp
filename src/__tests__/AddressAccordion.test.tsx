@@ -1,6 +1,9 @@
 import { screen } from '@testing-library/react';
-import { AddressesAccordion } from '../components/AddressesAccordion/AddressAccordion';
+
 import { renderWithProviders } from './test-utils';
+
+import { AddressesAccordion } from '../components/AddressesAccordion/AddressAccordion';
+
 describe('AddressesAccordion', () => {
   const mockAddress = {
     id: 'address123',

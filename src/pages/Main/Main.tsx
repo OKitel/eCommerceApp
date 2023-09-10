@@ -1,6 +1,8 @@
 import { Box, Typography, Paper, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+
 import maestroUrl from '../../assets/images/maestro.png';
+
 import './styles.scss';
 
 export const Main: React.FC = (): JSX.Element => {

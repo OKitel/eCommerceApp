@@ -1,8 +1,10 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { Header } from '../components/Header/Header';
+
 import { renderWithProviders } from './test-utils';
+
+import { Header } from '../components/Header/Header';
 
 describe('Header is displayed correctly', () => {
   const user = userEvent.setup();

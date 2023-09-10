@@ -1,5 +1,7 @@
 import { Box } from '@mui/material';
+
 import wipUrl from '../../assets/images/wip.png';
+
 import './styles.scss';
 
 export const Cart: React.FC = (): JSX.Element => {

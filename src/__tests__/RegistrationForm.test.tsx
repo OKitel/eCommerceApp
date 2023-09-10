@@ -1,9 +1,11 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
+
 import { renderWithProviders } from './test-utils';
-import { RegistrationForm } from '../components/RegistrationForm/RegistrationForm';
+
 import { LINKS } from '../components/consts';
+import { RegistrationForm } from '../components/RegistrationForm/RegistrationForm';
 
 describe('Registration form validation', () => {
   const user = userEvent.setup();
