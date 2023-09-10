@@ -1,27 +1,29 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Paper, Box, Typography, Divider } from '@mui/material';
-import { FormInputText } from '../form-components/FormInputText';
 import { useForm, FieldValues } from 'react-hook-form';
-import './styles.scss';
-import { FormInputDate } from '../form-components/FormInputDate';
-import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
-import { FormInputPassword } from '../form-components/FormInputPassword';
-import moment from 'moment';
-import { RegistrationRequest } from '../../slices/customer/types';
-import { FormCheckBox } from '../form-components/FormCheckBox';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { useNavigate } from 'react-router-dom';
-import { registerCustomer } from '../../slices/customer/slice';
 import { LoadingButton } from '@mui/lab';
+import moment from 'moment';
+
+import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../consts';
+import { RegistrationRequest } from '../../slices/customer/types';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { registerCustomer } from '../../slices/customer/slice';
 import { setAlert } from '../../slices/alerts/slice';
 import { ServerError } from '../../api/types';
 import { setFormServerError } from '../../utils/setFormServerError';
 import { LINKS } from '../consts';
 import { messages } from '../../messages';
 import { mapFormDataToRequest } from './registrationRequestMapper';
+
 import { ProgressLoader } from '../ProgressLoader/ProgressLoader';
 import { AddressFields } from '../AddressFields/AddressFields';
+import { FormInputText } from '../form-components/FormInputText';
+import { FormInputDate } from '../form-components/FormInputDate';
+import { FormInputPassword } from '../form-components/FormInputPassword';
+import { FormCheckBox } from '../form-components/FormCheckBox';
+
+import './styles.scss';
 
 export const RegistrationForm: React.FC = (): React.ReactElement => {
   const { control, handleSubmit, getValues, watch, setError } = useForm();
@@ -62,7 +64,7 @@ export const RegistrationForm: React.FC = (): React.ReactElement => {
           label={'First Name'}
           rules={{
             required: 'Name is required',
-            pattern: { value: /^[a-zA-Z]+$/, message: 'Only letters allowed' },
+            pattern: { value: /^[\p{L} ]+$/u, message: 'Only letters allowed' },
           }}
         />
         <FormInputText
@@ -71,7 +73,7 @@ export const RegistrationForm: React.FC = (): React.ReactElement => {
           label={'Last Name'}
           rules={{
             required: 'Last name is required',
-            pattern: { value: /^[a-zA-Z]+$/, message: 'Only letters allowed' },
+            pattern: { value: /^[\p{L} ]+$/u, message: 'Only letters allowed' },
           }}
         />
         <FormInputText
@@ -115,13 +117,29 @@ export const RegistrationForm: React.FC = (): React.ReactElement => {
           }}
         />
         <Divider sx={{ mt: 2, backgroundColor: '#673ab7' }} />
-        <AddressFields type="shipping" control={control} getValues={getValues} />
+        <Typography variant="h6" className="form-subtitle">
+          Shipping Address
+        </Typography>
+        <AddressFields control={control} getValues={getValues} />
         <FormCheckBox name={'defaultAddress'} control={control} label="Set address as default" />
         <FormCheckBox name={'billingAddress'} control={control} label="Billing address is THE SAME as shipping" />
         {showBillingAddress && (
           <>
             <Divider sx={{ mt: 1, backgroundColor: '#673ab7' }} />
-            <AddressFields type="billing" control={control} getValues={getValues} />
+            <Typography variant="h6" className="form-subtitle">
+              Billing Address
+            </Typography>
+            <AddressFields
+              withName
+              fieldNameMap={{
+                street: 'billingStreet',
+                city: 'billingCity',
+                country: 'billingCountry',
+                postCode: 'billingPostcode',
+              }}
+              control={control}
+              getValues={getValues}
+            />
           </>
         )}
         <div className="form-btn">

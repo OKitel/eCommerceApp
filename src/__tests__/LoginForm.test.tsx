@@ -1,10 +1,11 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
+
 import { renderWithProviders } from './test-utils';
-import { LoginForm } from '../components/LoginForm/LoginForm';
-import { debug } from 'jest-preview';
 import { LINKS } from '../components/consts';
+
+import { LoginForm } from '../components/LoginForm/LoginForm';
 
 describe('Login form validation', () => {
   const user = userEvent.setup();
@@ -40,7 +41,6 @@ describe('Login form validation', () => {
 
   test('Login form invalid password validation', async () => {
     renderComponent();
-    debug();
     const passwordInput = screen.getByTestId('password').querySelector('input');
     if (passwordInput) await user.type(passwordInput, 'invalidpassword');
     await user.click(screen.getByTestId('submit-btn'));

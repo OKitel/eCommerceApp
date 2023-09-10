@@ -1,7 +1,9 @@
-import { TokenStoreTypes, anonymousApiRoot } from '../lib/commercetools-sdk';
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 import { CustomerSignInResult } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
+
 import { retry } from './utils';
+
+import { TokenStoreTypes, anonymousApiRoot } from '../lib/commercetools-sdk';
 
 class AnonymousApi {
   public async login(email: string, password: string): Promise<ClientResponse<CustomerSignInResult>> {

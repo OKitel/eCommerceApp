@@ -7,9 +7,10 @@ type FormInputProps = {
   name: string;
   control: Control;
   rules: Omit<RegisterOptions<FieldValues, string>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
+  readOnly?: boolean;
 };
 
-export const FormInputDate = ({ name, control, rules }: FormInputProps): JSX.Element => {
+export const FormInputDate = ({ name, control, rules, readOnly }: FormInputProps): JSX.Element => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Controller
@@ -29,6 +30,7 @@ export const FormInputDate = ({ name, control, rules }: FormInputProps): JSX.Ele
               value={value ?? 0}
               onChange={onChange}
               sx={{ mt: 1 }}
+              disabled={readOnly}
             />
           );
         }}

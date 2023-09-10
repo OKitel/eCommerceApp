@@ -1,7 +1,9 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
-import { TCustomerSliceState } from './types';
 import { Customer } from '@commercetools/platform-sdk';
-import { saveLoggedInCustomerId } from '../../utils/localStorage';
+
+import { TCustomerSliceState } from './types';
+import { clearLoggedInCustomerId, clearTokenStore, saveLoggedInCustomerId } from '../../utils/localStorage';
+import { TokenStoreTypes } from '../../lib/commercetools-sdk';
 
 export function reducerGetLoggedInCustomerPending(state: Draft<TCustomerSliceState>): void {
   state.progress.introspect = true;
@@ -12,8 +14,12 @@ export function reducerGetLoggedInCustomerFulfilled(
 ): void {
   state.progress.introspect = false;
   state.errorMessage = null;
+
   if (action.payload) {
     state.customerData = action.payload;
+  } else {
+    clearLoggedInCustomerId();
+    clearTokenStore(TokenStoreTypes.SpaApiTokenStore);
   }
 }
 export function reducerGetLoggedInCustomerRejected(
@@ -21,7 +27,7 @@ export function reducerGetLoggedInCustomerRejected(
   action: PayloadAction<unknown>,
 ): void {
   const { payload } = action;
-
+  state.customerData = null;
   state.progress.introspect = false;
   if (payload && typeof payload === 'string') {
     state.errorMessage = payload;
@@ -67,4 +73,29 @@ export function reducerRegisterCustomerFulfilled(
 }
 export function reducerRegisterCustomerRejected(state: Draft<TCustomerSliceState>): void {
   state.progress.registration = false;
+}
+
+export function reducerUpdateCustomerFulfilled(
+  state: Draft<TCustomerSliceState>,
+  action: PayloadAction<Customer | undefined>,
+): void {
+  state.progress.update = false;
+  state.errorMessage = null;
+
+  if (action.payload) {
+    state.customerData = action.payload;
+  }
+}
+
+export function reducerUpdateCustomerRejected(state: Draft<TCustomerSliceState>, action: PayloadAction<unknown>): void {
+  const { payload } = action;
+
+  state.progress.update = false;
+  if (payload && typeof payload === 'string') {
+    state.errorMessage = payload;
+  }
+}
+
+export function reducerUpdateCustomerPending(state: Draft<TCustomerSliceState>): void {
+  state.progress.update = true;
 }

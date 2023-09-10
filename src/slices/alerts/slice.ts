@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { TAlert, TAlertsSliceState } from './types';
 
 const initialState: TAlertsSliceState = {
