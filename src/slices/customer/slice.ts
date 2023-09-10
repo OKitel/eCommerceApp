@@ -5,7 +5,12 @@ import { v4 as uuidv4 } from 'uuid';
 import spaApi from '../../api/Spa';
 import ServiceApi from '../../api/Service';
 import { TokenStoreTypes } from '../../lib/commercetools-sdk';
-import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '../../utils/localStorage';
+import {
+  clearLoggedInCustomerId,
+  clearTokenStore,
+  getLoggedInCustomerId,
+  getTokenStore,
+} from '../../utils/localStorage';
 import { mapErrorMessage } from '../../api/mapError';
 import {
   AddNewAddressRequest,
@@ -248,6 +253,7 @@ const customerSlice = createSlice({
     clearCustomerData: (state) => {
       state.customerData = null;
       clearLoggedInCustomerId();
+      clearTokenStore(TokenStoreTypes.SpaApiTokenStore);
     },
   },
   extraReducers: (builder) => {
