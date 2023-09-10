@@ -41,10 +41,6 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
     clientId: process.env.VITE_CTP_SPA_CLIENT_ID || '',
     clientSecret: process.env.VITE_CTP_SPA_CLIENT_SECRET || '',
   },
-  tokenCache: {
-    get: () => getTokenStore(TokenStoreTypes.SpaApiTokenStore),
-    set: (tokenStore) => saveTokenStore(TokenStoreTypes.SpaApiTokenStore, tokenStore),
-  },
   fetch,
 };
 
