@@ -15,6 +15,12 @@ if [ "$branch" = "develop" ]; then
   exit 1
 fi
 
+# check if branch is not release/basket-about_us
+if [ "$branch" = "release/basket-about_us" ]; then
+  echo "You can't commit directly to 'release/basket-about_us' branch"
+  exit 1
+fi
+
 # Run lint-staged command for both workspaces
 npx lint-staged --config=.lintstagedrc
 
