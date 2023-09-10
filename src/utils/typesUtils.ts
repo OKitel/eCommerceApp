@@ -24,7 +24,6 @@ const isCountryCode = (code: string): code is keyof typeof countries => {
 export const getCountryByCode = (code: string): string => {
   if (isCountryCode(code)) {
     return countries[code];
-  } else {
-    return code;
   }
+  return code;
 };

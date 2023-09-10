@@ -43,12 +43,12 @@ export const AccordionItem: React.FC<Props> = ({
     event.stopPropagation();
   };
 
-  const handleEditClick = (event: React.MouseEvent<HTMLElement>): void => {
+  const handleClickEdit = (event: React.MouseEvent<HTMLElement>): void => {
     stopPropagation(event);
     onEditRequest();
   };
 
-  const handleDeleteClick = (event: React.MouseEvent<HTMLElement>): void => {
+  const handleClickDelete = (event: React.MouseEvent<HTMLElement>): void => {
     stopPropagation(event);
     onDeleteRequested();
   };
@@ -84,10 +84,10 @@ export const AccordionItem: React.FC<Props> = ({
                 data-testid="default-switch"
               />
             </Tooltip>
-            <IconButton onClick={handleEditClick} color="primary" className="edit-control" data-testid="edit-btn">
+            <IconButton onClick={handleClickEdit} color="primary" className="edit-control" data-testid="edit-btn">
               <EditRoundedIcon />
             </IconButton>
-            <IconButton onClick={handleDeleteClick} className="delete-control" color="error" data-testid="delete-btn">
+            <IconButton onClick={handleClickDelete} className="delete-control" color="error" data-testid="delete-btn">
               <DeleteRoundedIcon />
             </IconButton>
           </div>
