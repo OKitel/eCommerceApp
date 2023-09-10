@@ -44,6 +44,20 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   fetch,
 };
 
+const authMiddlewareOptionsWithTokenCache: AuthMiddlewareOptions = {
+  host: process.env.VITE_CTP_AUTH_HOST || '',
+  projectKey,
+  credentials: {
+    clientId: process.env.VITE_CTP_SPA_CLIENT_ID || '',
+    clientSecret: process.env.VITE_CTP_SPA_CLIENT_SECRET || '',
+  },
+  tokenCache: {
+    get: () => getTokenStore(TokenStoreTypes.SpaApiTokenStore),
+    set: (tokenStore) => saveTokenStore(TokenStoreTypes.SpaApiTokenStore, tokenStore),
+  },
+  fetch,
+};
+
 // Configure httpMiddlewareOptions
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: process.env.VITE_CTP_API_HOST || '',
@@ -70,4 +84,11 @@ const client = new ClientBuilder()
   .withLoggerMiddleware() // Include middleware for logging
   .build();
 
+const clientWithToken = new ClientBuilder()
+  .withClientCredentialsFlow(authMiddlewareOptionsWithTokenCache)
+  .withHttpMiddleware(httpMiddlewareOptions)
+  .withLoggerMiddleware() // Include middleware for logging
+  .build();
+
 export const spaApiRoot = createApiBuilderFromCtpClient(client).withProjectKey({ projectKey });
+export const spaApiWithTokenRoot = createApiBuilderFromCtpClient(clientWithToken).withProjectKey({ projectKey });
