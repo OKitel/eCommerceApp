@@ -25,10 +25,7 @@ const getPasswordAuthMiddlewareOptions = (username: string, password: string): P
     },
   },
   tokenCache: {
-    // an anonymous token (if it exists) is used for login
-    // to assign Carts belonging to the anonymousId to the logged in Customer
-    // https://docs.commercetools.com/api/projects/me-profile#authenticate-sign-in-customer
-    get: () => getTokenStore(TokenStoreTypes.AnonymousApiTokenStore),
+    get: () => getTokenStore(TokenStoreTypes.SpaApiTokenStore),
     set: (tokenStore) => saveTokenStore(TokenStoreTypes.SpaApiTokenStore, tokenStore),
   },
   fetch,
