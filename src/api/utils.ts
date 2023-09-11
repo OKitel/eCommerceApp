@@ -65,7 +65,7 @@ export function isValidationErrorResponse(object: unknown): object is Validation
   return false;
 }
 
-export async function retry<T>(callback: () => Promise<T>, tokenStoreType: TokenStoreTypes): Promise<T> {
+export async function retry<T>(callback: () => Promise<T>, tokenStoreType?: TokenStoreTypes): Promise<T> {
   let attempts = 0;
   const isAuthErrorCode = (error: AuthErrorResponse): boolean => {
     if (error.statusCode === 401 || (error.statusCode === 400 && error.error === API_ERROR_CODES.invalidGrant)) {
@@ -82,7 +82,9 @@ export async function retry<T>(callback: () => Promise<T>, tokenStoreType: Token
       return res;
     } catch (error) {
       if (isClientAuthErrorResponse(error) && isAuthErrorCode(error.body) && attempts < MAX_RETRYING_ATTEMPTS_NUMBER) {
-        clearTokenStore(tokenStoreType);
+        if (tokenStoreType) {
+          clearTokenStore(tokenStoreType);
+        }
 
         attempts += 1;
         const res = await executeCallback();

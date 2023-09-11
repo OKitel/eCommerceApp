@@ -46,6 +46,7 @@ export function reducerLoginCustomerFulfilled(
   if (action.payload) {
     state.customerData = action.payload;
     saveLoggedInCustomerId(action.payload.id);
+    clearTokenStore(TokenStoreTypes.AnonymousApiTokenStore);
   }
 }
 export function reducerLoginCustomerRejected(state: Draft<TCustomerSliceState>, action: PayloadAction<unknown>): void {

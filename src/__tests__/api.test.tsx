@@ -35,7 +35,7 @@ describe('service api', () => {
 
 describe('anonymous api', () => {
   it('logs a customer in', async () => {
-    const responseLoginCustomer = await anonymousApi.login(
+    const responseLoginCustomer = await anonymousApi.loginCustomer(
       CREATED_TEST_API_CUSTOMER_EMAIL,
       CREATED_TEST_API_CUSTOMER_PASSWORD,
     );

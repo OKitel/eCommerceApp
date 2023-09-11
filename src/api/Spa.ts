@@ -1,4 +1,3 @@
-import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder';
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 import {
   CategoryPagedQueryResponse,
@@ -14,17 +13,11 @@ import { ProductProjectionSearchQueryArgs } from './types';
 import { TokenStoreTypes, getSpaApiRootWithPasswordFlow, spaApiRoot } from '../lib/commercetools-sdk';
 
 class SpaApi {
-  private spaApiRoot: ByProjectKeyRequestBuilder | null = null;
-
   public async loginCustomer(
     email: string,
     password: string,
   ): Promise<ClientResponse<CustomerSignInResult> | undefined> {
-    if (!this.spaApiRoot) {
-      this.spaApiRoot = getSpaApiRootWithPasswordFlow(email, password);
-    }
-
-    const apiRoot = this.spaApiRoot;
+    const apiRoot = getSpaApiRootWithPasswordFlow(email, password);
 
     const res = await retry<ClientResponse<CustomerSignInResult>>(
       () => apiRoot.me().login().post({ body: { email, password } }).execute(),

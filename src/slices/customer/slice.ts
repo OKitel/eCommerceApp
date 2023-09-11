@@ -4,8 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 import spaApi from '../../api/Spa';
 import ServiceApi from '../../api/Service';
+import anonymousApi from '../../api/Anonymous';
 import { TokenStoreTypes } from '../../lib/commercetools-sdk';
-import { clearLoggedInCustomerId, getLoggedInCustomerId, getTokenStore } from '../../utils/localStorage';
+import {
+  clearLoggedInCustomerId,
+  clearTokenStore,
+  getLoggedInCustomerId,
+  getTokenStore,
+} from '../../utils/localStorage';
 import { mapErrorMessage } from '../../api/mapError';
 import {
   AddNewAddressRequest,
@@ -48,7 +54,7 @@ export const getLoggedInCustomer = createAsyncThunk('customer/getLoggedInCustome
   const loggedInCustomerId = getLoggedInCustomerId();
   const spaApiTokenStore = getTokenStore(TokenStoreTypes.SpaApiTokenStore);
 
-  if (loggedInCustomerId && spaApiTokenStore) {
+  if (loggedInCustomerId && spaApiTokenStore.token) {
     try {
       const introspectResponse = await ServiceApi.introspectToken(spaApiTokenStore.token);
 
@@ -78,6 +84,12 @@ export const loginCustomer = createAsyncThunk(
   async (request: TLoginRequest, { rejectWithValue }) => {
     const { email, password, onSuccess, onError } = request;
     try {
+      const anonymousApiTokenStore = getTokenStore(TokenStoreTypes.AnonymousApiTokenStore);
+
+      if (anonymousApiTokenStore.token) {
+        await anonymousApi.loginCustomer(email, password);
+      }
+
       const response = await spaApi.loginCustomer(email, password);
       onSuccess();
 
@@ -248,6 +260,7 @@ const customerSlice = createSlice({
     clearCustomerData: (state) => {
       state.customerData = null;
       clearLoggedInCustomerId();
+      clearTokenStore(TokenStoreTypes.SpaApiTokenStore);
     },
   },
   extraReducers: (builder) => {

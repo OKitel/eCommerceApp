@@ -6,8 +6,6 @@ import {
   HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { getTokenStore, saveTokenStore } from '../../utils/localStorage';
-import { TokenStoreTypes } from '.';
 
 const projectKey = process.env.VITE_CTP_PROJECT_KEY || '';
 
@@ -18,10 +16,6 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   credentials: {
     clientId: process.env.VITE_CTP_SERVICE_CLIENT_ID || '',
     clientSecret: process.env.VITE_CTP_SERVICE_CLIENT_SECRET || '',
-  },
-  tokenCache: {
-    get: () => getTokenStore(TokenStoreTypes.ServiceApiTokenStore),
-    set: (tokenStore) => saveTokenStore(TokenStoreTypes.ServiceApiTokenStore, tokenStore),
   },
   fetch,
 };
