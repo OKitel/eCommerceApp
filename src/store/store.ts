@@ -6,6 +6,7 @@ import productTypesReducer from '../slices/productTypes/slice';
 import categoriesReducer from '../slices/categories/slice';
 import productProjectionsReducer from '../slices/productProjections/slice';
 import productReducer from '../slices/product/slice';
+import cartReducer from '../slices/cart/slice';
 import alertsReducer from '../slices/alerts/slice';
 
 export const store = configureStore({
@@ -16,6 +17,7 @@ export const store = configureStore({
     categories: categoriesReducer,
     productProjections: productProjectionsReducer,
     product: productReducer,
+    cart: cartReducer,
     alerts: alertsReducer,
   },
 });
