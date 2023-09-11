@@ -66,6 +66,7 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
               vertical: 'top',
               horizontal: 'left',
             }}
+            data-testid="cart-icon-badge"
           >
             <ShoppingCartRoundedIcon />
           </Badge>

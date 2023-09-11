@@ -57,7 +57,7 @@ export const Header: React.FC = (): JSX.Element => {
             <div>
               <Stack direction="row" spacing={1}>
                 <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickCart}>
-                  <Badge badgeContent={numberOfCartLineItems} color="secondary">
+                  <Badge badgeContent={numberOfCartLineItems} color="secondary" data-testid="cart-icon-badge">
                     <ShoppingCartRoundedIcon />
                   </Badge>
                 </IconButton>
