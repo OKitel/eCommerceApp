@@ -1,5 +1,6 @@
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 import {
+  Cart,
   CategoryPagedQueryResponse,
   CustomerSignInResult,
   Product,
@@ -10,7 +11,12 @@ import {
 import { retry } from './utils';
 import { TProductTypes } from '../types';
 import { ProductProjectionSearchQueryArgs } from './types';
-import { TokenStoreTypes, getSpaApiRootWithPasswordFlow, spaApiRoot } from '../lib/commercetools-sdk';
+import {
+  TokenStoreTypes,
+  getSpaApiRootWithPasswordFlow,
+  spaApiRoot,
+  spaApiWithTokenRoot,
+} from '../lib/commercetools-sdk';
 
 class SpaApi {
   public async loginCustomer(
@@ -65,6 +71,12 @@ class SpaApi {
       () => spaApiRoot.productTypes().withKey({ key }).get().execute(),
       TokenStoreTypes.SpaApiTokenStore,
     );
+
+    return res;
+  }
+
+  public async getActiveCart(): Promise<ClientResponse<Cart>> {
+    const res = spaApiWithTokenRoot.me().activeCart().get().execute();
 
     return res;
   }
