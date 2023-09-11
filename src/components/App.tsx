@@ -20,6 +20,7 @@ import { Registration } from '../pages/Registration/Registration';
 import { Profile } from '../pages/Profile/Profile';
 import { ProductPage } from '../pages/Product/ProductPage';
 import { Search } from '../pages/Search/Search';
+import { getActiveCart } from '../slices/cart/slice';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ export const App: React.FC = (): JSX.Element => {
   useEffect(() => {
     dispatch(initSettings());
     dispatch(getLoggedInCustomer());
+    dispatch(getActiveCart());
   }, [dispatch]);
 
   return (
