@@ -27,8 +27,12 @@ export const App: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(initSettings());
-    dispatch(getLoggedInCustomer());
-    dispatch(getActiveCart());
+
+    async function fetchCustomerData(): Promise<void> {
+      await dispatch(getLoggedInCustomer());
+      await dispatch(getActiveCart());
+    }
+    fetchCustomerData();
   }, [dispatch]);
 
   return (
