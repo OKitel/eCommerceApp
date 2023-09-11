@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Hidden from '@mui/material/Hidden';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
+import { Badge } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
@@ -23,8 +24,10 @@ import './styles.scss';
 export const BurgerMenu: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
+  const { cart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
+  const numberOfCartLineItems = cart?.lineItems.length;
 
   return (
     <>
@@ -51,11 +54,22 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
           variant="text"
           color="primary"
           className="burger-button"
+          aria-label="cart"
           onClick={(): void => {
             setOpen(false);
           }}
         >
-          <ShoppingCartRoundedIcon /> &nbsp;Cart
+          <Badge
+            badgeContent={numberOfCartLineItems}
+            color="secondary"
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+          >
+            <ShoppingCartRoundedIcon />
+          </Badge>
+          &nbsp;Cart
         </Button>
         <Button
           component={RouterLink}
