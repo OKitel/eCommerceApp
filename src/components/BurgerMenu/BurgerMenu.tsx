@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
+import { clearCart } from '../../slices/cart/slice';
 import { LINKS } from '../consts';
 
 import { CurrencySelector } from '../Header/CurrencySelector';
@@ -91,6 +92,7 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
               className="burger-button"
               onClick={(): void => {
                 dispatch(clearCustomerData());
+                dispatch(clearCart());
                 setOpen(false);
               }}
             >

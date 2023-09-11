@@ -12,6 +12,7 @@ import { Stack } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
+import { clearCart } from '../../slices/cart/slice';
 import { LINKS } from '../consts';
 import { SEARCH_QUERY_PARAM } from '../../consts';
 
@@ -68,6 +69,7 @@ export const Header: React.FC = (): JSX.Element => {
                       color="secondary"
                       onClick={(): void => {
                         dispatch(clearCustomerData());
+                        dispatch(clearCart());
                       }}
                     >
                       Logout
