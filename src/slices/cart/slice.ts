@@ -14,8 +14,11 @@ import { TCartSliceState } from './types';
 
 const initialState: TCartSliceState = {
   cart: null,
-  progress: false,
   errorMessage: null,
+  progress: {
+    getActiveCart: false,
+    addLineItem: false,
+  },
 };
 
 export const getActiveCart = createAsyncThunk('cart/getActiveCart', async (_, { rejectWithValue }) => {
