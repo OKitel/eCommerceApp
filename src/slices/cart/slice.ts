@@ -47,7 +47,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    clearCart: (state) => {
+    clearActiveCart: (state) => {
       state.activeCart = null;
     },
   },
@@ -58,6 +58,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { clearCart } = cartSlice.actions;
+export const { clearActiveCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
