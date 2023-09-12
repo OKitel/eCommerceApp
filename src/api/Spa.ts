@@ -3,6 +3,7 @@ import {
   Cart,
   CategoryPagedQueryResponse,
   CustomerSignInResult,
+  MyCartUpdateAction,
   Product,
   ProductProjectionPagedQueryResponse,
   ProductType,
@@ -77,6 +78,21 @@ class SpaApi {
 
   public async getActiveCart(): Promise<ClientResponse<Cart>> {
     const res = spaApiWithTokenRoot.me().activeCart().get().execute();
+
+    return res;
+  }
+
+  public async updateCart(
+    cartId: string,
+    cartVersion: number,
+    updateActions: MyCartUpdateAction[],
+  ): Promise<ClientResponse<Cart>> {
+    const res = await spaApiWithTokenRoot
+      .me()
+      .carts()
+      .withId({ ID: cartId })
+      .post({ body: { version: cartVersion, actions: updateActions } })
+      .execute();
 
     return res;
   }

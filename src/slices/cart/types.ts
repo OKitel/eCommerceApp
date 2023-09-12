@@ -1,8 +1,8 @@
-import { Cart } from '@commercetools/platform-sdk';
+import { Cart, MyCartAddLineItemAction } from '@commercetools/platform-sdk';
 
 type TCartSliceProgress = {
   getActiveCart: boolean;
-  addLineItem: boolean;
+  addingLineItem: string | null;
 };
 
 export type TCartSliceState = {
@@ -10,3 +10,5 @@ export type TCartSliceState = {
   errorMessage: string | null;
   progress: TCartSliceProgress;
 };
+
+export type TAddLineItemRequest = Required<Pick<MyCartAddLineItemAction, 'productId' | 'variantId' | 'quantity'>>;

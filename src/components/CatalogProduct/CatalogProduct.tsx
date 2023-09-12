@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Card, CardActionArea, CardContent, Stack, Typography } from '@mui/material';
+import { Card, CardActionArea, CardContent, Stack, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { ProductProjection, ProductVariant } from '@commercetools/platform-sdk';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { addLineItemToCart } from '../../slices/cart/slice';
 import { findPriceWithCurrencyCode } from '../../utils/productsUtils';
 import { removeTags } from '../../utils/helpers';
 import { LINKS } from '../consts';
@@ -21,6 +23,10 @@ type CatalogProductProps = {
 export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjection }): JSX.Element => {
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(productProjection.masterVariant);
   const { localization, currency } = useAppSelector((state) => state.settings);
+  const {
+    progress: { addingLineItem },
+  } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
   const isButtonAddToCartDisabled = !findPriceWithCurrencyCode(selectedVariant.prices, currency);
   const navigate = useNavigate();
   const { id, slug } = productProjection;
@@ -29,6 +35,10 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
   const handleProductClick = (event: React.MouseEvent<HTMLElement>): void => {
     event.preventDefault();
     navigate(productUrl);
+  };
+  const handleClickAddToCart = (): void => {
+    // TODO add onSuccess and onError
+    dispatch(addLineItemToCart({ productId: id, variantId: selectedVariant.id, quantity: 1 }));
   };
   const allVariants = [productProjection.masterVariant, ...productProjection.variants];
 
@@ -55,9 +65,15 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
             setSelectedVariant={setSelectedVariant}
           />
           <ProductPrice selectedVariant={selectedVariant} />
-          <Button disabled={isButtonAddToCartDisabled} fullWidth variant="contained">
+          <LoadingButton
+            loading={addingLineItem === id}
+            disabled={isButtonAddToCartDisabled}
+            fullWidth
+            variant="contained"
+            onClick={handleClickAddToCart}
+          >
             Add to Cart
-          </Button>
+          </LoadingButton>
         </Stack>
       </CardContent>
     </Card>
