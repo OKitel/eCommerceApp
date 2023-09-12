@@ -6,7 +6,7 @@ type TCartSliceProgress = {
 };
 
 export type TCartSliceState = {
-  cart: Cart | null;
+  activeCart: Cart | null;
   errorMessage: string | null;
   progress: TCartSliceProgress;
 };

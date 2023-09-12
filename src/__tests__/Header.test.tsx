@@ -66,7 +66,7 @@ describe('Header is displayed correctly', () => {
     const state = {
       ...store.getState(),
       cart: {
-        cart: mockCart,
+        activeCart: mockCart,
       },
       progress: false,
     };

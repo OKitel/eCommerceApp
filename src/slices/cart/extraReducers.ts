@@ -14,7 +14,7 @@ export function reducerGetActiveCartFulfilled(
   state.errorMessage = null;
 
   if (action.payload) {
-    state.cart = action.payload;
+    state.activeCart = action.payload;
   }
 }
 export function reducerGetActiveCartRejected(state: Draft<TCartSliceState>, action: PayloadAction<unknown>): void {

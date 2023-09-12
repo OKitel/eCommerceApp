@@ -13,7 +13,7 @@ import {
 import { TCartSliceState } from './types';
 
 const initialState: TCartSliceState = {
-  cart: null,
+  activeCart: null,
   errorMessage: null,
   progress: {
     getActiveCart: false,
@@ -48,7 +48,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     clearCart: (state) => {
-      state.cart = null;
+      state.activeCart = null;
     },
   },
   extraReducers: (builder) => {

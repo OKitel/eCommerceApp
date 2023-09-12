@@ -25,12 +25,12 @@ import './styles.scss';
 export const Header: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
-  const { cart } = useAppSelector((state) => state.cart);
+  const { activeCart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleClickCart = (): void => navigate(LINKS.cart);
   const handleClickAvatar = (): void => navigate(LINKS.profile);
-  const numberOfCartLineItems = cart?.lineItems.length;
+  const numberOfCartLineItems = activeCart?.lineItems.length;
 
   return (
     <Box className="header" sx={{ flexGrow: 1 }}>

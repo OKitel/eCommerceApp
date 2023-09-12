@@ -24,10 +24,10 @@ import './styles.scss';
 export const BurgerMenu: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
-  const { cart } = useAppSelector((state) => state.cart);
+  const { activeCart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
-  const numberOfCartLineItems = cart?.lineItems.length;
+  const numberOfCartLineItems = activeCart?.lineItems.length;
 
   return (
     <>
