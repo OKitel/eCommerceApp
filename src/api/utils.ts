@@ -19,6 +19,23 @@ export function isClientResponse(object: unknown): object is ClientResponse {
   return false;
 }
 
+export function isClientErrorResponse(object: unknown): object is ClientResponse<ErrorResponse> {
+  if (isClientResponse(object)) {
+    const { body } = object;
+
+    if (
+      typeof body === 'object' &&
+      body !== null &&
+      body.hasOwnProperty('statusCode') &&
+      body.hasOwnProperty('message')
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 export function isClientAuthErrorResponse(object: unknown): object is ClientResponse<AuthErrorResponse> {
   if (isClientResponse(object)) {
     const { body } = object;
