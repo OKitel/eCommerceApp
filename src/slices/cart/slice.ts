@@ -13,9 +13,12 @@ import {
 import { TCartSliceState } from './types';
 
 const initialState: TCartSliceState = {
-  cart: null,
-  progress: false,
+  activeCart: null,
   errorMessage: null,
+  progress: {
+    getActiveCart: false,
+    addLineItem: false,
+  },
 };
 
 export const getActiveCart = createAsyncThunk('cart/getActiveCart', async (_, { rejectWithValue }) => {
@@ -43,7 +46,11 @@ export const getActiveCart = createAsyncThunk('cart/getActiveCart', async (_, { 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    clearActiveCart: (state) => {
+      state.activeCart = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getActiveCart.pending, reducerGetActiveCartPending);
     builder.addCase(getActiveCart.fulfilled, reducerGetActiveCartFulfilled);
@@ -51,6 +58,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const {} = cartSlice.actions;
+export const { clearActiveCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
