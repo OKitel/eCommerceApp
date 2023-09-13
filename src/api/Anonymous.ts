@@ -1,5 +1,9 @@
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
-import { Cart, CustomerSignInResult } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
+import {
+  Cart,
+  CustomerSignInResult,
+  MyCartUpdateAction,
+} from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 
 import { retry } from './utils';
 
@@ -17,6 +21,21 @@ class AnonymousApi {
 
   public async getActiveCart(): Promise<ClientResponse<Cart>> {
     const res = await anonymousApiRoot.me().activeCart().get().execute();
+
+    return res;
+  }
+
+  public async updateCart(
+    cartId: string,
+    cartVersion: number,
+    updateActions: MyCartUpdateAction[],
+  ): Promise<ClientResponse<Cart>> {
+    const res = await anonymousApiRoot
+      .me()
+      .carts()
+      .withId({ ID: cartId })
+      .post({ body: { version: cartVersion, actions: updateActions } })
+      .execute();
 
     return res;
   }

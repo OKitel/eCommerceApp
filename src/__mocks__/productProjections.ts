@@ -560,3 +560,175 @@ export const product3: ProductProjection = {
   createdAt: '2023-08-26T00:38:12.526Z',
   lastModifiedAt: '2023-08-26T00:38:12.526Z',
 };
+export const product4: ProductProjection = {
+  id: '9d2c241e-0fa9-4120-a83d-71828dd9813e',
+  version: 1,
+  productType: {
+    typeId: 'product-type',
+    id: '9e1fc8c0-e73d-426f-b008-c9e49798036a',
+  },
+  name: {
+    en: 'Schecter BANSHEE-6 EXTREME Electric Guitar',
+  },
+  description: {
+    en: 'Electric guitar six-string',
+  },
+  categories: [
+    {
+      typeId: 'category',
+      id: '52b453b5-1b98-42cc-b6d3-bf87e1cae1fd',
+    },
+  ],
+  categoryOrderHints: {},
+  slug: {
+    en: 'banshee-extreme-6-bchb-new',
+  },
+  masterVariant: {
+    id: 1,
+    sku: '515322BlackCherryBurst',
+    key: '515322BlackCherryBurst',
+    prices: [
+      {
+        id: '03e426c2-81b7-49fe-a536-21d348448812',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'EUR',
+          centAmount: 44200,
+          fractionDigits: 2,
+        },
+      },
+      {
+        id: 'e606d7c1-5a81-4872-b44b-d44a1ddb8ff1',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'USD',
+          centAmount: 40600,
+          fractionDigits: 2,
+        },
+      },
+    ],
+    images: [
+      {
+        url: 'https://ltm-music.ru/upload/images/banshee_extreme_6_bchb_new.png',
+        dimensions: {
+          w: 0,
+          h: 0,
+        },
+      },
+    ],
+    attributes: [
+      {
+        name: 'brand',
+        value: {
+          key: 'schecter',
+          label: {
+            en: 'Schecter',
+          },
+        },
+      },
+      {
+        name: 'manufacturer',
+        value: {
+          key: 'indonesia',
+          label: {
+            en: 'Indonesia',
+          },
+        },
+      },
+      {
+        name: 'color',
+        value: {
+          key: 'blackCherryBurst',
+          label: {
+            en: 'Black cherry burst',
+          },
+        },
+      },
+      {
+        name: 'isOnStock',
+        value: true,
+      },
+    ],
+    assets: [],
+  },
+  variants: [
+    {
+      id: 2,
+      sku: '515322CharcoalBurst',
+      key: '515322CharcoalBurst',
+      prices: [
+        {
+          id: 'bc3b8f6d-10a4-4bb9-b274-e3018765676f',
+          value: {
+            type: 'centPrecision',
+            currencyCode: 'EUR',
+            centAmount: 44200,
+            fractionDigits: 2,
+          },
+        },
+        {
+          id: 'e07b4d34-3b9c-4038-94e6-09ae0556bf03',
+          value: {
+            type: 'centPrecision',
+            currencyCode: 'USD',
+            centAmount: 40600,
+            fractionDigits: 2,
+          },
+        },
+      ],
+      images: [
+        {
+          url: 'https://ltm-music.ru/upload/images/banshee_extreme_6_bchb_new.png',
+          dimensions: {
+            w: 0,
+            h: 0,
+          },
+        },
+      ],
+      attributes: [
+        {
+          name: 'brand',
+          value: {
+            key: 'schecter',
+            label: {
+              en: 'Schecter',
+            },
+          },
+        },
+        {
+          name: 'manufacturer',
+          value: {
+            key: 'indonesia',
+            label: {
+              en: 'Indonesia',
+            },
+          },
+        },
+        {
+          name: 'color',
+          value: {
+            key: 'charcoalBurst',
+            label: {
+              en: 'Charcoal burst',
+            },
+          },
+        },
+        {
+          name: 'isOnStock',
+          value: true,
+        },
+      ],
+      assets: [],
+    },
+  ],
+  searchKeywords: {},
+  hasStagedChanges: false,
+  published: true,
+  key: '133',
+  taxCategory: {
+    typeId: 'tax-category',
+    id: 'acfd36b8-89e4-4a4e-abc5-22e796a5cfde',
+  },
+  createdAt: '2023-08-29T00:04:14.215Z',
+  lastModifiedAt: '2023-08-29T00:04:14.215Z',
+};

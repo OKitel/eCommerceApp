@@ -1,5 +1,5 @@
 import { ServerError } from './types';
-import { isValidationErrorResponse, isErrorResponse } from './utils';
+import { isValidationErrorResponse, isErrorResponse, isClientErrorResponse } from './utils';
 
 export const mapErrorMessage = (error: unknown): ServerError => {
   if (isValidationErrorResponse(error)) {
@@ -22,6 +22,17 @@ export const mapErrorMessage = (error: unknown): ServerError => {
       return {
         message:
           'Unable to establish a connection to the server. Please verify your internet connection and try again later.',
+        validationMessages: {},
+      };
+    }
+  }
+  if (isClientErrorResponse(error)) {
+    const { statusCode, errors } = error.body;
+
+    if (statusCode === 409 && errors && errors[0] && errors[0].code === 'ConcurrentModification') {
+      return {
+        message:
+          'Simultaneous adding more than one product to cart is not supported yet. Please, add products to the cart consequently.',
         validationMessages: {},
       };
     }

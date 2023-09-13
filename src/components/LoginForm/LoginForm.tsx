@@ -19,6 +19,7 @@ import { FormInputText } from '../form-components/FormInputText';
 import { FormInputPassword } from '../form-components/FormInputPassword';
 
 import './styles.scss';
+import { getActiveCart } from '../../slices/cart/slice';
 
 export const LoginForm: React.FC = (): JSX.Element => {
   const { control, handleSubmit, setError } = useForm();
@@ -37,6 +38,7 @@ export const LoginForm: React.FC = (): JSX.Element => {
   const onSubmit = ({ email, password }: FieldValues): void => {
     const onSuccess = (): void => {
       dispatch(setAlert({ message: TEXT_CONTENT.messageSuccesLogin, severity: 'success' }));
+      dispatch(getActiveCart());
       navigate(LINKS.main);
     };
     const onError = (error: ServerError): void => {

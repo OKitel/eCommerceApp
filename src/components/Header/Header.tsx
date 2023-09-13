@@ -8,10 +8,11 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
-import { Stack } from '@mui/material';
+import { Badge, Stack } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
+import { clearActiveCart } from '../../slices/cart/slice';
 import { LINKS } from '../consts';
 import { SEARCH_QUERY_PARAM } from '../../consts';
 
@@ -24,10 +25,12 @@ import './styles.scss';
 export const Header: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
+  const { activeCart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleClickCart = (): void => navigate(LINKS.cart);
   const handleClickAvatar = (): void => navigate(LINKS.profile);
+  const numberOfCartLineItems = activeCart?.lineItems.length;
 
   return (
     <Box className="header" sx={{ flexGrow: 1 }}>
@@ -53,8 +56,10 @@ export const Header: React.FC = (): JSX.Element => {
           <Hidden smDown>
             <div>
               <Stack direction="row" spacing={1}>
-                <IconButton size="medium" color="inherit" onClick={handleClickCart}>
-                  <ShoppingCartRoundedIcon />
+                <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickCart}>
+                  <Badge badgeContent={numberOfCartLineItems} color="secondary" data-testid="cart-icon-badge">
+                    <ShoppingCartRoundedIcon />
+                  </Badge>
                 </IconButton>
                 {progressIntrospect ? null : customerData ? (
                   <>
@@ -68,6 +73,7 @@ export const Header: React.FC = (): JSX.Element => {
                       color="secondary"
                       onClick={(): void => {
                         dispatch(clearCustomerData());
+                        dispatch(clearActiveCart());
                       }}
                     >
                       Logout

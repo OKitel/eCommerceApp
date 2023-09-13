@@ -29,6 +29,9 @@ export function reducerGetLoggedInCustomerRejected(
   const { payload } = action;
   state.customerData = null;
   state.progress.introspect = false;
+  clearLoggedInCustomerId();
+  clearTokenStore(TokenStoreTypes.SpaApiTokenStore);
+
   if (payload && typeof payload === 'string') {
     state.errorMessage = payload;
   }
