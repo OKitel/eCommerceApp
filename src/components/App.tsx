@@ -20,13 +20,19 @@ import { Registration } from '../pages/Registration/Registration';
 import { Profile } from '../pages/Profile/Profile';
 import { ProductPage } from '../pages/Product/ProductPage';
 import { Search } from '../pages/Search/Search';
+import { getActiveCart } from '../slices/cart/slice';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(initSettings());
-    dispatch(getLoggedInCustomer());
+
+    async function fetchCustomerData(): Promise<void> {
+      await dispatch(getLoggedInCustomer());
+      await dispatch(getActiveCart());
+    }
+    fetchCustomerData();
   }, [dispatch]);
 
   return (
