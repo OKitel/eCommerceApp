@@ -10,9 +10,9 @@ import { LINKS } from '../consts';
 import { ProductImage } from './ProductImage';
 import { ProductPrice } from './ProductPrice';
 import { ProductVariantSelector } from './ProductVariantSelector';
+import { ProductButton } from './ProductButton';
 
 import './styles.scss';
-import { ProductButton } from './ProductButton';
 
 type CatalogProductProps = {
   productProjection: ProductProjection;

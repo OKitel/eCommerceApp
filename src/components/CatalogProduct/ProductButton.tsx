@@ -2,7 +2,7 @@ import React from 'react';
 import { ProductProjection, ProductVariant } from '@commercetools/platform-sdk';
 import { Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import CheckIcon from '@mui/icons-material/check';
+import CheckIcon from '@mui/icons-material/Check';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
