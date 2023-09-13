@@ -58,15 +58,17 @@ export const addLineItemToCart = createAsyncThunk(
     } = getState() as RootState;
 
     if (api && activeCart) {
-      const { productId, variantId, quantity } = addLineItemRequest;
+      const { productId, variantId, quantity, onSuccess, onError } = addLineItemRequest;
       const actionAddLineItem: MyCartAddLineItemAction = { action: 'addLineItem', productId, variantId, quantity };
 
       try {
         const response = await api.updateCart(activeCart.id, activeCart.version, [actionAddLineItem]);
+        onSuccess();
 
         return response.body;
       } catch (error: unknown) {
         const mappedServerError = mapErrorMessage(error);
+        onError(mappedServerError);
 
         return rejectWithValue(mappedServerError);
       }

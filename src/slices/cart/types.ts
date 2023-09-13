@@ -1,4 +1,5 @@
 import { Cart, MyCartAddLineItemAction } from '@commercetools/platform-sdk';
+import { ServerError } from '../../api/types';
 
 type TCartSliceProgress = {
   getActiveCart: boolean;
@@ -11,4 +12,7 @@ export type TCartSliceState = {
   progress: TCartSliceProgress;
 };
 
-export type TAddLineItemRequest = Required<Pick<MyCartAddLineItemAction, 'productId' | 'variantId' | 'quantity'>>;
+export type TAddLineItemRequest = Required<Pick<MyCartAddLineItemAction, 'productId' | 'variantId' | 'quantity'>> & {
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
