@@ -1,7 +1,6 @@
 import { Box, Container, Paper } from '@mui/material';
 
-import { mockCart } from '../../__mocks__/cart';
-// import { useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 
 import { CartStepper } from '../../components/CartStepper/CartStepper';
 import { CartLineItem } from '../../components/CartLineItem/CartLineItem';
@@ -11,8 +10,7 @@ import { EmptyCart } from '../../components/EmptyCart/EmptyCart';
 import './styles.scss';
 
 export const Cart: React.FC = (): JSX.Element => {
-  // const { activeCart } = useAppSelector((state) => state.cart);
-  const activeCart = mockCart;
+  const { activeCart } = useAppSelector((state) => state.cart);
 
   if (activeCart) {
     const { lineItems } = activeCart;

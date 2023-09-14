@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { formatPriceCents, getFinalPrice } from '../../utils/productsUtils';
 import { ServerError } from '../../api/types';
 import { setAlert } from '../../slices/alerts/slice';
-import { removeLineItemFromCart } from '../../slices/cart/slice';
+import { changeLineItemQuantity, removeLineItemFromCart } from '../../slices/cart/slice';
 
 import './styles.scss';
 
@@ -44,11 +44,13 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
     const newValue = +event.target.value;
     if (typeof newValue === 'number' && !Number.isNaN(newValue)) {
       setValue(newValue || 1);
+      dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: newValue, onSuccess, onError }));
     }
   };
 
   const handleInc = (): void => {
     setValue(value + 1);
+    dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: value, onSuccess, onError }));
   };
 
   const handleDec = (): void => {

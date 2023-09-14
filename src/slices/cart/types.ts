@@ -1,10 +1,16 @@
-import { Cart, MyCartAddLineItemAction, MyCartRemoveLineItemAction } from '@commercetools/platform-sdk';
+import {
+  Cart,
+  MyCartAddLineItemAction,
+  MyCartChangeLineItemQuantityAction,
+  MyCartRemoveLineItemAction,
+} from '@commercetools/platform-sdk';
 import { ServerError } from '../../api/types';
 
 type TCartSliceProgress = {
   getActiveCart: boolean;
   addingLineItem: string | null;
   removingLineItem: boolean;
+  changingLineItemQuantity: boolean;
 };
 
 export type TCartSliceState = {
@@ -20,6 +26,11 @@ export type TAddLineItemRequest = Required<Pick<MyCartAddLineItemAction, 'produc
 
 export type TRemoveLineItemRequest = Required<Pick<MyCartRemoveLineItemAction, 'lineItemId'>> & {
   quantity?: number;
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
+
+export type TChangeLineItemQuantity = Required<Pick<MyCartChangeLineItemQuantityAction, 'lineItemId' | 'quantity'>> & {
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
