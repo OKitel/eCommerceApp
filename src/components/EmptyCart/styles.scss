@@ -1,3 +1,11 @@
 .empty-cart-img {
   max-width: 30rem;
 }
+
+.empty-cart_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5rem;
+}
