@@ -5,13 +5,10 @@ import { TokenStoreTypes } from '../lib/commercetools-sdk';
 
 export function chooseApiWithToken(): typeof spaApi | typeof anonymousApi | undefined {
   const spaApiTokenStore = getTokenStore(TokenStoreTypes.SpaApiTokenStore);
-  const anonymousApiTokenStore = getTokenStore(TokenStoreTypes.AnonymousApiTokenStore);
 
   if (spaApiTokenStore.token) {
     return spaApi;
   }
 
-  if (anonymousApiTokenStore.token) {
-    return anonymousApi;
-  }
+  return anonymousApi;
 }
