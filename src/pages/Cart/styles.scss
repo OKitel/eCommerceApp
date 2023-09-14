@@ -1,23 +1,23 @@
-.cart-title {
-  margin: 1rem 0;
+.cart_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 3rem;
 }
 
-.wip-container {
-  position: relative;
+.cart-items_wrapper {
+  flex: 60%;
+  padding: 2rem;
 }
 
-.wip-image {
-  width: 20rem;
-  margin-top: 5rem;
-}
+@media screen and (max-width: 600px) {
+  .cart_wrapper {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 
-.wip-text {
-  position: absolute;
-  top: 60%;
-  right: 0%;
-  color: white;
-  text-align: center;
-  font-size: 3rem;
-  letter-spacing: 0.1rem;
-  text-shadow: 0.2rem 0.2rem 0.2rem #311b92;
+  .cart-items_wrapper {
+    margin-bottom: 2rem;
+    padding: 1rem;
+  }
 }

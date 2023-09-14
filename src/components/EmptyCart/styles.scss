@@ -1,0 +1,27 @@
+.empty-cart-img {
+  max-width: 30rem;
+}
+
+.empty-cart_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5rem;
+}
+
+.empty-cart_title {
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .empty-cart-img {
+    max-width: 25rem;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .empty-cart-img {
+    max-width: 20rem;
+  }
+}
