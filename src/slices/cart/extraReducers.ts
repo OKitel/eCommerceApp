@@ -1,7 +1,7 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
 import { Cart } from '@commercetools/platform-sdk';
 
-import { TAddLineItemRequest, TCartSliceState } from './types';
+import { TAddLineItemRequest, TCartSliceState, TRemoveLineItemRequest } from './types';
 import { FulfilledAction, PendingAction, RejectedAction } from '../types';
 
 export function reducerGetActiveCartPending(state: Draft<TCartSliceState>): void {
@@ -51,6 +51,34 @@ export function reducerAddLineItemToCartRejected(
   const { payload } = action;
 
   state.progress.addingLineItem = null;
+  if (payload && typeof payload === 'string') {
+    state.errorMessage = payload;
+  }
+}
+
+export function reducerRemoveLineItemFromCartPending(state: Draft<TCartSliceState>): void {
+  state.progress.removingLineItem = true;
+}
+
+export function reducerRemoveLineItemFromCartFulfilled(
+  state: Draft<TCartSliceState>,
+  action: FulfilledAction<TRemoveLineItemRequest, Cart | undefined>,
+): void {
+  state.progress.removingLineItem = false;
+  state.errorMessage = null;
+
+  if (action.payload) {
+    state.activeCart = action.payload;
+  }
+}
+
+export function reducerRemoveLineItemFromCartRejected(
+  state: Draft<TCartSliceState>,
+  action: RejectedAction<TRemoveLineItemRequest>,
+): void {
+  const { payload } = action;
+
+  state.progress.removingLineItem = false;
   if (payload && typeof payload === 'string') {
     state.errorMessage = payload;
   }

@@ -1,11 +1,14 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { Box, Button, Divider, Typography, IconButton, FormGroup, TextField } from '@mui/material';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { LineItem } from '@commercetools/platform-sdk';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { formatPriceCents, getFinalPrice } from '../../utils/productsUtils';
+import { ServerError } from '../../api/types';
+import { setAlert } from '../../slices/alerts/slice';
+import { removeLineItemFromCart } from '../../slices/cart/slice';
 
 type Props = {
   item: LineItem;
@@ -15,16 +18,24 @@ type Props = {
 export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.ReactElement => {
   const localization = useAppSelector((state) => state.settings.localization);
   const currency = useAppSelector((state) => state.settings.currency);
-
+  const dispatch = useAppDispatch();
+  const [value, setValue] = useState(1);
   const finalPrice = useMemo(() => {
     const price = getFinalPrice(item.variant.prices, currency);
     return formatPriceCents(price, localization, currency);
   }, [item.variant.prices, localization, currency]);
 
-  const handleClickDelete = (event: React.MouseEvent<HTMLElement>): void => {
-    console.log(event);
+  const onSuccess = useCallback((): void => {}, []);
+  const onError = useCallback(
+    (error: ServerError): void => {
+      dispatch(setAlert({ message: error.message, severity: 'error' }));
+    },
+    [dispatch],
+  );
+
+  const handleClickDelete = (): void => {
+    dispatch(removeLineItemFromCart({ lineItemId: item.id, onSuccess, onError }));
   };
-  const [value, setValue] = useState(1);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const newValue = +event.target.value;
@@ -33,15 +44,17 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
     }
   };
 
-  const handleClickAddItem = (): void => {
+  const handleInc = (): void => {
     setValue(value + 1);
   };
 
-  const handleClickRemoveItem = (): void => {
+  const handleDec = (): void => {
     if (value >= 2) {
       setValue(value - 1);
+      dispatch(removeLineItemFromCart({ lineItemId: item.id, quantity: 1, onSuccess, onError }));
     }
   };
+
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>
@@ -69,7 +82,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '2rem 0' }}>
         <FormGroup sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>
-          <Button onClick={handleClickRemoveItem} disabled={value <= 1} size="small">
+          <Button onClick={handleDec} disabled={value <= 1} size="small">
             <RemoveRoundedIcon />
           </Button>
           <TextField
@@ -79,7 +92,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
             onChange={handleChange}
             sx={{ input: { textAlign: 'center' }, width: '5rem' }}
           />
-          <Button onClick={handleClickAddItem} size="small">
+          <Button onClick={handleInc} size="small">
             <AddRoundedIcon />
           </Button>
         </FormGroup>
