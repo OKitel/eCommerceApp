@@ -10,7 +10,7 @@ import { LINKS } from '../consts';
 import { ProductImage } from './ProductImage';
 import { ProductPrice } from './ProductPrice';
 import { ProductVariantSelector } from './ProductVariantSelector';
-import { ProductButton } from './ProductButton';
+import { ProductButtonAddToCart } from '../ProductButtonAddToCart/ProductButtonAddToCart';
 
 import './styles.scss';
 
@@ -54,7 +54,7 @@ export const CatalogProduct: React.FC<CatalogProductProps> = ({ productProjectio
             setSelectedVariant={setSelectedVariant}
           />
           <ProductPrice selectedVariant={selectedVariant} />
-          <ProductButton productProjection={productProjection} selectedVariant={selectedVariant} />
+          <ProductButtonAddToCart productId={id} selectedVariant={selectedVariant} />
         </Stack>
       </CardContent>
     </Card>
