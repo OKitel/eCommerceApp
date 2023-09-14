@@ -22,9 +22,8 @@ export const Cart: React.FC = (): JSX.Element => {
             <CartStepper />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem' }}>
               <Paper elevation={3} sx={{ flex: '60%', padding: '2rem' }}>
-                {lineItems.map((item) => {
-                  console.log(item);
-                  return <CartLineItem key={item.id} item={item} />;
+                {lineItems.map((item, index) => {
+                  return <CartLineItem key={item.id} item={item} isLast={index === lineItems.length - 1} />;
                 })}
               </Paper>
               <CartSummary cart={activeCart} />

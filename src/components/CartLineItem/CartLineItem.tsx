@@ -9,9 +9,10 @@ import { formatPriceCents, getFinalPrice } from '../../utils/productsUtils';
 
 type Props = {
   item: LineItem;
+  isLast: boolean;
 };
 
-export const CartLineItem: React.FC<Props> = ({ item }: Props): React.ReactElement => {
+export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.ReactElement => {
   const localization = useAppSelector((state) => state.settings.localization);
   const currency = useAppSelector((state) => state.settings.currency);
 
@@ -84,7 +85,7 @@ export const CartLineItem: React.FC<Props> = ({ item }: Props): React.ReactEleme
         </FormGroup>
         <Typography variant="h5">{finalPrice}</Typography>
       </Box>
-      <Divider sx={{ margin: '2rem 0' }} />
+      {!isLast && <Divider sx={{ margin: '2rem 0' }} />}
     </>
   );
 };
