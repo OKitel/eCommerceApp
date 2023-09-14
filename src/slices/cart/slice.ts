@@ -54,10 +54,12 @@ export const addLineItemToCart = createAsyncThunk(
   async (addLineItemRequest: TAddLineItemRequest, { getState, rejectWithValue }) => {
     const api = chooseApiWithToken();
     const {
-      cart: { activeCart },
+      settings: { currency },
+      cart,
     } = getState() as RootState;
 
-    if (api && activeCart) {
+    if (api) {
+      const activeCart = cart.activeCart || (await api.createCart(currency)).body;
       const { productId, variantId, quantity, onSuccess, onError } = addLineItemRequest;
       const actionAddLineItem: MyCartAddLineItemAction = { action: 'addLineItem', productId, variantId, quantity };
 

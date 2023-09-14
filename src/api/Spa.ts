@@ -76,6 +76,12 @@ class SpaApi {
     return res;
   }
 
+  public async createCart(currency: string): Promise<ClientResponse<Cart>> {
+    const res = await spaApiWithTokenRoot.me().carts().post({ body: { currency } }).execute();
+
+    return res;
+  }
+
   public async getActiveCart(): Promise<ClientResponse<Cart>> {
     const res = await spaApiWithTokenRoot.me().activeCart().get().execute();
 

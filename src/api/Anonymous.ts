@@ -19,6 +19,12 @@ class AnonymousApi {
     return res;
   }
 
+  public async createCart(currency: string): Promise<ClientResponse<Cart>> {
+    const res = await anonymousApiRoot.me().carts().post({ body: { currency } }).execute();
+
+    return res;
+  }
+
   public async getActiveCart(): Promise<ClientResponse<Cart>> {
     const res = await anonymousApiRoot.me().activeCart().get().execute();
 
