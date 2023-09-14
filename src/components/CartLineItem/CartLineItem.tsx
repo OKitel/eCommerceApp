@@ -67,8 +67,11 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
             />
           )}
         </Box>
-        <Box sx={{ display: 'flex', width: '100%' }}>
+        <Box sx={{ display: 'flex', width: '100%', flexDirection: 'column' }}>
           <Typography variant="h5">{item.name[localization]}</Typography>
+          <Typography variant="body1">
+            {item.variant.attributes?.find((attr) => attr.name === 'color')?.value.label[localization]}
+          </Typography>
         </Box>
         <IconButton
           onClick={handleClickDelete}
