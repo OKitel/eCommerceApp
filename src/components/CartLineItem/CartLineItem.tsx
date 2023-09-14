@@ -22,7 +22,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
   const localization = useAppSelector((state) => state.settings.localization);
   const currency = useAppSelector((state) => state.settings.currency);
   const dispatch = useAppDispatch();
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(item.quantity);
   const finalPrice = useMemo(() => {
     const price = getFinalPrice(item.variant.prices, currency);
     return formatPriceCents(price, localization, currency);
@@ -50,7 +50,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
 
   const handleInc = (): void => {
     setValue(value + 1);
-    dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: value, onSuccess, onError }));
+    dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: value + 1, onSuccess, onError }));
   };
 
   const handleDec = (): void => {
