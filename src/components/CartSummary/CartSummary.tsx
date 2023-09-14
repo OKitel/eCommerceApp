@@ -5,11 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
 import { LINKS } from '../consts';
 import { Cart } from '@commercetools/platform-sdk';
-import {
-  findDiscountPriceWithCurrencyCode,
-  findPriceWithCurrencyCode,
-  formatPriceCents,
-} from '../../utils/productsUtils';
+import { formatPriceCents, getFinalPrice } from '../../utils/productsUtils';
 
 type Props = {
   cart: Cart;
@@ -24,18 +20,8 @@ export const CartSummary: React.FC<Props> = ({ cart }: Props): React.ReactElemen
       const totalPriceInCent = cart.lineItems
         .map((item) => ({ prices: item.variant.prices, quantity: item.quantity }))
         .map((item) => {
-          const currencyPrice = findPriceWithCurrencyCode(item.prices, currency);
-          const currencyPriceWithDiscount = findDiscountPriceWithCurrencyCode(item.prices, currency);
-
-          if (currencyPriceWithDiscount) {
-            const discountPriceValue = currencyPriceWithDiscount.value.centAmount;
-            return { price: discountPriceValue, quantity: item.quantity };
-          }
-          if (currencyPrice) {
-            const priceValue = currencyPrice.value.centAmount;
-            return { price: priceValue, quantity: item.quantity };
-          }
-          throw new Error(`No price in ${currency} found`);
+          const price = getFinalPrice(item.prices, currency);
+          return { price: price, quantity: item.quantity };
         })
         .reduce((prev, cur) => {
           return prev + cur.price * cur.quantity;

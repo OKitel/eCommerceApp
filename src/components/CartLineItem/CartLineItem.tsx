@@ -1,10 +1,25 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Box, Button, Divider, Typography, IconButton, FormGroup, TextField } from '@mui/material';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
+import { LineItem } from '@commercetools/platform-sdk';
+import { useAppSelector } from '../../store/hooks';
+import { formatPriceCents, getFinalPrice } from '../../utils/productsUtils';
 
-export const CartLineItem = (): React.ReactElement => {
+type Props = {
+  item: LineItem;
+};
+
+export const CartLineItem: React.FC<Props> = ({ item }: Props): React.ReactElement => {
+  const localization = useAppSelector((state) => state.settings.localization);
+  const currency = useAppSelector((state) => state.settings.currency);
+
+  const finalPrice = useMemo(() => {
+    const price = getFinalPrice(item.variant.prices, currency);
+    return formatPriceCents(price, localization, currency);
+  }, [item.variant.prices, localization, currency]);
+
   const handleClickDelete = (event: React.MouseEvent<HTMLElement>): void => {
     console.log(event);
   };
@@ -28,14 +43,18 @@ export const CartLineItem = (): React.ReactElement => {
   };
   return (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '2rem' }}>
-        <img
-          style={{ width: '4rem' }}
-          src="https://ltm-music.ru/upload/images/banshee_extreme_6_bchb_new.png"
-          alt="item"
-        />
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>
+        <Box sx={{ width: '5rem', height: '5rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          {item.variant.images && item.variant.images[0] && (
+            <img
+              style={{ maxWidth: '5rem', maxHeight: '5rem' }}
+              src={item.variant.images[0].url}
+              alt={`image of ${item.name[localization]}`}
+            />
+          )}
+        </Box>
         <Box sx={{ display: 'flex', width: '100%' }}>
-          <Typography variant="h5">Item name</Typography>
+          <Typography variant="h5">{item.name[localization]}</Typography>
         </Box>
         <IconButton
           onClick={handleClickDelete}
@@ -48,7 +67,6 @@ export const CartLineItem = (): React.ReactElement => {
         </IconButton>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '2rem 0' }}>
-        {/* <ProductPrice selectedVariant={selectedVariant} /> */}
         <FormGroup sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>
           <Button onClick={handleClickRemoveItem} disabled={value <= 1} size="small">
             <RemoveRoundedIcon />
@@ -64,7 +82,7 @@ export const CartLineItem = (): React.ReactElement => {
             <AddRoundedIcon />
           </Button>
         </FormGroup>
-        <Typography variant="h5">$123</Typography>
+        <Typography variant="h5">{finalPrice}</Typography>
       </Box>
       <Divider sx={{ margin: '2rem 0' }} />
     </>
