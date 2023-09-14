@@ -1,7 +1,13 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
 import { Cart } from '@commercetools/platform-sdk';
 
-import { TAddLineItemRequest, TCartSliceState, TChangeLineItemQuantity, TRemoveLineItemRequest } from './types';
+import {
+  TAddLineItemRequest,
+  TCartSliceState,
+  TChangeLineItemQuantity,
+  TClearCartRequest,
+  TRemoveLineItemRequest,
+} from './types';
 import { FulfilledAction, PendingAction, RejectedAction } from '../types';
 
 export function reducerGetActiveCartPending(state: Draft<TCartSliceState>): void {
@@ -62,7 +68,7 @@ export function reducerRemoveLineItemFromCartPending(state: Draft<TCartSliceStat
 
 export function reducerRemoveLineItemFromCartFulfilled(
   state: Draft<TCartSliceState>,
-  action: FulfilledAction<TRemoveLineItemRequest, Cart | undefined>,
+  action: FulfilledAction<TRemoveLineItemRequest | TClearCartRequest, Cart | undefined>,
 ): void {
   state.progress.removingLineItem = false;
   state.errorMessage = null;
@@ -74,7 +80,7 @@ export function reducerRemoveLineItemFromCartFulfilled(
 
 export function reducerRemoveLineItemFromCartRejected(
   state: Draft<TCartSliceState>,
-  action: RejectedAction<TRemoveLineItemRequest>,
+  action: RejectedAction<TRemoveLineItemRequest | TClearCartRequest>,
 ): void {
   const { payload } = action;
 

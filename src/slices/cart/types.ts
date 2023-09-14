@@ -34,3 +34,8 @@ export type TChangeLineItemQuantity = Required<Pick<MyCartChangeLineItemQuantity
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
+
+export type TClearCartRequest = {
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};

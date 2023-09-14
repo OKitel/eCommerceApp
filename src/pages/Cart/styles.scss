@@ -8,6 +8,7 @@
 .cart-items_wrapper {
   flex: 60%;
   padding: 2rem;
+  margin-bottom: 2rem;
 }
 
 @media screen and (max-width: 600px) {
@@ -17,7 +18,6 @@
   }
 
   .cart-items_wrapper {
-    margin-bottom: 2rem;
     padding: 1rem;
   }
 }
