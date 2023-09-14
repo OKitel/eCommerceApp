@@ -1,8 +1,7 @@
-import { Button, Typography, IconButton, Box, Rating } from '@mui/material';
+import { Typography, IconButton, Box, Rating } from '@mui/material';
 import { ProductData, ProductVariant } from '@commercetools/platform-sdk';
 import { useState } from 'react';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 
@@ -10,6 +9,7 @@ import { useAppSelector } from '../../store/hooks';
 
 import { ProductVariantSelector } from '../CatalogProduct/ProductVariantSelector';
 import { ProductPrice } from '../CatalogProduct/ProductPrice';
+import { ProductButtonAddToCart } from '../ProductButtonAddToCart/ProductButtonAddToCart';
 
 import './styles.scss';
 
@@ -18,7 +18,7 @@ type Props = {
   productId: string;
 };
 
-export const ProductDetails: React.FC<Props> = ({ productData }: Props): React.ReactElement => {
+export const ProductDetails: React.FC<Props> = ({ productData, productId }: Props): React.ReactElement => {
   const { localization } = useAppSelector((state) => state.settings);
   const [like, setLike] = useState(false);
   const [ratingValue] = useState<number | null>(null);
@@ -54,9 +54,7 @@ export const ProductDetails: React.FC<Props> = ({ productData }: Props): React.R
       />
 
       <ProductPrice selectedVariant={selectedVariant} />
-      <Button variant="contained">
-        <ShoppingCartRoundedIcon /> &nbsp;Add to cart
-      </Button>
+      <ProductButtonAddToCart productId={productId} selectedVariant={selectedVariant} />
     </>
   );
 };
