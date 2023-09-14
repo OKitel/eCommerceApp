@@ -45,10 +45,13 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const newValue = +event.target.value;
-    if (typeof newValue === 'number' && !Number.isNaN(newValue)) {
-      setValue(newValue || 1);
-      dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: newValue, onSuccess, onError }));
+    const numValue = +event.target.value;
+    if (typeof numValue === 'number' && !Number.isNaN(numValue)) {
+      const newValue = numValue || 1;
+      if (value !== newValue) {
+        setValue(newValue);
+        dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: newValue, onSuccess, onError }));
+      }
     }
   };
 
