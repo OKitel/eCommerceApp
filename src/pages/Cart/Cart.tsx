@@ -6,11 +6,20 @@ import { CartStepper } from '../../components/CartStepper/CartStepper';
 import { CartLineItem } from '../../components/CartLineItem/CartLineItem';
 import { CartSummary } from '../../components/CartSummary/CartSummary';
 import { EmptyCart } from '../../components/EmptyCart/EmptyCart';
+import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 
 import './styles.scss';
 
 export const Cart: React.FC = (): JSX.Element => {
-  const { activeCart } = useAppSelector((state) => state.cart);
+  const { activeCart, progress } = useAppSelector((state) => state.cart);
+
+  if (progress.getActiveCart) {
+    return (
+      <Container sx={{ mt: 5 }}>
+        <ProgressLoader />
+      </Container>
+    );
+  }
 
   if (activeCart) {
     const { lineItems } = activeCart;
