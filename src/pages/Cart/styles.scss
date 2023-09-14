@@ -1,0 +1,11 @@
+.cart_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 3rem;
+}
+
+.cart-items_wrapper {
+  flex: 60%;
+  padding: 2rem;
+}
