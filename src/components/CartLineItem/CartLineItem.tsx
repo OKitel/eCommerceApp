@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
-import { Box, Button, Divider, Typography, IconButton, FormGroup, TextField } from '@mui/material';
+import { Box, Button, Divider, Typography, IconButton, FormGroup, TextField, Tooltip } from '@mui/material';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
@@ -85,15 +85,17 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
             {item.variant.attributes?.find((attr) => attr.name === 'color')?.value.label[localization]}
           </Typography>
         </Box>
-        <IconButton
-          onClick={handleClickDelete}
-          className="delete-control"
-          color="error"
-          data-testid="delete-btn"
-          size="large"
-        >
-          <DeleteRoundedIcon />
-        </IconButton>
+        <Tooltip title="Remove from Cart" placement="top">
+          <IconButton
+            onClick={handleClickDelete}
+            className="delete-control"
+            color="error"
+            data-testid="delete-btn"
+            size="large"
+          >
+            <DeleteRoundedIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
       <Box className="line-item_price-wrapper">
         <FormGroup className="line-item_quantity-wrapper">
