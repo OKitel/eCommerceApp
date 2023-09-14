@@ -4,9 +4,10 @@ import TextField from '@mui/material/TextField';
 interface FormInputProps extends UseControllerProps {
   label: string;
   type?: string;
+  readOnly?: boolean;
 }
 
-export const FormInputText = ({ name, control, label, type, rules }: FormInputProps): JSX.Element => {
+export const FormInputText = ({ name, control, label, type, rules, readOnly }: FormInputProps): JSX.Element => {
   return (
     <Controller
       name={name}
@@ -25,6 +26,9 @@ export const FormInputText = ({ name, control, label, type, rules }: FormInputPr
           type={type || 'text'}
           sx={{ mb: 1 }}
           data-testid={name}
+          InputProps={{
+            disabled: readOnly,
+          }}
         />
       )}
     />

@@ -1,9 +1,15 @@
-import { TokenStoreTypes, serviceApiRoot } from '../lib/commercetools-sdk';
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
-import { CustomerSignInResult, Customer } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
+import {
+  CustomerSignInResult,
+  Customer,
+  CustomerUpdate,
+  CustomerChangePassword,
+} from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { CustomerDraft } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
-import { TIntrospectResponse } from './types';
+
 import { retry } from './utils';
+import { TIntrospectResponse } from './types';
+import { TokenStoreTypes, serviceApiRoot } from '../lib/commercetools-sdk';
 
 class ServiceApi {
   public async introspectToken(token: string): Promise<TIntrospectResponse> {
@@ -33,6 +39,26 @@ class ServiceApi {
   public async createCustomer(customerData: CustomerDraft): Promise<ClientResponse<CustomerSignInResult>> {
     const res = await retry<ClientResponse<CustomerSignInResult>>(
       () => serviceApiRoot.customers().post({ body: customerData }).execute(),
+      TokenStoreTypes.ServiceApiTokenStore,
+    );
+
+    return res;
+  }
+
+  public async updateCustomer(id: string, customerData: CustomerUpdate): Promise<ClientResponse<Customer>> {
+    const res = await retry<ClientResponse<Customer>>(
+      () => serviceApiRoot.customers().withId({ ID: id }).post({ body: customerData }).execute(),
+      TokenStoreTypes.ServiceApiTokenStore,
+    );
+
+    return res;
+  }
+
+  public async changePasswordOfCustomer(
+    customerPasswordData: CustomerChangePassword,
+  ): Promise<ClientResponse<Customer>> {
+    const res = await retry<ClientResponse<Customer>>(
+      () => serviceApiRoot.customers().password().post({ body: customerPasswordData }).execute(),
       TokenStoreTypes.ServiceApiTokenStore,
     );
 

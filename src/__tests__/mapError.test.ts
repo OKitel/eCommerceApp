@@ -1,5 +1,6 @@
-import { mapErrorMessage } from '../api/mapError';
 import { ErrorResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
+
+import { mapErrorMessage } from '../api/mapError';
 import { ValidationErrorResponse, ServerError } from '../api/types';
 
 describe('mapErrorMessage', () => {

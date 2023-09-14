@@ -1,0 +1,22 @@
+.profile-title {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.section-title {
+  padding: 1rem 0;
+}
+
+.password-btn_container {
+  margin: 0 0 1rem;
+}
+
+.new-address-btn_container {
+  padding: 0 0 1rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .profile-wrapper {
+    max-width: 90%;
+  }
+}

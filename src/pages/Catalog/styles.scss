@@ -1,0 +1,14 @@
+.category-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-block: 1rem;
+
+  @media (max-width: 50rem) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 30rem) {
+    grid-template-columns: 1fr;
+  }
+}

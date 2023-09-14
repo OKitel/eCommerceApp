@@ -1,6 +1,7 @@
 import { FieldValues } from 'react-hook-form';
-import { Address, RegistrationRequest } from '../../slices/customer/types';
 import moment from 'moment';
+
+import { Address, RegistrationRequest } from '../../slices/customer/types';
 import { ServerError } from '../../api/types';
 
 export const mapFormDataToRequest = (
@@ -13,7 +14,7 @@ export const mapFormDataToRequest = (
       streetName: data.street,
       city: data.city,
       country: data.country,
-      postalCode: data.postCode,
+      postalCode: data.postcode,
     },
   ];
   if (!data.billingAddress) {
@@ -23,7 +24,7 @@ export const mapFormDataToRequest = (
       streetName: data.billingStreet,
       city: data.billingCity,
       country: data.billingCountry,
-      postalCode: data.billingPostCode,
+      postalCode: data.billingPostcode,
     });
   }
 

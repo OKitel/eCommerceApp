@@ -58,5 +58,8 @@ export default defineConfig({
         NodeModulesPolyfillPlugin(),
       ],
     },
+    // this options prevents some issues of vite working with MUI
+    // https://medium.com/@fael.atom/struggling-with-vite-and-mui-42f3f5e0658d
+    include: ['@emotion/styled'],
   },
 });
