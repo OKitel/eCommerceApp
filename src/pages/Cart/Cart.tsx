@@ -1,6 +1,7 @@
 import { Box, Container, Paper } from '@mui/material';
 
-import { useAppSelector } from '../../store/hooks';
+// import { useAppSelector } from '../../store/hooks';
+import { mockCart } from '../../__mocks__/cart';
 
 import { CartStepper } from '../../components/CartStepper/CartStepper';
 import { CartLineItem } from '../../components/CartLineItem/CartLineItem';
@@ -10,7 +11,10 @@ import { EmptyCart } from '../../components/EmptyCart/EmptyCart';
 import './styles.scss';
 
 export const Cart: React.FC = (): JSX.Element => {
-  const { activeCart } = useAppSelector((state) => state.cart);
+  // const { activeCart } = useAppSelector((state) => state.cart);
+  // const localization = useAppSelector((state) => state.settings.localization);
+  // const currency = useAppSelector((state) => state.settings.currency);
+  const activeCart = mockCart;
 
   if (activeCart) {
     const { lineItems } = activeCart;
@@ -27,7 +31,7 @@ export const Cart: React.FC = (): JSX.Element => {
                   return <CartLineItem />;
                 })}
               </Paper>
-              <CartSummary />
+              <CartSummary cart={activeCart} />
             </Box>
           </Container>
         </>
