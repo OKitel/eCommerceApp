@@ -21,6 +21,8 @@ type Props = {
 export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.ReactElement => {
   const localization = useAppSelector((state) => state.settings.localization);
   const currency = useAppSelector((state) => state.settings.currency);
+  const { progress } = useAppSelector((state) => state.cart);
+
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(item.quantity);
   const price = useMemo(() => getFinalPrice(item.variant.prices, currency), [item.variant.prices, currency]);
@@ -32,7 +34,6 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
     return formatPriceCents(price * item.quantity, localization, currency);
   }, [price, item.quantity, localization, currency]);
 
-  const onSuccess = useCallback((): void => {}, []);
   const onError = useCallback(
     (error: ServerError): void => {
       dispatch(setAlert({ message: error.message, severity: 'error' }));
@@ -41,6 +42,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
   );
 
   const handleClickDelete = (): void => {
+    const onSuccess = (): void => {};
     dispatch(removeLineItemFromCart({ lineItemId: item.id, onSuccess, onError }));
   };
 
@@ -49,20 +51,27 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
     if (typeof numValue === 'number' && !Number.isNaN(numValue)) {
       const newValue = numValue || 1;
       if (value !== newValue) {
-        setValue(newValue);
+        const onSuccess = (): void => {
+          setValue(newValue);
+        };
         dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: newValue, onSuccess, onError }));
       }
     }
   };
 
   const handleInc = (): void => {
-    setValue(value + 1);
+    const onSuccess = (): void => {
+      setValue(value + 1);
+    };
     dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: value + 1, onSuccess, onError }));
   };
 
   const handleDec = (): void => {
     if (value >= 2) {
-      setValue(value - 1);
+      const onSuccess = (): void => {
+        setValue(value - 1);
+      };
+
       dispatch(removeLineItemFromCart({ lineItemId: item.id, quantity: 1, onSuccess, onError }));
     }
   };
@@ -99,7 +108,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
       </Box>
       <Box className="line-item_price-wrapper">
         <FormGroup className="line-item_quantity-wrapper">
-          <Button onClick={handleDec} disabled={value <= 1} size="small">
+          <Button onClick={handleDec} disabled={value <= 1 || progress.modifyingCart} size="small">
             <RemoveRoundedIcon />
           </Button>
           <TextField
@@ -108,8 +117,9 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
             size="small"
             onChange={handleChange}
             className="line-item_quantity-input"
+            disabled={progress.modifyingCart}
           />
-          <Button onClick={handleInc} size="small">
+          <Button onClick={handleInc} disabled={progress.modifyingCart} size="small">
             <AddRoundedIcon />
           </Button>
         </FormGroup>

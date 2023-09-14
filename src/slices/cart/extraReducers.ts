@@ -63,14 +63,14 @@ export function reducerAddLineItemToCartRejected(
 }
 
 export function reducerRemoveLineItemFromCartPending(state: Draft<TCartSliceState>): void {
-  state.progress.removingLineItem = true;
+  state.progress.modifyingCart = true;
 }
 
 export function reducerRemoveLineItemFromCartFulfilled(
   state: Draft<TCartSliceState>,
   action: FulfilledAction<TRemoveLineItemRequest | TClearCartRequest, Cart | undefined>,
 ): void {
-  state.progress.removingLineItem = false;
+  state.progress.modifyingCart = false;
   state.errorMessage = null;
 
   if (action.payload) {
@@ -84,21 +84,21 @@ export function reducerRemoveLineItemFromCartRejected(
 ): void {
   const { payload } = action;
 
-  state.progress.removingLineItem = false;
+  state.progress.modifyingCart = false;
   if (payload && typeof payload === 'string') {
     state.errorMessage = payload;
   }
 }
 
 export function reducerChangeLineItemQuantityPending(state: Draft<TCartSliceState>): void {
-  state.progress.changingLineItemQuantity = true;
+  state.progress.modifyingCart = true;
 }
 
 export function reducerChangeLineItemQuantityFulfilled(
   state: Draft<TCartSliceState>,
   action: FulfilledAction<TChangeLineItemQuantity, Cart | undefined>,
 ): void {
-  state.progress.changingLineItemQuantity = false;
+  state.progress.modifyingCart = false;
   state.errorMessage = null;
 
   if (action.payload) {
@@ -112,7 +112,7 @@ export function reducerChangeLineItemQuantityRejected(
 ): void {
   const { payload } = action;
 
-  state.progress.changingLineItemQuantity = false;
+  state.progress.modifyingCart = false;
   if (payload && typeof payload === 'string') {
     state.errorMessage = payload;
   }

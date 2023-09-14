@@ -9,8 +9,7 @@ import { ServerError } from '../../api/types';
 type TCartSliceProgress = {
   getActiveCart: boolean;
   addingLineItem: string | null;
-  removingLineItem: boolean;
-  changingLineItemQuantity: boolean;
+  modifyingCart: boolean;
 };
 
 export type TCartSliceState = {

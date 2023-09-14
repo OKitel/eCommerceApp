@@ -40,8 +40,7 @@ const initialState: TCartSliceState = {
   progress: {
     getActiveCart: false,
     addingLineItem: null,
-    removingLineItem: false,
-    changingLineItemQuantity: false,
+    modifyingCart: false,
   },
 };
 
