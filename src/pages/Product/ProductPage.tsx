@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Paper } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -81,7 +81,7 @@ export const ProductPage: React.FC = (): React.ReactElement => {
           </Box>
         </Box>
         {currentProductData.description && (
-          <Paper elevation={3} className="description-container">
+          <>
             <Typography variant="h5" className="description-title">
               Description
             </Typography>
@@ -89,7 +89,7 @@ export const ProductPage: React.FC = (): React.ReactElement => {
               variant="body1"
               dangerouslySetInnerHTML={{ __html: currentProductData.description[localization] }}
             ></Typography>
-          </Paper>
+          </>
         )}
       </Container>
     </>
