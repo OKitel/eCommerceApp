@@ -9,3 +9,15 @@
   flex: 60%;
   padding: 2rem;
 }
+
+@media screen and (max-width: 600px) {
+  .cart_wrapper {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .cart-items_wrapper {
+    margin-bottom: 2rem;
+    padding: 1rem;
+  }
+}

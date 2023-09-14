@@ -9,7 +9,9 @@ import './styles.scss';
 export const EmptyCart = (): React.ReactElement => {
   return (
     <Box className="empty-cart_container">
-      <Typography variant="h2">Your cart is empty</Typography>
+      <Typography variant="h2" className="empty-cart_title">
+        Your cart is empty
+      </Typography>
       <img className="empty-cart-img" src={emptyCart} alt="empty cart" />
       <Button component={RouterLink} to={LINKS.catalog} color="primary" variant="contained">
         Back to catalog
