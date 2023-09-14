@@ -29,6 +29,8 @@
   justify-content: space-between;
   align-items: center;
   margin: 2rem 0;
+  flex-wrap: wrap;
+  row-gap: 1rem;
 }
 
 .line-item_quantity-wrapper {
@@ -47,4 +49,14 @@
 
 .line-item_divider {
   margin: 2rem 0 !important;
+}
+
+.line-item_total-price {
+  padding: 0 1rem;
+}
+
+@media screen and (max-width: 450px) {
+  .line-item_price-wrapper {
+    justify-content: center;
+  }
 }

@@ -23,10 +23,14 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
   const currency = useAppSelector((state) => state.settings.currency);
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(item.quantity);
+  const price = useMemo(() => getFinalPrice(item.variant.prices, currency), [item.variant.prices, currency]);
   const finalPrice = useMemo(() => {
-    const price = getFinalPrice(item.variant.prices, currency);
     return formatPriceCents(price, localization, currency);
-  }, [item.variant.prices, localization, currency]);
+  }, [price, localization, currency]);
+
+  const totalItemPrice = useMemo((): string => {
+    return formatPriceCents(price * item.quantity, localization, currency);
+  }, [price, item.quantity, localization, currency]);
 
   const onSuccess = useCallback((): void => {}, []);
   const onError = useCallback(
@@ -104,7 +108,10 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
             <AddRoundedIcon />
           </Button>
         </FormGroup>
-        <Typography variant="h5">{finalPrice}</Typography>
+        <Typography variant="h6">{finalPrice}</Typography>
+        <Typography variant="h6" className="line-item_total-price">
+          Total:&nbsp;{totalItemPrice}
+        </Typography>
       </Box>
       {!isLast && <Divider className="line-item_divider" />}
     </>
