@@ -54,11 +54,11 @@ export const ProductPage: React.FC = (): React.ReactElement => {
       </Container>
     );
   }
-  const currentProduct = maybeProduct.masterData.current;
+  const currentProductData = maybeProduct.masterData.current;
   const images = [];
 
-  images.push(...(currentProduct.masterVariant.images || []));
-  currentProduct.variants.forEach((variant) => {
+  images.push(...(currentProductData.masterVariant.images || []));
+  currentProductData.variants.forEach((variant) => {
     images.push(...(variant.images || []));
   });
 
@@ -70,24 +70,24 @@ export const ProductPage: React.FC = (): React.ReactElement => {
         </Box>
 
         <Typography variant="h3" gutterBottom>
-          {currentProduct.name[localization]}
+          {currentProductData.name[localization]}
         </Typography>
 
         <Box className="product-container">
           <SwiperComponent images={images} />
 
           <Box className="details-container">
-            <ProductDetails product={currentProduct} />
+            <ProductDetails productData={currentProductData} productId={productId} />
           </Box>
         </Box>
-        {currentProduct.description && (
+        {currentProductData.description && (
           <Paper elevation={3} className="description-container">
             <Typography variant="h5" className="description-title">
               Description
             </Typography>
             <Typography
               variant="body1"
-              dangerouslySetInnerHTML={{ __html: currentProduct.description[localization] }}
+              dangerouslySetInnerHTML={{ __html: currentProductData.description[localization] }}
             ></Typography>
           </Paper>
         )}
