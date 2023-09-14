@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { Cart } from '@commercetools/platform-sdk';
 
 import { useAppSelector } from '../../store/hooks';
 import { LINKS } from '../consts';
-import { Cart } from '@commercetools/platform-sdk';
 import { formatPriceCents, getFinalPrice } from '../../utils/productsUtils';
+
+import './styles.scss';
 
 type Props = {
   cart: Cart;
@@ -33,15 +35,8 @@ export const CartSummary: React.FC<Props> = ({ cart }: Props): React.ReactElemen
   }, [currency, localization, cart.totalPrice, cart.lineItems]);
 
   return (
-    <Box
-      sx={{
-        flex: '30%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-      }}
-    >
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Box className="cart-summary_container">
+      <Box className="total-price_wrapper">
         <Typography variant="h5">Total price</Typography>
         <Typography variant="h3">{totalPrice}</Typography>
       </Box>
