@@ -64,7 +64,7 @@ export const CartSummary: React.FC<Props> = ({ cart }: Props): React.ReactElemen
           Continue shopping
         </Button>
         <Button variant="contained" color="error" onClick={(): void => setOpenConfirmationModal(true)}>
-          Clear cart
+          Clear Shopping Cart
         </Button>
       </Box>
       <ConfirmationModal
