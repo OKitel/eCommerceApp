@@ -6,6 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
+import Diversity1RoundedIcon from '@mui/icons-material/Diversity1Rounded';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import { Badge, Stack } from '@mui/material';
@@ -30,6 +31,7 @@ export const Header: React.FC = (): JSX.Element => {
   const navigate = useNavigate();
   const handleClickCart = (): void => navigate(LINKS.cart);
   const handleClickAvatar = (): void => navigate(LINKS.profile);
+  const handleClickTeam = (): void => navigate(LINKS.about_us);
   const numberOfCartLineItems = activeCart?.lineItems.length;
 
   return (
@@ -56,6 +58,9 @@ export const Header: React.FC = (): JSX.Element => {
           <Hidden smDown>
             <div>
               <Stack direction="row" spacing={1}>
+                <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickTeam}>
+                  <Diversity1RoundedIcon />
+                </IconButton>
                 <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickCart}>
                   <Badge badgeContent={numberOfCartLineItems} color="secondary" data-testid="cart-icon-badge">
                     <ShoppingCartRoundedIcon />

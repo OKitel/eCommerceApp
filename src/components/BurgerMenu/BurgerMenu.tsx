@@ -74,6 +74,18 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
         </Button>
         <Button
           component={RouterLink}
+          to={LINKS.about_us}
+          variant="text"
+          color="primary"
+          className="burger-button"
+          onClick={(): void => {
+            setOpen(false);
+          }}
+        >
+          About us
+        </Button>
+        <Button
+          component={RouterLink}
           to={LINKS.catalog}
           variant="text"
           color="primary"
