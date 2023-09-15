@@ -9,6 +9,7 @@ export const LINKS = {
   profile: '/profile',
   product: '/product',
   search: '/search',
+  about_us: '/about_us',
 };
 
 export const URL_PARAMS = {
