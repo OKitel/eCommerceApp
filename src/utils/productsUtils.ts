@@ -42,3 +42,16 @@ export function findDiscountPriceWithCurrencyCode(
     return prices.find((price) => price.discounted?.value.currencyCode === currency)?.discounted;
   }
 }
+
+export function getFinalPrice(prices: Price[] | undefined, currency: Currencies): number {
+  const currencyPrice = findPriceWithCurrencyCode(prices, currency);
+  const currencyPriceWithDiscount = findDiscountPriceWithCurrencyCode(prices, currency);
+
+  if (currencyPriceWithDiscount) {
+    return currencyPriceWithDiscount.value.centAmount;
+  }
+  if (currencyPrice) {
+    return currencyPrice.value.centAmount;
+  }
+  throw new Error(`No price in ${currency} found`);
+}

@@ -14,9 +14,25 @@ import {
   reducerAddLineItemToCartPending,
   reducerAddLineItemToCartFulfilled,
   reducerAddLineItemToCartRejected,
+  reducerRemoveLineItemFromCartPending,
+  reducerRemoveLineItemFromCartFulfilled,
+  reducerRemoveLineItemFromCartRejected,
+  reducerChangeLineItemQuantityPending,
+  reducerChangeLineItemQuantityFulfilled,
+  reducerChangeLineItemQuantityRejected,
 } from './extraReducers';
-import { TAddLineItemRequest, TCartSliceState } from './types';
-import { MyCartAddLineItemAction } from '@commercetools/platform-sdk';
+import {
+  TAddLineItemRequest,
+  TCartSliceState,
+  TChangeLineItemQuantity,
+  TClearCartRequest,
+  TRemoveLineItemRequest,
+} from './types';
+import {
+  MyCartAddLineItemAction,
+  MyCartChangeLineItemQuantityAction,
+  MyCartRemoveLineItemAction,
+} from '@commercetools/platform-sdk';
 
 const initialState: TCartSliceState = {
   activeCart: null,
@@ -24,6 +40,7 @@ const initialState: TCartSliceState = {
   progress: {
     getActiveCart: false,
     addingLineItem: null,
+    modifyingCart: false,
   },
 };
 
@@ -78,6 +95,98 @@ export const addLineItemToCart = createAsyncThunk(
   },
 );
 
+export const removeLineItemFromCart = createAsyncThunk(
+  'cart/removeLineItemFromCart',
+  async (removeLineItemRequest: TRemoveLineItemRequest, { getState, rejectWithValue }) => {
+    const api = chooseApiWithToken();
+    const {
+      cart: { activeCart },
+    } = getState() as RootState;
+
+    if (api && activeCart) {
+      const { lineItemId, quantity, onSuccess, onError } = removeLineItemRequest;
+      const actionRemoveLineItem: MyCartRemoveLineItemAction = {
+        action: 'removeLineItem',
+        lineItemId,
+        quantity,
+      };
+
+      try {
+        const response = await api.updateCart(activeCart.id, activeCart.version, [actionRemoveLineItem]);
+        onSuccess();
+
+        return response.body;
+      } catch (error: unknown) {
+        const mappedServerError = mapErrorMessage(error);
+        onError(mappedServerError);
+
+        return rejectWithValue(mappedServerError);
+      }
+    }
+  },
+);
+
+export const changeLineItemQuantity = createAsyncThunk(
+  'cart/changeLineItemQuantity',
+  async (changeLineItemQuantityRequest: TChangeLineItemQuantity, { getState, rejectWithValue }) => {
+    const api = chooseApiWithToken();
+    const {
+      cart: { activeCart },
+    } = getState() as RootState;
+
+    if (api && activeCart) {
+      const { lineItemId, quantity, onSuccess, onError } = changeLineItemQuantityRequest;
+      const actionChangeLineItemQuantity: MyCartChangeLineItemQuantityAction = {
+        action: 'changeLineItemQuantity',
+        lineItemId,
+        quantity,
+      };
+
+      try {
+        const response = await api.updateCart(activeCart.id, activeCart.version, [actionChangeLineItemQuantity]);
+        onSuccess();
+
+        return response.body;
+      } catch (error: unknown) {
+        const mappedServerError = mapErrorMessage(error);
+        onError(mappedServerError);
+
+        return rejectWithValue(mappedServerError);
+      }
+    }
+  },
+);
+
+export const clearCart = createAsyncThunk(
+  'cart/clearCart',
+  async (clearCartRequest: TClearCartRequest, { getState, rejectWithValue }) => {
+    const api = chooseApiWithToken();
+    const {
+      cart: { activeCart },
+    } = getState() as RootState;
+
+    if (api && activeCart) {
+      const { onSuccess, onError } = clearCartRequest;
+      const actions: MyCartRemoveLineItemAction[] = activeCart.lineItems.map((item) => ({
+        action: 'removeLineItem',
+        lineItemId: item.id,
+      }));
+
+      try {
+        const response = await api.updateCart(activeCart.id, activeCart.version, actions);
+        onSuccess();
+
+        return response.body;
+      } catch (error: unknown) {
+        const mappedServerError = mapErrorMessage(error);
+        onError(mappedServerError);
+
+        return rejectWithValue(mappedServerError);
+      }
+    }
+  },
+);
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -94,6 +203,18 @@ const cartSlice = createSlice({
     builder.addCase(addLineItemToCart.pending, reducerAddLineItemToCartPending);
     builder.addCase(addLineItemToCart.fulfilled, reducerAddLineItemToCartFulfilled);
     builder.addCase(addLineItemToCart.rejected, reducerAddLineItemToCartRejected);
+
+    builder.addCase(removeLineItemFromCart.pending, reducerRemoveLineItemFromCartPending);
+    builder.addCase(removeLineItemFromCart.fulfilled, reducerRemoveLineItemFromCartFulfilled);
+    builder.addCase(removeLineItemFromCart.rejected, reducerRemoveLineItemFromCartRejected);
+
+    builder.addCase(changeLineItemQuantity.pending, reducerChangeLineItemQuantityPending);
+    builder.addCase(changeLineItemQuantity.fulfilled, reducerChangeLineItemQuantityFulfilled);
+    builder.addCase(changeLineItemQuantity.rejected, reducerChangeLineItemQuantityRejected);
+
+    builder.addCase(clearCart.pending, reducerRemoveLineItemFromCartPending);
+    builder.addCase(clearCart.fulfilled, reducerRemoveLineItemFromCartFulfilled);
+    builder.addCase(clearCart.rejected, reducerRemoveLineItemFromCartRejected);
   },
 });
 

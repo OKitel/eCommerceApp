@@ -1,7 +1,13 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
 import { Cart } from '@commercetools/platform-sdk';
 
-import { TAddLineItemRequest, TCartSliceState } from './types';
+import {
+  TAddLineItemRequest,
+  TCartSliceState,
+  TChangeLineItemQuantity,
+  TClearCartRequest,
+  TRemoveLineItemRequest,
+} from './types';
 import { FulfilledAction, PendingAction, RejectedAction } from '../types';
 
 export function reducerGetActiveCartPending(state: Draft<TCartSliceState>): void {
@@ -51,6 +57,62 @@ export function reducerAddLineItemToCartRejected(
   const { payload } = action;
 
   state.progress.addingLineItem = null;
+  if (payload && typeof payload === 'string') {
+    state.errorMessage = payload;
+  }
+}
+
+export function reducerRemoveLineItemFromCartPending(state: Draft<TCartSliceState>): void {
+  state.progress.modifyingCart = true;
+}
+
+export function reducerRemoveLineItemFromCartFulfilled(
+  state: Draft<TCartSliceState>,
+  action: FulfilledAction<TRemoveLineItemRequest | TClearCartRequest, Cart | undefined>,
+): void {
+  state.progress.modifyingCart = false;
+  state.errorMessage = null;
+
+  if (action.payload) {
+    state.activeCart = action.payload;
+  }
+}
+
+export function reducerRemoveLineItemFromCartRejected(
+  state: Draft<TCartSliceState>,
+  action: RejectedAction<TRemoveLineItemRequest | TClearCartRequest>,
+): void {
+  const { payload } = action;
+
+  state.progress.modifyingCart = false;
+  if (payload && typeof payload === 'string') {
+    state.errorMessage = payload;
+  }
+}
+
+export function reducerChangeLineItemQuantityPending(state: Draft<TCartSliceState>): void {
+  state.progress.modifyingCart = true;
+}
+
+export function reducerChangeLineItemQuantityFulfilled(
+  state: Draft<TCartSliceState>,
+  action: FulfilledAction<TChangeLineItemQuantity, Cart | undefined>,
+): void {
+  state.progress.modifyingCart = false;
+  state.errorMessage = null;
+
+  if (action.payload) {
+    state.activeCart = action.payload;
+  }
+}
+
+export function reducerChangeLineItemQuantityRejected(
+  state: Draft<TCartSliceState>,
+  action: RejectedAction<TChangeLineItemQuantity>,
+): void {
+  const { payload } = action;
+
+  state.progress.modifyingCart = false;
   if (payload && typeof payload === 'string') {
     state.errorMessage = payload;
   }

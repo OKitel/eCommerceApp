@@ -1,19 +1,51 @@
-import { Box } from '@mui/material';
+import { Box, Container, Paper } from '@mui/material';
 
-import wipUrl from '../../assets/images/wip.png';
+import { useAppSelector } from '../../store/hooks';
+
+import { CartStepper } from '../../components/CartStepper/CartStepper';
+import { CartLineItem } from '../../components/CartLineItem/CartLineItem';
+import { CartSummary } from '../../components/CartSummary/CartSummary';
+import { EmptyCart } from '../../components/EmptyCart/EmptyCart';
+import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 
 import './styles.scss';
 
 export const Cart: React.FC = (): JSX.Element => {
+  const { activeCart, progress } = useAppSelector((state) => state.cart);
+
+  if (progress.getActiveCart) {
+    return (
+      <Container sx={{ mt: 5 }}>
+        <ProgressLoader />
+      </Container>
+    );
+  }
+
+  if (activeCart) {
+    const { lineItems } = activeCart;
+
+    if (lineItems.length !== 0) {
+      return (
+        <>
+          <Container sx={{ mt: 5 }}>
+            <CartStepper />
+            <Box className="cart_wrapper">
+              <Paper elevation={3} className="cart-items_wrapper">
+                {lineItems.map((item, index) => {
+                  return <CartLineItem key={item.id} item={item} isLast={index === lineItems.length - 1} />;
+                })}
+              </Paper>
+              <CartSummary cart={activeCart} />
+            </Box>
+          </Container>
+        </>
+      );
+    }
+  }
+
   return (
     <>
-      <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
-        <h2 className="cart-title">Cart Page</h2>
-        <div className="wip-container">
-          <img className="wip-image" src={wipUrl} alt="work in progress" />
-          <h4 className="wip-text">WORK IN PROGRESS</h4>
-        </div>
-      </Box>
+      <EmptyCart />
     </>
   );
 };
