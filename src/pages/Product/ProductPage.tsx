@@ -81,15 +81,15 @@ export const ProductPage: React.FC = (): React.ReactElement => {
           </Box>
         </Box>
         {currentProductData.description && (
-          <>
-            <Typography variant="h5" className="description-title">
+          <Box pb={3}>
+            <Typography gutterBottom variant="h5" className="description-title">
               Description
             </Typography>
             <Typography
               variant="body1"
               dangerouslySetInnerHTML={{ __html: currentProductData.description[localization] }}
             ></Typography>
-          </>
+          </Box>
         )}
       </Container>
     </>
