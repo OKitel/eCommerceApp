@@ -31,7 +31,7 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
 
   return (
     <>
-      <Hidden smUp>
+      <Hidden mdUp>
         <IconButton onClick={(): void => setOpen(true)} color="secondary">
           <MenuIcon />
         </IconButton>

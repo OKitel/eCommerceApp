@@ -6,7 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
-import Diversity1RoundedIcon from '@mui/icons-material/Diversity1Rounded';
+import Diversity3RoundedIcon from '@mui/icons-material/Diversity3Rounded';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import { Badge, Stack } from '@mui/material';
@@ -46,7 +46,7 @@ export const Header: React.FC = (): JSX.Element => {
           </div>
 
           <div className="search-wrapper">
-            <Hidden smDown>
+            <Hidden mdDown>
               <Button component={RouterLink} to={LINKS.catalog} color="secondary" variant="contained" sx={{ mr: 1 }}>
                 Catalog
               </Button>
@@ -55,11 +55,11 @@ export const Header: React.FC = (): JSX.Element => {
               setSearchQuery={(query: string): void => navigate(`${LINKS.search}?${SEARCH_QUERY_PARAM}=${query}`)}
             />
           </div>
-          <Hidden smDown>
+          <Hidden mdDown>
             <div>
               <Stack direction="row" spacing={1}>
                 <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickTeam}>
-                  <Diversity1RoundedIcon />
+                  <Diversity3RoundedIcon />
                 </IconButton>
                 <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickCart}>
                   <Badge badgeContent={numberOfCartLineItems} color="secondary" data-testid="cart-icon-badge">
