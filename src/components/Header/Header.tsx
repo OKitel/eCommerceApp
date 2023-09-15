@@ -6,10 +6,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
-import Diversity3RoundedIcon from '@mui/icons-material/Diversity3Rounded';
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
-import { Badge, Stack } from '@mui/material';
+import { Badge, Stack, Tooltip } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
@@ -58,9 +58,6 @@ export const Header: React.FC = (): JSX.Element => {
           <Hidden mdDown>
             <div>
               <Stack direction="row" spacing={1}>
-                <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickTeam}>
-                  <Diversity3RoundedIcon />
-                </IconButton>
                 <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickCart}>
                   <Badge badgeContent={numberOfCartLineItems} color="secondary" data-testid="cart-icon-badge">
                     <ShoppingCartRoundedIcon />
@@ -71,6 +68,11 @@ export const Header: React.FC = (): JSX.Element => {
                     <IconButton color="inherit" onClick={handleClickAvatar}>
                       <AccountCircleIcon />
                     </IconButton>
+                    <Tooltip title="About us">
+                      <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickTeam}>
+                        <InfoRoundedIcon />
+                      </IconButton>
+                    </Tooltip>
                     <Button
                       component={RouterLink}
                       to={LINKS.main}
@@ -86,6 +88,11 @@ export const Header: React.FC = (): JSX.Element => {
                   </>
                 ) : (
                   <>
+                    <Tooltip title="About us">
+                      <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickTeam}>
+                        <InfoRoundedIcon />
+                      </IconButton>
+                    </Tooltip>
                     <Button component={RouterLink} to={LINKS.login} variant="contained" sx={{ m: 1 }} color="secondary">
                       Login
                     </Button>
