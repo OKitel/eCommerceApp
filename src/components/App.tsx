@@ -21,6 +21,7 @@ import { Profile } from '../pages/Profile/Profile';
 import { ProductPage } from '../pages/Product/ProductPage';
 import { Search } from '../pages/Search/Search';
 import { getActiveCart } from '../slices/cart/slice';
+import { AboutUs } from '../pages/AboutUs/AboutUs';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -58,6 +59,7 @@ export const App: React.FC = (): JSX.Element => {
         </Route>
         <Route path={LINKS.profile} element={<Profile />}></Route>
         <Route path={LINKS.search} element={<Search />}></Route>
+        <Route path={LINKS.about_us} element={<AboutUs />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
       </Routes>
       <Footer />
