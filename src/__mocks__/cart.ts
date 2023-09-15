@@ -283,6 +283,117 @@ export const mockCart: Cart = {
       },
       taxedPricePortions: [],
     },
+    {
+      id: '2d4876e3-e843-4afd-9bf9-6341a89c0112',
+      productId: 'e09fc3a3-17c7-4e84-8bb4-b2d15cc2b269',
+      productKey: '30',
+      name: {
+        en: 'Sam Martin UP123 White Acoustic Piano',
+      },
+      productType: {
+        typeId: 'product-type',
+        id: '9e1fc8c0-e73d-426f-b008-c9e49798036a',
+      },
+      productSlug: {
+        en: 'sam-martin-up123-white-with-branch',
+      },
+      variant: {
+        id: 1,
+        sku: '510450White',
+        key: '510450White',
+        prices: [
+          {
+            id: '580d81c4-5555-418f-8fa8-0814c8958ab7',
+            value: {
+              type: 'centPrecision',
+              currencyCode: 'EUR',
+              centAmount: 343300,
+              fractionDigits: 2,
+            },
+          },
+          {
+            id: '9e5ed862-8bc2-4fb3-aad5-a05fccd66fb6',
+            value: {
+              type: 'centPrecision',
+              currencyCode: 'USD',
+              centAmount: 315000,
+              fractionDigits: 2,
+            },
+          },
+        ],
+        images: [
+          {
+            url: 'https://ltm-music.ru/upload/images/sam_martin_up123_white_with-branch.jpg',
+            dimensions: {
+              w: 0,
+              h: 0,
+            },
+          },
+        ],
+        attributes: [
+          {
+            name: 'brand',
+            value: {
+              key: 'samMartin',
+              label: {
+                en: 'Sam Martin',
+              },
+            },
+          },
+          {
+            name: 'manufacturer',
+            value: {
+              key: 'china',
+              label: {
+                en: 'China',
+              },
+            },
+          },
+          {
+            name: 'color',
+            value: {
+              key: 'white',
+              label: {
+                en: 'White',
+              },
+            },
+          },
+        ],
+        assets: [],
+      },
+      price: {
+        id: '580d81c4-5555-418f-8fa8-0814c8958ab7',
+        value: {
+          type: 'centPrecision',
+          currencyCode: 'EUR',
+          centAmount: 343300,
+          fractionDigits: 2,
+        },
+      },
+      quantity: 1,
+      discountedPricePerQuantity: [],
+      perMethodTaxRate: [],
+      addedAt: '2023-09-14T23:33:15.803Z',
+      lastModifiedAt: '2023-09-14T23:33:15.803Z',
+      state: [
+        {
+          quantity: 1,
+          state: {
+            typeId: 'state',
+            id: '4bb608e4-6697-4e2f-ac82-df591b370396',
+          },
+        },
+      ],
+      priceMode: 'Platform',
+      lineItemMode: 'Standard',
+      totalPrice: {
+        type: 'centPrecision',
+        currencyCode: 'EUR',
+        centAmount: 343300,
+        fractionDigits: 2,
+      },
+      taxedPricePortions: [],
+    },
   ],
   cartState: 'Active',
   totalPrice: {

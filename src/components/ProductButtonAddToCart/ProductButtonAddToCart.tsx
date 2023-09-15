@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductProjection, ProductVariant } from '@commercetools/platform-sdk';
+import { ProductVariant } from '@commercetools/platform-sdk';
 import { Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import CheckIcon from '@mui/icons-material/Check';
@@ -12,18 +12,17 @@ import { findPriceWithCurrencyCode } from '../../utils/productsUtils';
 import { ServerError } from '../../api/types';
 
 type Props = {
-  productProjection: ProductProjection;
+  productId: string;
   selectedVariant: ProductVariant;
 };
 
-export const ProductButton: React.FC<Props> = ({ productProjection, selectedVariant }): JSX.Element => {
+export const ProductButtonAddToCart: React.FC<Props> = ({ productId, selectedVariant }): JSX.Element => {
   const dispatch = useAppDispatch();
   const { currency } = useAppSelector((state) => state.settings);
   const {
     activeCart,
     progress: { addingLineItem },
   } = useAppSelector((state) => state.cart);
-  const { id } = productProjection;
   const variantSkusInCart = activeCart?.lineItems.map((lineItem) => lineItem.variant.sku) || [];
   const isButtonAddToCartDisabled = !findPriceWithCurrencyCode(selectedVariant.prices, currency);
 
@@ -34,7 +33,7 @@ export const ProductButton: React.FC<Props> = ({ productProjection, selectedVari
     dispatch(setAlert({ message: error.message, severity: 'error' }));
   };
   const handleClickAddToCart = (): void => {
-    dispatch(addLineItemToCart({ productId: id, variantId: selectedVariant.id, quantity: 1, onSuccess, onError }));
+    dispatch(addLineItemToCart({ productId, variantId: selectedVariant.id, quantity: 1, onSuccess, onError }));
   };
 
   if (variantSkusInCart.includes(selectedVariant.sku)) {
@@ -47,7 +46,7 @@ export const ProductButton: React.FC<Props> = ({ productProjection, selectedVari
 
   return (
     <LoadingButton
-      loading={addingLineItem === id}
+      loading={addingLineItem === productId}
       startIcon={<AddShoppingCartIcon />}
       loadingPosition="start"
       disabled={isButtonAddToCartDisabled}
@@ -55,7 +54,7 @@ export const ProductButton: React.FC<Props> = ({ productProjection, selectedVari
       variant="contained"
       onClick={handleClickAddToCart}
     >
-      Add to Cart
+      Add to cart
     </LoadingButton>
   );
 };
