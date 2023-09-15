@@ -27,7 +27,7 @@ export const ProductDetails: React.FC<Props> = ({ productData, productId }: Prop
   const { localization } = useAppSelector((state) => state.settings);
   const {
     activeCart,
-    progress: { removingLineItem },
+    progress: { modifyingCart },
   } = useAppSelector((state) => state.cart);
   const [like, setLike] = useState(false);
   const [ratingValue] = useState<number | null>(null);
@@ -84,7 +84,7 @@ export const ProductDetails: React.FC<Props> = ({ productData, productId }: Prop
       <ProductPrice selectedVariant={selectedVariant} />
       <ProductButtonAddToCart productId={productId} selectedVariant={selectedVariant} />
       {isSelectedVariantInCart && (
-        <LoadingButton loading={removingLineItem} variant="outlined" color="error" onClick={handleClickRemoveFromCart}>
+        <LoadingButton loading={modifyingCart} variant="outlined" color="error" onClick={handleClickRemoveFromCart}>
           Remove from cart
         </LoadingButton>
       )}
