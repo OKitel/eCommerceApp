@@ -21,7 +21,13 @@ import {
   reducerChangeLineItemQuantityFulfilled,
   reducerChangeLineItemQuantityRejected,
 } from './extraReducers';
-import { TAddLineItemRequest, TCartSliceState, TChangeLineItemQuantity, TRemoveLineItemRequest } from './types';
+import {
+  TAddLineItemRequest,
+  TCartSliceState,
+  TChangeLineItemQuantity,
+  TClearCartRequest,
+  TRemoveLineItemRequest,
+} from './types';
 import {
   MyCartAddLineItemAction,
   MyCartChangeLineItemQuantityAction,
@@ -34,8 +40,7 @@ const initialState: TCartSliceState = {
   progress: {
     getActiveCart: false,
     addingLineItem: null,
-    removingLineItem: false,
-    changingLineItemQuantity: false,
+    modifyingCart: false,
   },
 };
 
@@ -152,6 +157,36 @@ export const changeLineItemQuantity = createAsyncThunk(
   },
 );
 
+export const clearCart = createAsyncThunk(
+  'cart/clearCart',
+  async (clearCartRequest: TClearCartRequest, { getState, rejectWithValue }) => {
+    const api = chooseApiWithToken();
+    const {
+      cart: { activeCart },
+    } = getState() as RootState;
+
+    if (api && activeCart) {
+      const { onSuccess, onError } = clearCartRequest;
+      const actions: MyCartRemoveLineItemAction[] = activeCart.lineItems.map((item) => ({
+        action: 'removeLineItem',
+        lineItemId: item.id,
+      }));
+
+      try {
+        const response = await api.updateCart(activeCart.id, activeCart.version, actions);
+        onSuccess();
+
+        return response.body;
+      } catch (error: unknown) {
+        const mappedServerError = mapErrorMessage(error);
+        onError(mappedServerError);
+
+        return rejectWithValue(mappedServerError);
+      }
+    }
+  },
+);
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -176,6 +211,10 @@ const cartSlice = createSlice({
     builder.addCase(changeLineItemQuantity.pending, reducerChangeLineItemQuantityPending);
     builder.addCase(changeLineItemQuantity.fulfilled, reducerChangeLineItemQuantityFulfilled);
     builder.addCase(changeLineItemQuantity.rejected, reducerChangeLineItemQuantityRejected);
+
+    builder.addCase(clearCart.pending, reducerRemoveLineItemFromCartPending);
+    builder.addCase(clearCart.fulfilled, reducerRemoveLineItemFromCartFulfilled);
+    builder.addCase(clearCart.rejected, reducerRemoveLineItemFromCartRejected);
   },
 });
 

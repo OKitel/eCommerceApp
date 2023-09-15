@@ -10,4 +10,11 @@ export const messages = {
     delete: 'Delete',
     cancel: 'Cancel',
   },
+
+  clearCartConfirmation: {
+    title: 'Clear Cart?',
+    description: 'Are you sure you want to remove all products from your cart?',
+    delete: 'Remove all',
+    cancel: 'Cancel',
+  },
 };

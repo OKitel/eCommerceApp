@@ -9,8 +9,7 @@ import { ServerError } from '../../api/types';
 type TCartSliceProgress = {
   getActiveCart: boolean;
   addingLineItem: string | null;
-  removingLineItem: boolean;
-  changingLineItemQuantity: boolean;
+  modifyingCart: boolean;
 };
 
 export type TCartSliceState = {
@@ -31,6 +30,11 @@ export type TRemoveLineItemRequest = Required<Pick<MyCartRemoveLineItemAction, '
 };
 
 export type TChangeLineItemQuantity = Required<Pick<MyCartChangeLineItemQuantityAction, 'lineItemId' | 'quantity'>> & {
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
+
+export type TClearCartRequest = {
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };

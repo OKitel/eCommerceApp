@@ -1,3 +1,5 @@
+@import '../../theme/consts.scss';
+
 .empty-cart-img {
   max-width: 30rem;
 }
@@ -12,6 +14,20 @@
 
 .empty-cart_title {
   text-align: center;
+}
+
+.empty-cart_text {
+  text-align: center;
+  margin: 1rem !important;
+}
+
+.empty-cart_link {
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    color: $clr-secondary;
+  }
 }
 
 @media screen and (max-width: 600px) {
