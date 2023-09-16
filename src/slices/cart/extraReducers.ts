@@ -117,3 +117,26 @@ export function reducerChangeLineItemQuantityRejected(
     state.errorMessage = payload;
   }
 }
+
+export function reducerChangeCartCurrencyPending(state: Draft<TCartSliceState>): void {
+  state.progress.changeCartCurrency = true;
+}
+export function reducerChangeCartCurrencyFulfilled(
+  state: Draft<TCartSliceState>,
+  action: PayloadAction<Cart | undefined>,
+): void {
+  state.progress.changeCartCurrency = false;
+  state.errorMessage = null;
+
+  if (action.payload) {
+    state.activeCart = action.payload;
+  }
+}
+export function reducerChangeCartCurrencyRejected(state: Draft<TCartSliceState>, action: PayloadAction<unknown>): void {
+  const { payload } = action;
+
+  state.progress.changeCartCurrency = false;
+  if (payload && typeof payload === 'string') {
+    state.errorMessage = payload;
+  }
+}

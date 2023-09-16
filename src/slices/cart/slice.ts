@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import spaApi from '../../api/Spa';
 import anonymousApi from '../../api/Anonymous';
 import { RootState } from '../../store/store';
-import { getTokenStore } from '../../utils/localStorage';
+import { getAppliedDiscountCode, getTokenStore } from '../../utils/localStorage';
 import { chooseApiWithToken } from '../../utils/apiUtils';
 import { TokenStoreTypes } from '../../lib/commercetools-sdk';
 import { mapErrorMessage } from '../../api/mapError';
@@ -20,7 +20,11 @@ import {
   reducerChangeLineItemQuantityPending,
   reducerChangeLineItemQuantityFulfilled,
   reducerChangeLineItemQuantityRejected,
+  reducerChangeCartCurrencyPending,
+  reducerChangeCartCurrencyFulfilled,
+  reducerChangeCartCurrencyRejected,
 } from './extraReducers';
+import { Currencies } from '../../types';
 import {
   TAddLineItemRequest,
   TCartSliceState,
@@ -41,6 +45,7 @@ const initialState: TCartSliceState = {
     getActiveCart: false,
     addingLineItem: null,
     modifyingCart: false,
+    changeCartCurrency: false,
   },
 };
 
@@ -76,7 +81,7 @@ export const addLineItemToCart = createAsyncThunk(
     } = getState() as RootState;
 
     if (api) {
-      const activeCart = cart.activeCart || (await api.createCart(currency)).body;
+      const activeCart = cart.activeCart || (await api.createCart({ currency })).body;
       const { productId, variantId, quantity, onSuccess, onError } = addLineItemRequest;
       const actionAddLineItem: MyCartAddLineItemAction = { action: 'addLineItem', productId, variantId, quantity };
 
@@ -187,6 +192,43 @@ export const clearCart = createAsyncThunk(
   },
 );
 
+export const changeCartCurrency = createAsyncThunk(
+  'cart/changeCartCurrency',
+  async (currency: Currencies, { getState, rejectWithValue }) => {
+    const api = chooseApiWithToken();
+    const {
+      cart: { activeCart },
+    } = getState() as RootState;
+
+    if (api && activeCart) {
+      const prevCartLineItems = activeCart.lineItems.map((lineItem) => ({
+        productId: lineItem.productId,
+        variantId: lineItem.variant.id,
+        quantity: lineItem.quantity,
+      }));
+      const appliedDiscountCode = getAppliedDiscountCode();
+      const prevCartDiscountCodes = appliedDiscountCode ? [appliedDiscountCode] : [];
+      const prevCartId = activeCart.id;
+      const prevCartVersion = activeCart.version;
+
+      try {
+        const createCartResponse = await api.createCart({
+          currency,
+          lineItems: prevCartLineItems,
+          discountCodes: prevCartDiscountCodes,
+        });
+        api.deleteCart(prevCartId, prevCartVersion);
+
+        return createCartResponse.body;
+      } catch (error: unknown) {
+        const mappedServerError = mapErrorMessage(error);
+
+        return rejectWithValue(mappedServerError);
+      }
+    }
+  },
+);
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -215,6 +257,10 @@ const cartSlice = createSlice({
     builder.addCase(clearCart.pending, reducerRemoveLineItemFromCartPending);
     builder.addCase(clearCart.fulfilled, reducerRemoveLineItemFromCartFulfilled);
     builder.addCase(clearCart.rejected, reducerRemoveLineItemFromCartRejected);
+
+    builder.addCase(changeCartCurrency.pending, reducerChangeCartCurrencyPending);
+    builder.addCase(changeCartCurrency.fulfilled, reducerChangeCartCurrencyFulfilled);
+    builder.addCase(changeCartCurrency.rejected, reducerChangeCartCurrencyRejected);
   },
 });
 

@@ -10,6 +10,7 @@ type TCartSliceProgress = {
   getActiveCart: boolean;
   addingLineItem: string | null;
   modifyingCart: boolean;
+  changeCartCurrency: boolean;
 };
 
 export type TCartSliceState = {
