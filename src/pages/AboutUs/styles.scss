@@ -14,7 +14,7 @@
 .dev-wrapper {
   padding: 2rem 0;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 2rem;
 }
 
@@ -56,4 +56,9 @@
 .dev-links_reverse {
   display: flex;
   justify-content: flex-start;
+}
+
+.rs-logo {
+  max-width: 20rem;
+  padding: 0 0 2rem;
 }

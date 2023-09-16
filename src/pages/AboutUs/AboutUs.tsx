@@ -4,6 +4,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 import okImg from '../../assets/images/OK.jpg';
 import alImg from '../../assets/images/AL.png';
+import rsLogo from '../../assets/images/logo-rs.svg';
 
 import './styles.scss';
 
@@ -29,9 +30,9 @@ export const AboutUs: React.FC = (): JSX.Element => {
               </Typography>
 
               <Typography variant="body1" className="dev-text">
-                Olga is a junior front-end developer with a medical background. Her technical skills include front-end
-                and back-end web development. Good interpersonal skills allow her to work productively with a team.
-                Besides IT she enjoys walking with her dog, reading books, playing tabletop games, and traveling.
+                Junior front-end developer with a medical background. Her technical skills include front-end and
+                back-end web development. Good interpersonal skills allow her to work productively with a team. Besides
+                IT she enjoys walking with her dog, reading books, playing tabletop games, and traveling.
               </Typography>
               <Typography variant="body1">
                 <strong>Contribution:</strong> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -58,7 +59,7 @@ export const AboutUs: React.FC = (): JSX.Element => {
             </Box>
           </Box>
         </Paper>
-        <Paper elevation={3} sx={{ padding: '2rem', margin: '1rem 0' }}>
+        <Paper elevation={3} sx={{ padding: '2rem', margin: '2rem 0' }}>
           <Box className="dev-wrapper dev-wrapper_reverse">
             <Box className="dev-description">
               <Typography variant="h4" className="dev-name_reverse">
@@ -93,6 +94,31 @@ export const AboutUs: React.FC = (): JSX.Element => {
             <Box>
               <img className="dev-img" src={alImg} alt="Artem Lobovskiy" />
             </Box>
+          </Box>
+        </Paper>
+        <Paper elevation={3} sx={{ padding: '0 2rem', margin: '2rem 0' }}>
+          <Box className="dev-wrapper">
+            <Box>
+              <Typography variant="h4" className="dev-name">
+                Collaboration
+              </Typography>
+              <Typography className="dev-text">
+                At the Rolling Scopes School JavaScript/Front-end 2023Q1 course, we embarked on a two-month journey to
+                design a top-notch e-commerce React website. Our progress was deeply influenced by our expertise in
+                using contemporary tools. GitHub became our collaborative platform for coding, while JIRA assisted us in
+                efficiently managing tasks. We effectively communicated on Discord, turning it into a vital hub for
+                quick feedback, brainstorming, and problem-solving. Our growth was consistently supported by weekly
+                Google Meet sessions with our mentor, whose guidance and advice were indispensable.
+              </Typography>
+              <Typography className="dev-text">
+                As we reflect on our journey, we're profoundly grateful to the Rolling Scopes School for providing us
+                with this invaluable opportunity. It's been a privilege to learn, collaborate, and connect with such
+                dedicated and hard-working individuals.
+              </Typography>
+            </Box>
+            <Link href="https://rs.school/" target="_blank" rel="noopener noreferrer">
+              <img className="rs-logo" src={rsLogo} alt="The Rolling Scopes School Logo" />
+            </Link>
           </Box>
         </Paper>
       </Box>
