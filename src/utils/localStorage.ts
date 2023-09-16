@@ -7,6 +7,7 @@ import { isCurrency, isLocalization } from './typesUtils';
 const LS_KEY_LOGGED_IN_CUSTOMER_ID = 'loggedInCustomerId';
 const LS_KEY_LOCALIZATION = 'localization';
 const LS_KEY_CURRENCY = 'currency';
+const LS_KEY_APPLIED_DISCOUNT_CODE = 'appliedDiscountCode';
 
 function isTokenStore(object: unknown): object is TokenStore {
   if (
@@ -79,4 +80,16 @@ export function getLoggedInCustomerId(): string | null {
 
 export function clearLoggedInCustomerId(): void {
   localStorage.removeItem(LS_KEY_LOGGED_IN_CUSTOMER_ID);
+}
+
+export function saveAppliedDiscountCode(id: string): void {
+  localStorage.setItem(LS_KEY_APPLIED_DISCOUNT_CODE, id);
+}
+
+export function getAppliedDiscountCode(): string | null {
+  return localStorage.getItem(LS_KEY_APPLIED_DISCOUNT_CODE);
+}
+
+export function clearAppliedDiscountCode(): void {
+  localStorage.removeItem(LS_KEY_APPLIED_DISCOUNT_CODE);
 }
