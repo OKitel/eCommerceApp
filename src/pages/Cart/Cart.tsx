@@ -11,9 +11,13 @@ import { ProgressLoader } from '../../components/ProgressLoader/ProgressLoader';
 import './styles.scss';
 
 export const Cart: React.FC = (): JSX.Element => {
-  const { activeCart, progress } = useAppSelector((state) => state.cart);
+  const { introspect: progressIntrospect } = useAppSelector((state) => state.customer.progress);
+  const {
+    activeCart,
+    progress: { getActiveCart: progressGetActiveCart },
+  } = useAppSelector((state) => state.cart);
 
-  if (progress.getActiveCart) {
+  if (progressIntrospect || progressGetActiveCart) {
     return (
       <Container sx={{ mt: 5 }}>
         <ProgressLoader />

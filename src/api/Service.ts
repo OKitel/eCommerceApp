@@ -4,6 +4,7 @@ import {
   Customer,
   CustomerUpdate,
   CustomerChangePassword,
+  DiscountCode,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 import { CustomerDraft } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 
@@ -65,6 +66,12 @@ class ServiceApi {
     const res = await retry<ClientResponse<Customer>>(() =>
       serviceApiRoot.customers().withId({ ID }).delete({ queryArgs: { version } }).execute(),
     );
+
+    return res;
+  }
+
+  public async getDiscountCodeById(ID: string): Promise<ClientResponse<DiscountCode>> {
+    const res = await serviceApiRoot.discountCodes().withId({ ID }).get().execute();
 
     return res;
   }

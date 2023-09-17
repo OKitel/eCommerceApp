@@ -1,9 +1,15 @@
-import { AttributeLocalizedEnumValue, DiscountedPrice, Price, ProductVariant } from '@commercetools/platform-sdk';
+import {
+  AttributeLocalizedEnumValue,
+  DiscountedPrice,
+  LineItem,
+  Price,
+  ProductVariant,
+} from '@commercetools/platform-sdk';
 
 import { Currencies, Localizations } from '../types';
 
-export function formatPriceCents(value: number, localization: Localizations, currency: Currencies): string {
-  return (value / 100).toLocaleString(localization, { style: 'currency', currency: currency });
+export function formatPriceCents(value: number, localization: Localizations, currency: string): string {
+  return (value / 100).toLocaleString(localization, { style: 'currency', currency });
 }
 
 export function getVariantAttributeLocalizedEnumValue(
@@ -43,15 +49,13 @@ export function findDiscountPriceWithCurrencyCode(
   }
 }
 
-export function getFinalPrice(prices: Price[] | undefined, currency: Currencies): number {
-  const currencyPrice = findPriceWithCurrencyCode(prices, currency);
-  const currencyPriceWithDiscount = findDiscountPriceWithCurrencyCode(prices, currency);
+export function getLineItemsFullPriceTotalCentAmount(lineItems: LineItem[]): number {
+  let totalCentAmount = 0;
 
-  if (currencyPriceWithDiscount) {
-    return currencyPriceWithDiscount.value.centAmount;
-  }
-  if (currencyPrice) {
-    return currencyPrice.value.centAmount;
-  }
-  throw new Error(`No price in ${currency} found`);
+  lineItems.forEach((lineItem) => {
+    const { centAmount } = lineItem.price.value;
+    totalCentAmount += centAmount * lineItem.quantity;
+  });
+
+  return totalCentAmount;
 }
