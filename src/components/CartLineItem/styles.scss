@@ -55,6 +55,12 @@
   padding: 0 1rem;
 }
 
+.line-item__old-price {
+  color: grey;
+  text-decoration: line-through;
+  line-height: 1;
+}
+
 @media screen and (max-width: 450px) {
   .line-item_price-wrapper {
     justify-content: center;

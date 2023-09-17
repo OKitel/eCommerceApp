@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Box, Button, Divider, Typography, IconButton, FormGroup, TextField, Tooltip } from '@mui/material';
+import { Box, Button, Divider, Typography, IconButton, FormGroup, TextField, Tooltip, Stack } from '@mui/material';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
@@ -67,6 +67,64 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
     }
   };
 
+  const renderPrice = (): React.ReactElement => {
+    const fullPriceCentAmount = item.price.value.centAmount;
+    const fullPriceCurrencyCode = item.price.value.currencyCode;
+    const fullPriceValue = formatPriceCents(fullPriceCentAmount, localization, fullPriceCurrencyCode);
+    const isDiscountApplied = !!item.discountedPricePerQuantity.length;
+
+    if (isDiscountApplied) {
+      const { discountedPrice } = item.discountedPricePerQuantity[0];
+      const discountedPriceCentAmount = discountedPrice.value.centAmount;
+      const discountedPriceCurrencyCode = discountedPrice.value.currencyCode;
+      const discountedPriceValue = formatPriceCents(
+        discountedPriceCentAmount,
+        localization,
+        discountedPriceCurrencyCode,
+      );
+
+      return (
+        <Box textAlign="center">
+          <Typography className="line-item__old-price" sx={{ lineHeight: 1 }}>
+            {fullPriceValue}
+          </Typography>
+          <Typography variant="h6">{discountedPriceValue}</Typography>
+        </Box>
+      );
+    }
+
+    return <Typography variant="h6">{fullPriceValue}</Typography>;
+  };
+
+  const renderTotalPrice = (): React.ReactElement => {
+    const fullPriceTotalCentAmount = item.price.value.centAmount * item.quantity;
+    const fullPriceCurrencyCode = item.price.value.currencyCode;
+    const fullPriceTotalValue = formatPriceCents(fullPriceTotalCentAmount, localization, fullPriceCurrencyCode);
+    const isDiscountApplied = !!item.discountedPricePerQuantity.length;
+
+    if (isDiscountApplied) {
+      const discountedPriceTotalCentAmount = item.totalPrice.centAmount;
+      const discountedPriceCurrencyCode = item.totalPrice.currencyCode;
+
+      return (
+        <Box textAlign="center">
+          <Typography className="line-item__old-price" sx={{ lineHeight: 1 }}>
+            {fullPriceTotalValue}
+          </Typography>
+          <Typography variant="h6" className="line-item_total-price">
+            {formatPriceCents(discountedPriceTotalCentAmount, localization, discountedPriceCurrencyCode)}
+          </Typography>
+        </Box>
+      );
+    }
+
+    return (
+      <Typography variant="h6" className="line-item_total-price">
+        {fullPriceTotalValue}
+      </Typography>
+    );
+  };
+
   return (
     <>
       <Box className="line-item_container">
@@ -114,13 +172,13 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
             <AddRoundedIcon />
           </Button>
         </FormGroup>
-        <Typography variant="h6">
-          {formatPriceCents(item.price.value.centAmount, localization, item.price.value.currencyCode)}
-        </Typography>
-        <Typography variant="h6" className="line-item_total-price">
-          Total:&nbsp;
-          {formatPriceCents(item.price.value.centAmount * item.quantity, localization, item.price.value.currencyCode)}
-        </Typography>
+        {renderPrice()}
+        <Stack direction="row" alignItems="center">
+          <Typography variant="h6" className="line-item_total-price">
+            Total:
+          </Typography>
+          {renderTotalPrice()}
+        </Stack>
       </Box>
       {!isLast && <Divider className="line-item_divider" />}
     </>
