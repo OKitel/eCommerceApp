@@ -1,11 +1,11 @@
-import { useMemo, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { Cart } from '@commercetools/platform-sdk';
 
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { LINKS } from '../consts';
-import { formatPriceCents, getFinalPrice } from '../../utils/productsUtils';
+import { formatPriceCents } from '../../utils/productsUtils';
 import { setAlert } from '../../slices/alerts/slice';
 import { clearCart } from '../../slices/cart/slice';
 import { ServerError } from '../../api/types';
@@ -20,26 +20,10 @@ type Props = {
 };
 
 export const CartSummary: React.FC<Props> = ({ cart }: Props): React.ReactElement => {
-  const localization = useAppSelector((state) => state.settings.localization);
-  const currency = useAppSelector((state) => state.settings.currency);
-  const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
   const dispatch = useAppDispatch();
-  const totalPrice: string = useMemo(() => {
-    try {
-      const totalPriceInCent = cart.lineItems
-        .map((item) => ({ prices: item.variant.prices, quantity: item.quantity }))
-        .map((item) => {
-          const price = getFinalPrice(item.prices, currency);
-          return { price: price, quantity: item.quantity };
-        })
-        .reduce((prev, cur) => {
-          return prev + cur.price * cur.quantity;
-        }, 0);
-      return formatPriceCents(totalPriceInCent, localization, currency);
-    } catch {
-      return formatPriceCents(cart.totalPrice.centAmount, localization, currency);
-    }
-  }, [currency, localization, cart.totalPrice, cart.lineItems]);
+  const { localization } = useAppSelector((state) => state.settings);
+  const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
+  const { centAmount: totalCentAmount, currencyCode } = cart.totalPrice;
 
   const onSuccess = useCallback((): void => {}, []);
   const onError = useCallback(
@@ -57,7 +41,7 @@ export const CartSummary: React.FC<Props> = ({ cart }: Props): React.ReactElemen
       <Box className="cart-summary_container">
         <Box className="total-price_wrapper">
           <Typography variant="h5">Total price</Typography>
-          <Typography variant="h3">{totalPrice}</Typography>
+          <Typography variant="h3">{formatPriceCents(totalCentAmount, localization, currencyCode)}</Typography>
         </Box>
         <Button variant="contained">Delivery and payment</Button>
         <Button component={RouterLink} to={LINKS.catalog} color="secondary" variant="contained">

@@ -2,8 +2,8 @@ import { AttributeLocalizedEnumValue, DiscountedPrice, Price, ProductVariant } f
 
 import { Currencies, Localizations } from '../types';
 
-export function formatPriceCents(value: number, localization: Localizations, currency: Currencies): string {
-  return (value / 100).toLocaleString(localization, { style: 'currency', currency: currency });
+export function formatPriceCents(value: number, localization: Localizations, currency: string): string {
+  return (value / 100).toLocaleString(localization, { style: 'currency', currency });
 }
 
 export function getVariantAttributeLocalizedEnumValue(
