@@ -40,6 +40,7 @@ import {
 
 const initialState: TCartSliceState = {
   activeCart: null,
+  discountCode: null,
   errorMessage: null,
   progress: {
     getActiveCart: false,

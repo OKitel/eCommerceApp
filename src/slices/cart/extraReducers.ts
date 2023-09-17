@@ -125,6 +125,7 @@ export function reducerChangeCartCurrencyFulfilled(
   state: Draft<TCartSliceState>,
   action: PayloadAction<Cart | undefined>,
 ): void {
+  state.discountCode = null;
   state.progress.changeCartCurrency = false;
   state.errorMessage = null;
 
