@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import spaApi from '../../api/Spa';
 import anonymousApi from '../../api/Anonymous';
 import { RootState } from '../../store/store';
-import { getAppliedDiscountCode, getTokenStore } from '../../utils/localStorage';
+import { getTokenStore } from '../../utils/localStorage';
 import { chooseApiWithToken } from '../../utils/apiUtils';
 import { TokenStoreTypes } from '../../lib/commercetools-sdk';
 import { mapErrorMessage } from '../../api/mapError';
@@ -206,8 +206,6 @@ export const changeCartCurrency = createAsyncThunk(
         variantId: lineItem.variant.id,
         quantity: lineItem.quantity,
       }));
-      const appliedDiscountCode = getAppliedDiscountCode();
-      const prevCartDiscountCodes = appliedDiscountCode ? [appliedDiscountCode] : [];
       const prevCartId = activeCart.id;
       const prevCartVersion = activeCart.version;
 
@@ -215,7 +213,6 @@ export const changeCartCurrency = createAsyncThunk(
         const createCartResponse = await api.createCart({
           currency,
           lineItems: prevCartLineItems,
-          discountCodes: prevCartDiscountCodes,
         });
         api.deleteCart(prevCartId, prevCartVersion);
 
