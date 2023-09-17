@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { initSettings } from '../slices/settings/slice';
 import { getLoggedInCustomer } from '../slices/customer/slice';
 import { LINKS, URL_PARAMS } from './consts';
@@ -20,10 +20,12 @@ import { Registration } from '../pages/Registration/Registration';
 import { Profile } from '../pages/Profile/Profile';
 import { ProductPage } from '../pages/Product/ProductPage';
 import { Search } from '../pages/Search/Search';
-import { getActiveCart } from '../slices/cart/slice';
+import { changeCartCurrency, getActiveCart } from '../slices/cart/slice';
 
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const { currency } = useAppSelector((state) => state.settings);
+  const { activeCart } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
     dispatch(initSettings());
@@ -34,6 +36,12 @@ export const App: React.FC = (): JSX.Element => {
     }
     fetchCustomerData();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (activeCart && activeCart.totalPrice.currencyCode !== currency) {
+      dispatch(changeCartCurrency(currency));
+    }
+  }, [activeCart, currency, dispatch]);
 
   return (
     <>
