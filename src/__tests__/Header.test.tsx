@@ -67,8 +67,8 @@ describe('Header is displayed correctly', () => {
       ...store.getState(),
       cart: {
         activeCart: mockCart,
+        progress: { changeCartCurrency: false },
       },
-      progress: false,
     };
     const mockedStore = mockStore(() => state);
 
