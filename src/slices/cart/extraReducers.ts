@@ -1,11 +1,12 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit';
-import { Cart } from '@commercetools/platform-sdk';
+import { Cart, DiscountCode } from '@commercetools/platform-sdk';
 
 import {
+  TAddDiscountCodeRequest,
   TAddLineItemRequest,
   TCartSliceState,
   TChangeLineItemQuantity,
-  TClearCartRequest,
+  TCommonCartRequest,
   TRemoveLineItemRequest,
 } from './types';
 import { FulfilledAction, PendingAction, RejectedAction } from '../types';
@@ -68,7 +69,7 @@ export function reducerRemoveLineItemFromCartPending(state: Draft<TCartSliceStat
 
 export function reducerRemoveLineItemFromCartFulfilled(
   state: Draft<TCartSliceState>,
-  action: FulfilledAction<TRemoveLineItemRequest | TClearCartRequest, Cart | undefined>,
+  action: FulfilledAction<TRemoveLineItemRequest | TCommonCartRequest, Cart | undefined>,
 ): void {
   state.progress.modifyingCart = false;
   state.errorMessage = null;
@@ -80,7 +81,7 @@ export function reducerRemoveLineItemFromCartFulfilled(
 
 export function reducerRemoveLineItemFromCartRejected(
   state: Draft<TCartSliceState>,
-  action: RejectedAction<TRemoveLineItemRequest | TClearCartRequest>,
+  action: RejectedAction<TRemoveLineItemRequest | TCommonCartRequest>,
 ): void {
   const { payload } = action;
 
@@ -137,6 +138,80 @@ export function reducerChangeCartCurrencyRejected(state: Draft<TCartSliceState>,
   const { payload } = action;
 
   state.progress.changeCartCurrency = false;
+  if (payload && typeof payload === 'string') {
+    state.errorMessage = payload;
+  }
+}
+
+export function reducerAddDiscountCodePending(state: Draft<TCartSliceState>): void {
+  state.progress.setDiscountCode = true;
+}
+export function reducerAddDiscountCodeFulfilled(
+  state: Draft<TCartSliceState>,
+  action: FulfilledAction<TAddDiscountCodeRequest, Cart | undefined>,
+): void {
+  state.discountCode = action.meta.arg.code;
+  state.progress.setDiscountCode = false;
+  state.errorMessage = null;
+
+  if (action.payload) {
+    state.activeCart = action.payload;
+  }
+}
+export function reducerAddDiscountCodeRejected(state: Draft<TCartSliceState>, action: PayloadAction<unknown>): void {
+  const { payload } = action;
+
+  state.progress.setDiscountCode = false;
+  if (payload && typeof payload === 'string') {
+    state.errorMessage = payload;
+  }
+}
+
+export function reducerRemoveDiscountCodePending(state: Draft<TCartSliceState>): void {
+  state.progress.setDiscountCode = true;
+}
+export function reducerRemoveDiscountCodeFulfilled(
+  state: Draft<TCartSliceState>,
+  action: PayloadAction<Cart | undefined>,
+): void {
+  state.discountCode = null;
+  state.progress.setDiscountCode = false;
+  state.errorMessage = null;
+
+  if (action.payload) {
+    state.activeCart = action.payload;
+  }
+}
+export function reducerRemoveDiscountCodeRejected(state: Draft<TCartSliceState>, action: PayloadAction<unknown>): void {
+  const { payload } = action;
+
+  state.progress.setDiscountCode = false;
+  if (payload && typeof payload === 'string') {
+    state.errorMessage = payload;
+  }
+}
+
+export function reducerGetAppliedDiscountCodePending(state: Draft<TCartSliceState>): void {
+  state.progress.getDiscountCode = true;
+}
+export function reducerGetAppliedDiscountCodeFulfilled(
+  state: Draft<TCartSliceState>,
+  action: PayloadAction<DiscountCode | undefined>,
+): void {
+  state.progress.getDiscountCode = false;
+  state.errorMessage = null;
+
+  if (action.payload) {
+    state.discountCode = action.payload.code;
+  }
+}
+export function reducerGetAppliedDiscountCodeRejected(
+  state: Draft<TCartSliceState>,
+  action: PayloadAction<unknown>,
+): void {
+  const { payload } = action;
+
+  state.progress.getDiscountCode = false;
   if (payload && typeof payload === 'string') {
     state.errorMessage = payload;
   }

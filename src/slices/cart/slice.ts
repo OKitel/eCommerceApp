@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import spaApi from '../../api/Spa';
 import anonymousApi from '../../api/Anonymous';
+import serviceApi from '../../api/Service';
 import { RootState } from '../../store/store';
 import { getTokenStore } from '../../utils/localStorage';
 import { chooseApiWithToken } from '../../utils/apiUtils';
@@ -23,18 +24,30 @@ import {
   reducerChangeCartCurrencyPending,
   reducerChangeCartCurrencyFulfilled,
   reducerChangeCartCurrencyRejected,
+  reducerAddDiscountCodePending,
+  reducerAddDiscountCodeFulfilled,
+  reducerAddDiscountCodeRejected,
+  reducerRemoveDiscountCodePending,
+  reducerRemoveDiscountCodeFulfilled,
+  reducerRemoveDiscountCodeRejected,
+  reducerGetAppliedDiscountCodePending,
+  reducerGetAppliedDiscountCodeFulfilled,
+  reducerGetAppliedDiscountCodeRejected,
 } from './extraReducers';
 import { Currencies } from '../../types';
 import {
+  TAddDiscountCodeRequest,
   TAddLineItemRequest,
   TCartSliceState,
   TChangeLineItemQuantity,
-  TClearCartRequest,
+  TCommonCartRequest,
   TRemoveLineItemRequest,
 } from './types';
 import {
+  MyCartAddDiscountCodeAction,
   MyCartAddLineItemAction,
   MyCartChangeLineItemQuantityAction,
+  MyCartRemoveDiscountCodeAction,
   MyCartRemoveLineItemAction,
 } from '@commercetools/platform-sdk';
 
@@ -46,6 +59,8 @@ const initialState: TCartSliceState = {
     getActiveCart: false,
     addingLineItem: null,
     modifyingCart: false,
+    getDiscountCode: false,
+    setDiscountCode: false,
     changeCartCurrency: false,
   },
 };
@@ -165,7 +180,7 @@ export const changeLineItemQuantity = createAsyncThunk(
 
 export const clearCart = createAsyncThunk(
   'cart/clearCart',
-  async (clearCartRequest: TClearCartRequest, { getState, rejectWithValue }) => {
+  async (clearCartRequest: TCommonCartRequest, { getState, rejectWithValue }) => {
     const api = chooseApiWithToken();
     const {
       cart: { activeCart },
@@ -227,6 +242,86 @@ export const changeCartCurrency = createAsyncThunk(
   },
 );
 
+export const addDiscountCode = createAsyncThunk(
+  'cart/addDiscountCode',
+  async (applyDiscountCodeRequest: TAddDiscountCodeRequest, { getState, rejectWithValue }) => {
+    const api = chooseApiWithToken();
+    const {
+      cart: { activeCart },
+    } = getState() as RootState;
+
+    if (api && activeCart) {
+      const { code, onSuccess, onError } = applyDiscountCodeRequest;
+      const actionAddDiscountCode: MyCartAddDiscountCodeAction = { action: 'addDiscountCode', code };
+
+      try {
+        const response = await api.updateCart(activeCart.id, activeCart.version, [actionAddDiscountCode]);
+        onSuccess();
+
+        return response.body;
+      } catch (error: unknown) {
+        const mappedServerError = mapErrorMessage(error);
+        onError(mappedServerError);
+
+        return rejectWithValue(mappedServerError);
+      }
+    }
+  },
+);
+
+export const removeDiscountCode = createAsyncThunk(
+  'cart/removeDiscountCode',
+  async (removeDiscountCodeRequest: TCommonCartRequest, { getState, rejectWithValue }) => {
+    const api = chooseApiWithToken();
+    const {
+      cart: { activeCart },
+    } = getState() as RootState;
+
+    if (api && activeCart && activeCart.discountCodes.length) {
+      const { onSuccess, onError } = removeDiscountCodeRequest;
+      const appliedDiscountCodeId = activeCart.discountCodes[0].discountCode.id;
+      const actionRemoveDiscountCode: MyCartRemoveDiscountCodeAction = {
+        action: 'removeDiscountCode',
+        discountCode: { typeId: 'discount-code', id: appliedDiscountCodeId },
+      };
+
+      try {
+        const response = await api.updateCart(activeCart.id, activeCart.version, [actionRemoveDiscountCode]);
+        onSuccess();
+
+        return response.body;
+      } catch (error: unknown) {
+        const mappedServerError = mapErrorMessage(error);
+        onError(mappedServerError);
+
+        return rejectWithValue(mappedServerError);
+      }
+    }
+  },
+);
+
+export const getAppliedDiscountCode = createAsyncThunk(
+  'cart/getAppliedDiscountCode',
+  async (_, { getState, rejectWithValue }) => {
+    const {
+      cart: { activeCart },
+    } = getState() as RootState;
+
+    if (activeCart && !!activeCart.discountCodes.length) {
+      const discountCodeId = activeCart.discountCodes[0].discountCode.id;
+      try {
+        const response = await serviceApi.getDiscountCodeById(discountCodeId);
+
+        return response.body;
+      } catch (error: unknown) {
+        const mappedServerError = mapErrorMessage(error);
+
+        return rejectWithValue(mappedServerError);
+      }
+    }
+  },
+);
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -259,6 +354,18 @@ const cartSlice = createSlice({
     builder.addCase(changeCartCurrency.pending, reducerChangeCartCurrencyPending);
     builder.addCase(changeCartCurrency.fulfilled, reducerChangeCartCurrencyFulfilled);
     builder.addCase(changeCartCurrency.rejected, reducerChangeCartCurrencyRejected);
+
+    builder.addCase(addDiscountCode.pending, reducerAddDiscountCodePending);
+    builder.addCase(addDiscountCode.fulfilled, reducerAddDiscountCodeFulfilled);
+    builder.addCase(addDiscountCode.rejected, reducerAddDiscountCodeRejected);
+
+    builder.addCase(removeDiscountCode.pending, reducerRemoveDiscountCodePending);
+    builder.addCase(removeDiscountCode.fulfilled, reducerRemoveDiscountCodeFulfilled);
+    builder.addCase(removeDiscountCode.rejected, reducerRemoveDiscountCodeRejected);
+
+    builder.addCase(getAppliedDiscountCode.pending, reducerGetAppliedDiscountCodePending);
+    builder.addCase(getAppliedDiscountCode.fulfilled, reducerGetAppliedDiscountCodeFulfilled);
+    builder.addCase(getAppliedDiscountCode.rejected, reducerGetAppliedDiscountCodeRejected);
   },
 });
 

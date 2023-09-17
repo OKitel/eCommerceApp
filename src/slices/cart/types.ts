@@ -10,6 +10,8 @@ type TCartSliceProgress = {
   getActiveCart: boolean;
   addingLineItem: string | null;
   modifyingCart: boolean;
+  getDiscountCode: boolean;
+  setDiscountCode: boolean;
   changeCartCurrency: boolean;
 };
 
@@ -36,7 +38,13 @@ export type TChangeLineItemQuantity = Required<Pick<MyCartChangeLineItemQuantity
   onError: (error: ServerError) => void;
 };
 
-export type TClearCartRequest = {
+export type TCommonCartRequest = {
+  onSuccess: () => void;
+  onError: (error: ServerError) => void;
+};
+
+export type TAddDiscountCodeRequest = {
+  code: string;
   onSuccess: () => void;
   onError: (error: ServerError) => void;
 };
