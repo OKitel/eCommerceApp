@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { initSettings } from '../slices/settings/slice';
 import { getLoggedInCustomer } from '../slices/customer/slice';
-import { changeCartCurrency, getActiveCart } from '../slices/cart/slice';
+import { changeCartCurrency, getActiveCart, getAppliedDiscountCode } from '../slices/cart/slice';
 import { LINKS, URL_PARAMS } from './consts';
 
 import { AlertsSnackbar } from './AlertsSnackbar/AlertsSnackbar';
@@ -26,7 +26,7 @@ import { AboutUs } from '../pages/AboutUs/AboutUs';
 export const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { currency } = useAppSelector((state) => state.settings);
-  const { activeCart } = useAppSelector((state) => state.cart);
+  const { activeCart, discountCode } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
     dispatch(initSettings());
@@ -43,6 +43,12 @@ export const App: React.FC = (): JSX.Element => {
       dispatch(changeCartCurrency(currency));
     }
   }, [activeCart, currency, dispatch]);
+
+  useEffect(() => {
+    if (activeCart && !!activeCart.discountCodes.length && !discountCode) {
+      dispatch(getAppliedDiscountCode());
+    }
+  }, [activeCart, currency, discountCode, dispatch]);
 
   return (
     <>
