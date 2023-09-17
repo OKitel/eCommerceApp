@@ -6,9 +6,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
-import { Badge, Stack } from '@mui/material';
+import { Badge, Stack, Tooltip } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
@@ -30,6 +31,7 @@ export const Header: React.FC = (): JSX.Element => {
   const navigate = useNavigate();
   const handleClickCart = (): void => navigate(LINKS.cart);
   const handleClickAvatar = (): void => navigate(LINKS.profile);
+  const handleClickTeam = (): void => navigate(LINKS.about_us);
   const numberOfCartLineItems = activeCart?.lineItems.length;
 
   return (
@@ -44,7 +46,7 @@ export const Header: React.FC = (): JSX.Element => {
           </div>
 
           <div className="search-wrapper">
-            <Hidden smDown>
+            <Hidden mdDown>
               <Button component={RouterLink} to={LINKS.catalog} color="secondary" variant="contained" sx={{ mr: 1 }}>
                 Catalog
               </Button>
@@ -53,7 +55,7 @@ export const Header: React.FC = (): JSX.Element => {
               setSearchQuery={(query: string): void => navigate(`${LINKS.search}?${SEARCH_QUERY_PARAM}=${query}`)}
             />
           </div>
-          <Hidden smDown>
+          <Hidden mdDown>
             <div>
               <Stack direction="row" spacing={1}>
                 <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickCart}>
@@ -66,6 +68,11 @@ export const Header: React.FC = (): JSX.Element => {
                     <IconButton color="inherit" onClick={handleClickAvatar}>
                       <AccountCircleIcon />
                     </IconButton>
+                    <Tooltip title="About us">
+                      <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickTeam}>
+                        <InfoRoundedIcon />
+                      </IconButton>
+                    </Tooltip>
                     <Button
                       component={RouterLink}
                       to={LINKS.main}
@@ -81,6 +88,11 @@ export const Header: React.FC = (): JSX.Element => {
                   </>
                 ) : (
                   <>
+                    <Tooltip title="About us">
+                      <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickTeam}>
+                        <InfoRoundedIcon />
+                      </IconButton>
+                    </Tooltip>
                     <Button component={RouterLink} to={LINKS.login} variant="contained" sx={{ m: 1 }} color="secondary">
                       Login
                     </Button>

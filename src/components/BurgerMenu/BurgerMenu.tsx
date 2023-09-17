@@ -31,7 +31,7 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
 
   return (
     <>
-      <Hidden smUp>
+      <Hidden mdUp>
         <IconButton onClick={(): void => setOpen(true)} color="secondary">
           <MenuIcon />
         </IconButton>
@@ -71,6 +71,18 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
             <ShoppingCartRoundedIcon />
           </Badge>
           &nbsp;Cart
+        </Button>
+        <Button
+          component={RouterLink}
+          to={LINKS.about_us}
+          variant="text"
+          color="primary"
+          className="burger-button"
+          onClick={(): void => {
+            setOpen(false);
+          }}
+        >
+          About us
         </Button>
         <Button
           component={RouterLink}

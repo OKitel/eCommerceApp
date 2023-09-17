@@ -16,7 +16,7 @@ export const Footer: React.FC = (): JSX.Element => {
             </RouterLink>
           </div>
           <div>
-            <RouterLink to={LINKS.main} className="footer-about">
+            <RouterLink to={LINKS.about_us} className="footer-about">
               About us
             </RouterLink>
           </div>
