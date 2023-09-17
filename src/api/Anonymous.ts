@@ -2,6 +2,7 @@ import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/sr
 import {
   Cart,
   CustomerSignInResult,
+  MyCartDraft,
   MyCartUpdateAction,
 } from '@commercetools/platform-sdk/dist/declarations/src/generated/';
 
@@ -19,8 +20,14 @@ class AnonymousApi {
     return res;
   }
 
-  public async createCart(currency: string): Promise<ClientResponse<Cart>> {
-    const res = await anonymousApiRoot.me().carts().post({ body: { currency } }).execute();
+  public async createCart(cartDraft: MyCartDraft): Promise<ClientResponse<Cart>> {
+    const res = await anonymousApiRoot.me().carts().post({ body: cartDraft }).execute();
+
+    return res;
+  }
+
+  public async deleteCart(id: string, version: number): Promise<ClientResponse<Cart>> {
+    const res = await anonymousApiRoot.me().carts().withId({ ID: id }).delete({ queryArgs: { version } }).execute();
 
     return res;
   }
