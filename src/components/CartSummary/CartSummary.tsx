@@ -60,7 +60,9 @@ export const CartSummary: React.FC<Props> = ({ cart }: Props): React.ReactElemen
     <>
       <Box className="cart-summary_container">
         <Box className="total-price_wrapper">
-          <Typography variant="h5">Total price</Typography>
+          <Typography variant="h5" sx={{ whiteSpace: 'nowrap' }}>
+            Total price
+          </Typography>
           {renderTotalCartPrice()}
         </Box>
         {isDiscountApplied && !isDiscountTermsFulfilled && (

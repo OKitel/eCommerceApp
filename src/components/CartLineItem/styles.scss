@@ -61,8 +61,10 @@
   line-height: 1;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 55rem) {
   .line-item_price-wrapper {
+    flex-direction: column;
     justify-content: center;
+    gap: 1.5rem;
   }
 }
