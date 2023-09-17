@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Box, Button, Divider, Typography, IconButton, FormGroup, TextField, Tooltip } from '@mui/material';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
@@ -6,7 +6,7 @@ import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { LineItem } from '@commercetools/platform-sdk';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { formatPriceCents, getFinalPrice } from '../../utils/productsUtils';
+import { formatPriceCents } from '../../utils/productsUtils';
 import { ServerError } from '../../api/types';
 import { setAlert } from '../../slices/alerts/slice';
 import { changeLineItemQuantity, removeLineItemFromCart } from '../../slices/cart/slice';
@@ -20,19 +20,10 @@ type Props = {
 
 export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.ReactElement => {
   const localization = useAppSelector((state) => state.settings.localization);
-  const currency = useAppSelector((state) => state.settings.currency);
   const { progress } = useAppSelector((state) => state.cart);
 
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(item.quantity);
-  const price = useMemo(() => getFinalPrice(item.variant.prices, currency), [item.variant.prices, currency]);
-  const finalPrice = useMemo(() => {
-    return formatPriceCents(price, localization, currency);
-  }, [price, localization, currency]);
-
-  const totalItemPrice = useMemo((): string => {
-    return formatPriceCents(price * item.quantity, localization, currency);
-  }, [price, item.quantity, localization, currency]);
 
   const onError = useCallback(
     (error: ServerError): void => {
@@ -123,9 +114,12 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
             <AddRoundedIcon />
           </Button>
         </FormGroup>
-        <Typography variant="h6">{finalPrice}</Typography>
+        <Typography variant="h6">
+          {formatPriceCents(item.price.value.centAmount, localization, item.price.value.currencyCode)}
+        </Typography>
         <Typography variant="h6" className="line-item_total-price">
-          Total:&nbsp;{totalItemPrice}
+          Total:&nbsp;
+          {formatPriceCents(item.price.value.centAmount * item.quantity, localization, item.price.value.currencyCode)}
         </Typography>
       </Box>
       {!isLast && <Divider className="line-item_divider" />}
