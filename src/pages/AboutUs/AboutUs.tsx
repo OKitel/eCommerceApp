@@ -40,9 +40,11 @@ export const AboutUs: React.FC = (): JSX.Element => {
                 </Typography>
 
                 <Typography variant="body1" className="dev-text">
-                  Front-end developer with a medical background. Her technical skills include front-end and back-end web
-                  development. Good interpersonal skills allow her to work productively with a team. Besides IT she
-                  enjoys walking with her dog, reading books, playing tabletop games, and traveling.
+                  Dedicated front-end developer who brings a unique perspective to the world of web development, thanks
+                  to medical background. Specializing in both front-end and back-end web development, with a particular
+                  passion for crafting React applications. Effective soft skills contribute to productive teamwork.
+                  Beyond IT, she finds enjoyment in walking her dog, reading books, playing tabletop games, and
+                  traveling.
                 </Typography>
                 <Typography variant="body1">
                   <strong>Contribution:</strong> Project setup, repository setup with CI (Github actions), deployment to
