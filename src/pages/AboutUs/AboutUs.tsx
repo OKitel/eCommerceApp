@@ -1,6 +1,7 @@
 import { Box, Container, Link, Typography, IconButton, Paper } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 import { motion } from 'framer-motion';
 
 import okImg from '../../assets/images/OK.jpg';
@@ -47,9 +48,10 @@ export const AboutUs: React.FC = (): JSX.Element => {
                   traveling.
                 </Typography>
                 <Typography variant="body1">
-                  <strong>Contribution:</strong> Project setup, repository setup with CI (Github actions), deployment to
-                  Netlify, design and development: Registration Page, Not found Page, Profile Page, Detailed Product
-                  Page, Cart Page, About us Page. Comprehensive unit test coverage.
+                  <strong>Contribution:</strong> Project and test environment setup, repository setup and CI (Github
+                  actions, Husky), deployment to Netlify, routing implementation and setup, project maintenance and
+                  formal communications as a team leader, design and development: Registration Page, Not Found Page,
+                  Profile Page, Detailed Product Page, Cart Page, About Us Page. Comprehensive unit test coverage.
                 </Typography>
                 <Box className="dev-links">
                   <Link href="https://github.com/OKitel" target="_blank" rel="noopener noreferrer">
@@ -146,6 +148,27 @@ export const AboutUs: React.FC = (): JSX.Element => {
                   with this invaluable opportunity. It's been a privilege to learn, collaborate, and connect with such
                   dedicated and hard-working individuals.
                 </Typography>
+                <Box className="dev-links">
+                  <Link href="https://github.com/rolling-scopes-school" target="_blank" rel="noopener noreferrer">
+                    <IconButton size="medium" color="inherit">
+                      <GitHubIcon />
+                    </IconButton>
+                  </Link>
+                  <Link href="https://rs.school/" target="_blank" rel="noopener noreferrer">
+                    <IconButton size="medium" color="inherit">
+                      <PublicRoundedIcon />
+                    </IconButton>
+                  </Link>
+                  <Link
+                    href="https://www.linkedin.com/company/the-rolling-scopes-school/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <IconButton size="medium" color="inherit">
+                      <LinkedInIcon />
+                    </IconButton>
+                  </Link>
+                </Box>
               </Box>
               <Link href="https://rs.school/" target="_blank" rel="noopener noreferrer">
                 <img className="rs-logo" src={rsLogo} alt="The Rolling Scopes School Logo" />
