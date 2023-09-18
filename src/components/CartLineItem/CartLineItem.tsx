@@ -139,6 +139,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
       const fullPriceTotalCentAmount = item.price.value.centAmount * item.quantity;
       const fullPriceCurrencyCode = item.price.value.currencyCode;
       const fullPriceTotalValue = formatPriceCents(fullPriceTotalCentAmount, localization, fullPriceCurrencyCode);
+
       return (
         <Box textAlign="center">
           <Typography className="line-item__old-price" sx={{ lineHeight: 1 }}>
