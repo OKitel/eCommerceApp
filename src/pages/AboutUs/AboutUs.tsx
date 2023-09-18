@@ -30,12 +30,14 @@ export const AboutUs: React.FC = (): JSX.Element => {
               </Typography>
 
               <Typography variant="body1" className="dev-text">
-                Junior front-end developer with a medical background. Her technical skills include front-end and
-                back-end web development. Good interpersonal skills allow her to work productively with a team. Besides
-                IT she enjoys walking with her dog, reading books, playing tabletop games, and traveling.
+                Front-end developer with a medical background. Her technical skills include front-end and back-end web
+                development. Good interpersonal skills allow her to work productively with a team. Besides IT she enjoys
+                walking with her dog, reading books, playing tabletop games, and traveling.
               </Typography>
               <Typography variant="body1">
-                <strong>Contribution:</strong> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                <strong>Contribution:</strong> Project setup, repository setup with CI (Github actions), deployment to
+                Netlify, design and development: Registration Page, Not found Page, Profile Page, Detailed Product Page,
+                Cart Page, About us Page. Comprehensive unit test coverage.
               </Typography>
               <Box className="dev-links">
                 <Link href="https://github.com/OKitel" target="_blank" rel="noopener noreferrer">
@@ -75,8 +77,11 @@ export const AboutUs: React.FC = (): JSX.Element => {
                 bass and practices boxing.
               </Typography>
               <Typography variant="body1">
-                <strong>Contribution:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam ab
-                reprehenderit alias asperiores.
+                <strong>Contribution:</strong> JIRA setup, integration with Commerce Tools API using Typescript SDK,
+                resolved an incompatibility issue between the Typescript SDK and Vite, added products to CT, Redux
+                Toolkit, design and development: Login Page, Catalog Page, Product list with categories, filter and
+                sorting, Search Page. Integration of product cards with the shopping cart, application of cart promo
+                codes. Comprehensive unit test coverage.
               </Typography>
               <Box className="dev-links_reverse">
                 <Link href="https://github.com/lobovskiy" target="_blank" rel="noopener noreferrer">
