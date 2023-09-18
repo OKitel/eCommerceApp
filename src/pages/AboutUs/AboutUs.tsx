@@ -2,6 +2,7 @@ import { Box, Container, Link, Typography, IconButton, Paper } from '@mui/materi
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 import okImg from '../../assets/images/OK.jpg';
@@ -11,6 +12,10 @@ import rsLogo from '../../assets/images/logo-rs.svg';
 import './styles.scss';
 
 export const AboutUs: React.FC = (): JSX.Element => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Container sx={{ mt: 5 }}>
       <motion.div initial={{ x: -100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 1 }}>
