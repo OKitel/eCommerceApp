@@ -62,3 +62,19 @@
   max-width: 20rem;
   padding: 0 0 2rem;
 }
+
+@media screen and (max-width: 43rem) {
+  .dev-wrapper {
+    flex-direction: column-reverse;
+  }
+
+  .dev-name,
+  .dev-name_reverse {
+    text-align: center;
+  }
+
+  .dev-links,
+  .dev-links_reverse {
+    justify-content: center;
+  }
+}

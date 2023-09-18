@@ -47,7 +47,7 @@ export const AboutUs: React.FC = (): JSX.Element => {
                   Beyond IT, she finds enjoyment in walking her dog, reading books, playing tabletop games, and
                   traveling.
                 </Typography>
-                <Typography variant="body1">
+                <Typography variant="body1" className="dev-text">
                   <strong>Contribution:</strong> Project and test environment setup, repository setup and CI (Github
                   actions, Husky), deployment to Netlify, routing implementation and setup, project maintenance and
                   formal communications as a team leader, design and development: Registration Page, Not Found Page,
@@ -97,7 +97,7 @@ export const AboutUs: React.FC = (): JSX.Element => {
                   frontend web developer since January 2022. In his spare time learns AWS, studies English with native
                   speaker, plays bass and practices boxing.
                 </Typography>
-                <Typography variant="body1">
+                <Typography variant="body1" className="dev-text">
                   <strong>Contribution:</strong> JIRA setup, integration with Commerce Tools API using Typescript SDK,
                   resolved an incompatibility issue between the Typescript SDK and Vite, added products to CT, Redux
                   Toolkit, design and development: Login Page, Catalog Page, Product list with categories, filter and
