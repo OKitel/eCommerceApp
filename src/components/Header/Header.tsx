@@ -32,7 +32,7 @@ export const Header: React.FC = (): JSX.Element => {
   const handleClickCart = (): void => navigate(LINKS.cart);
   const handleClickAvatar = (): void => navigate(LINKS.profile);
   const handleClickTeam = (): void => navigate(LINKS.about_us);
-  const numberOfCartLineItems = activeCart?.totalLineItemQuantity;
+  const totalLineItemQuantity = activeCart?.totalLineItemQuantity;
 
   return (
     <Box className="header" sx={{ flexGrow: 1 }}>
@@ -59,7 +59,7 @@ export const Header: React.FC = (): JSX.Element => {
             <div>
               <Stack direction="row" spacing={1}>
                 <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickCart}>
-                  <Badge badgeContent={numberOfCartLineItems} color="secondary" data-testid="cart-icon-badge">
+                  <Badge badgeContent={totalLineItemQuantity} color="secondary" data-testid="cart-icon-badge">
                     <ShoppingCartRoundedIcon />
                   </Badge>
                 </IconButton>
