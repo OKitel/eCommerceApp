@@ -134,17 +134,21 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
     const fullPriceTotalValue = formatPriceCents(fullPriceTotalCentAmount, localization, fullPriceCurrencyCode);
     const isDiscountApplied = !!item.discountedPricePerQuantity.length;
 
+    const discountedPriceTotalCentAmount = item.totalPrice.centAmount;
+    const discountedPriceCurrencyCode = item.totalPrice.currencyCode;
+    const discountedTotalPriceValue = formatPriceCents(
+      discountedPriceTotalCentAmount,
+      localization,
+      discountedPriceCurrencyCode,
+    );
     if (isDiscountApplied) {
-      const discountedPriceTotalCentAmount = item.totalPrice.centAmount;
-      const discountedPriceCurrencyCode = item.totalPrice.currencyCode;
-
       return (
         <Box textAlign="center">
           <Typography className="line-item__old-price" sx={{ lineHeight: 1 }}>
             {fullPriceTotalValue}
           </Typography>
           <Typography variant="h6" className="line-item_total-price">
-            {formatPriceCents(discountedPriceTotalCentAmount, localization, discountedPriceCurrencyCode)}
+            {discountedTotalPriceValue}
           </Typography>
         </Box>
       );
@@ -152,7 +156,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
 
     return (
       <Typography variant="h6" className="line-item_total-price">
-        {fullPriceTotalValue}
+        {discountedTotalPriceValue}
       </Typography>
     );
   };
