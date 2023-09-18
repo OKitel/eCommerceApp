@@ -80,6 +80,6 @@ describe('Header is displayed correctly', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByTestId('cart-icon-badge')).toHaveTextContent(`${mockCart.lineItems.length}`);
+    expect(screen.getByTestId('cart-icon-badge')).toHaveTextContent(`${mockCart.totalLineItemQuantity}`);
   });
 });

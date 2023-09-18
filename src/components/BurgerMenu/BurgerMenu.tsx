@@ -27,7 +27,7 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
   const { activeCart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
-  const numberOfCartLineItems = activeCart?.lineItems.length;
+  const totalLineItemQuantity = activeCart?.totalLineItemQuantity;
 
   return (
     <>
@@ -60,7 +60,7 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
           }}
         >
           <Badge
-            badgeContent={numberOfCartLineItems}
+            badgeContent={totalLineItemQuantity}
             color="secondary"
             anchorOrigin={{
               vertical: 'top',
