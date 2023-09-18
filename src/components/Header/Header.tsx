@@ -32,7 +32,7 @@ export const Header: React.FC = (): JSX.Element => {
   const handleClickCart = (): void => navigate(LINKS.cart);
   const handleClickAvatar = (): void => navigate(LINKS.profile);
   const handleClickTeam = (): void => navigate(LINKS.about_us);
-  const numberOfCartLineItems = activeCart?.lineItems.length;
+  const numberOfCartLineItems = activeCart?.totalLineItemQuantity;
 
   return (
     <Box className="header" sx={{ flexGrow: 1 }}>
