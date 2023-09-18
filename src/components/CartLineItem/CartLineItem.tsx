@@ -1,5 +1,16 @@
 import { useState, useCallback } from 'react';
-import { Box, Button, Divider, Typography, IconButton, FormGroup, TextField, Tooltip, Stack } from '@mui/material';
+import {
+  Box,
+  Button,
+  Divider,
+  Typography,
+  IconButton,
+  FormGroup,
+  TextField,
+  Tooltip,
+  Stack,
+  Chip,
+} from '@mui/material';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
@@ -75,12 +86,12 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
 
     if (isDiscountApplied) {
       const { discountedPrice } = item.discountedPricePerQuantity[0];
-      const discountedPriceCentAmount = discountedPrice.value.centAmount;
-      const discountedPriceCurrencyCode = discountedPrice.value.currencyCode;
-      const discountedPriceValue = formatPriceCents(
-        discountedPriceCentAmount,
+      const cartDiscountPriceCentAmount = discountedPrice.value.centAmount;
+      const cartDiscountPriceCurrencyCode = discountedPrice.value.currencyCode;
+      const cartDiscountPriceValue = formatPriceCents(
+        cartDiscountPriceCentAmount,
         localization,
-        discountedPriceCurrencyCode,
+        cartDiscountPriceCurrencyCode,
       );
 
       return (
@@ -88,7 +99,28 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
           <Typography className="line-item__old-price" sx={{ lineHeight: 1 }}>
             {fullPriceValue}
           </Typography>
-          <Typography variant="h6">{discountedPriceValue}</Typography>
+          {item.price.discounted && <Chip label="Sale" color="secondary" size="small" />}
+          <Typography variant="h6">{cartDiscountPriceValue}</Typography>
+        </Box>
+      );
+    }
+
+    if (item.price.discounted) {
+      const productDiscountPriceCentAmount = item.price.discounted.value.centAmount;
+      const productDiscountPriceCurrencyCode = item.price.discounted.value.currencyCode;
+      const productDiscountPriceValue = formatPriceCents(
+        productDiscountPriceCentAmount,
+        localization,
+        productDiscountPriceCurrencyCode,
+      );
+
+      return (
+        <Box textAlign="center">
+          <Typography className="line-item__old-price" sx={{ lineHeight: 1 }}>
+            {fullPriceValue}
+          </Typography>
+          <Chip label="Sale" color="secondary" size="small" />
+          <Typography variant="h6">{productDiscountPriceValue}</Typography>
         </Box>
       );
     }
