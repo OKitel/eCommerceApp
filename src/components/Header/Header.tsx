@@ -29,9 +29,6 @@ export const Header: React.FC = (): JSX.Element => {
   const { activeCart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleClickCart = (): void => navigate(LINKS.cart);
-  const handleClickAvatar = (): void => navigate(LINKS.profile);
-  const handleClickTeam = (): void => navigate(LINKS.about_us);
   const totalLineItemQuantity = activeCart?.totalLineItemQuantity;
 
   return (
@@ -58,18 +55,24 @@ export const Header: React.FC = (): JSX.Element => {
           <Hidden mdDown>
             <div>
               <Stack direction="row" spacing={1}>
-                <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickCart}>
+                <IconButton component={RouterLink} to={LINKS.cart} size="medium" color="inherit" aria-label="cart">
                   <Badge badgeContent={totalLineItemQuantity} color="secondary" data-testid="cart-icon-badge">
                     <ShoppingCartRoundedIcon />
                   </Badge>
                 </IconButton>
                 {progressIntrospect ? null : customerData ? (
                   <>
-                    <IconButton color="inherit" onClick={handleClickAvatar}>
+                    <IconButton component={RouterLink} to={LINKS.profile} color="inherit">
                       <AccountCircleIcon />
                     </IconButton>
                     <Tooltip title="About us">
-                      <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickTeam}>
+                      <IconButton
+                        component={RouterLink}
+                        to={LINKS.about_us}
+                        color="inherit"
+                        size="medium"
+                        aria-label="cart"
+                      >
                         <InfoRoundedIcon />
                       </IconButton>
                     </Tooltip>
@@ -89,7 +92,13 @@ export const Header: React.FC = (): JSX.Element => {
                 ) : (
                   <>
                     <Tooltip title="About us">
-                      <IconButton size="medium" color="inherit" aria-label="cart" onClick={handleClickTeam}>
+                      <IconButton
+                        component={RouterLink}
+                        to={LINKS.about_us}
+                        size="medium"
+                        color="inherit"
+                        aria-label="cart"
+                      >
                         <InfoRoundedIcon />
                       </IconButton>
                     </Tooltip>
