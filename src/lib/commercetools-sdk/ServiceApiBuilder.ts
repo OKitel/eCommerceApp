@@ -30,7 +30,7 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
 const client = new ClientBuilder()
   .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
-  .withLoggerMiddleware() // Include middleware for logging
+  // .withLoggerMiddleware() // Include middleware for logging
   .build();
 
 export const serviceApiRoot = createApiBuilderFromCtpClient(client).withProjectKey({ projectKey });

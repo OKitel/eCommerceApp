@@ -68,7 +68,7 @@ export const getSpaApiRootWithPasswordFlow = (username: string, password: string
   const client = new ClientBuilder()
     .withPasswordFlow(passwordAuthMiddlewareOptions)
     .withHttpMiddleware(httpMiddlewareOptions)
-    .withLoggerMiddleware() // Include middleware for logging
+    // .withLoggerMiddleware() // Include middleware for logging
     .build();
 
   return createApiBuilderFromCtpClient(client).withProjectKey({ projectKey });
@@ -78,13 +78,13 @@ export const getSpaApiRootWithPasswordFlow = (username: string, password: string
 const client = new ClientBuilder()
   .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
-  .withLoggerMiddleware() // Include middleware for logging
+  // .withLoggerMiddleware() // Include middleware for logging
   .build();
 
 const clientWithToken = new ClientBuilder()
   .withClientCredentialsFlow(authMiddlewareOptionsWithTokenCache)
   .withHttpMiddleware(httpMiddlewareOptions)
-  .withLoggerMiddleware() // Include middleware for logging
+  // .withLoggerMiddleware() // Include middleware for logging
   .build();
 
 export const spaApiRoot = createApiBuilderFromCtpClient(client).withProjectKey({ projectKey });
