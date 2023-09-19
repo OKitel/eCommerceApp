@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 import okImg from '../../assets/images/OK.jpg';
-import alImg from '../../assets/images/AL.png';
+import alImg from '../../assets/images/AL.jpg';
 import rsLogo from '../../assets/images/logo-rs.svg';
 
 import './styles.scss';
