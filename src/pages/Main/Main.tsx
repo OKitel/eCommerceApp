@@ -30,9 +30,11 @@ export const Main: React.FC = (): JSX.Element => {
           <img src={maestroConductorUrl} alt="maestro conductor" />
         </div>
         <div className="main-poster__content">
-          <Typography variant="h1">Welcome to Maestro!</Typography>
+          <Typography className="main-poster__title" variant="h1">
+            Welcome to Maestro!
+          </Typography>
           <Typography className="main-poster__subtitle" variant="h5">
-            Online market, where melodies come alive
+            Online market where melodies come alive
           </Typography>
           <Button className="main-poster__button" variant="contained" component={RouterLink} to={LINKS.catalog}>
             Go shopping
