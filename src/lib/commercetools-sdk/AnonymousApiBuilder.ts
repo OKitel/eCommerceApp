@@ -36,7 +36,7 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
 const client = new ClientBuilder()
   .withAnonymousSessionFlow(anonymousAuthMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
-  .withLoggerMiddleware() // Include middleware for logging
+  // .withLoggerMiddleware() // Include middleware for logging
   .build();
 
 export const anonymousApiRoot = createApiBuilderFromCtpClient(client).withProjectKey({ projectKey });
