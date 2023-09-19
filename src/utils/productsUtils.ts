@@ -53,7 +53,7 @@ export function getLineItemsFullPriceTotalCentAmount(lineItems: LineItem[]): num
   let totalCentAmount = 0;
 
   lineItems.forEach((lineItem) => {
-    const { centAmount } = lineItem.price.value;
+    const { centAmount } = lineItem.price.discounted?.value || lineItem.price.value;
     totalCentAmount += centAmount * lineItem.quantity;
   });
 
