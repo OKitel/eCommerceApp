@@ -1,62 +1,102 @@
-import { Box, Typography, Paper, Button } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import {
+  Box,
+  Typography,
+  Paper,
+  Button,
+  Container,
+  Chip,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+} from '@mui/material';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import maestroUrl from '../../assets/images/maestro.png';
+import { LINKS } from '../../components/consts';
+import { CARDS_ON_SALE } from './consts';
+import maestroConductorUrl from '../../assets/images/maestro-conductor.png';
+import promoFiveUrl from '../../assets/images/promo5.jpg';
+import promoFifteenUrl from '../../assets/images/promo15.jpg';
 
 import './styles.scss';
 
 export const Main: React.FC = (): JSX.Element => {
+  const navigate = useNavigate();
+
   return (
-    <>
-      <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
-        <h2 className="welcome-title">Welcome to Maestro!</h2>
-        <Typography variant="subtitle1">Online market, where melodies come alive</Typography>
-        <div className="maestro-container">
-          <img className="maestro" src={maestroUrl} alt="maestro on treble clef" />
+    <Container className="main">
+      <Box className="main-poster">
+        <div className="main-poster__image">
+          <img src={maestroConductorUrl} alt="maestro conductor" />
         </div>
-
-        <Typography className="welcome-subtitle" variant="subtitle2">
-          Find your perfect instrument in a world of musical possibilities
-        </Typography>
-
-        <Paper elevation={3} sx={{ maxWidth: '60%', padding: '1rem', mt: 2, mb: 2 }}>
-          <Typography variant="body1" sx={{ textAlign: 'center', mb: 1 }}>
-            Dear cross-checker!
+        <div className="main-poster__content">
+          <Typography variant="h1">Welcome to Maestro!</Typography>
+          <Typography className="main-poster__subtitle" variant="h5">
+            Online market, where melodies come alive
           </Typography>
-          <Typography variant="subtitle2">
-            While we strive to provide multiple images for all our products, there are instances where only a single
-            image is available. To help you efficiently cross-check our online market, we have provided direct links to
-            products with multiple images below:
-          </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
-            <Button
-              component={RouterLink}
-              variant="text"
-              to={'/product/ee4cf3a8-1a70-44e1-8837-e0e46e7ce026/yamaha-m3'}
-            >
-              Yamaha M3 Piano acoustic
-            </Button>
-            <Button component={RouterLink} variant="text" to={'/product/a682d02e-4512-4808-9448-4fd24c48f8c1/trbx-174'}>
-              Yamaha TRBX174 Bass
-            </Button>
+          <Button className="main-poster__button" variant="contained" component={RouterLink} to={LINKS.catalog}>
+            Go shopping
+          </Button>
+        </div>
+      </Box>
 
-            <Button
-              component={RouterLink}
-              variant="text"
-              to={'/product/f657f92c-ae97-4a87-8a20-2434908b9a13/kaimana-uk-21'}
-            >
-              Kaimana UK-21 Ukulele
-            </Button>
-            <Button
-              component={RouterLink}
-              variant="text"
-              to={'/product/1bac2cfc-33e5-4a42-856c-79588e82b627/yamaha-p-115'}
-            >
-              Yamaha P-115 Piano
-            </Button>
-          </Box>
+      <Box className="main-promo">
+        <Paper className="main-promo__card">
+          <div className="main-promo__image">
+            <img src={promoFiveUrl} alt="promo banner 15% off" />
+          </div>
+          <div className="main-promo__content">
+            <Typography className="main-promo__subtitle" variant="h5">
+              Apply promo code in your cart:
+            </Typography>
+            <Chip className="main-promo__code" color="primary" label="FUSION"></Chip>
+          </div>
+        </Paper>
+        <Paper className="main-promo__card">
+          <div className="main-promo__image">
+            <img src={promoFifteenUrl} alt="promo banner 15% off" />
+          </div>
+          <div className="main-promo__content">
+            <Typography className="main-promo__subtitle" variant="h5">
+              Apply promo code in your cart:
+            </Typography>
+            <Chip className="main-promo__code" color="primary" label="WEWILLROCKYOU"></Chip>
+          </div>
         </Paper>
       </Box>
-    </>
+
+      <Box className="main-sale">
+        <Typography gutterBottom variant="h4">
+          Categories on sale
+        </Typography>
+        <Box className="main-sale__cards">
+          {CARDS_ON_SALE.map((card) => (
+            <Card key={card.name}>
+              <CardActionArea
+                href={card.link}
+                onClick={(event: React.MouseEvent<HTMLElement>): void => {
+                  event.preventDefault();
+                  navigate(card.link);
+                }}
+              >
+                <CardMedia
+                  className="main-sale__card-image"
+                  component="img"
+                  height="140"
+                  image={card.image}
+                  alt={card.name}
+                />
+                <div className="sale-ribbon">Sale</div>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {card.name}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          ))}
+        </Box>
+      </Box>
+    </Container>
   );
 };
