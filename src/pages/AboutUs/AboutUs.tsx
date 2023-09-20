@@ -59,7 +59,12 @@ export const AboutUs: React.FC = (): JSX.Element => {
                   Profile Page, Detailed Product Page, Cart Page, About Us Page. Comprehensive unit test coverage.
                 </Typography>
                 <Box className="dev-links">
-                  <Link href="https://github.com/OKitel" target="_blank" rel="noopener noreferrer">
+                  <Link
+                    href="https://github.com/OKitel"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="dev-github-link"
+                  >
                     <IconButton size="medium" color="inherit">
                       <GitHubIcon />
                     </IconButton>
@@ -68,6 +73,7 @@ export const AboutUs: React.FC = (): JSX.Element => {
                     href="https://www.linkedin.com/in/olga-kitel-623558224/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-testid="dev-linkedin-link"
                   >
                     <IconButton size="medium" color="inherit">
                       <LinkedInIcon />
