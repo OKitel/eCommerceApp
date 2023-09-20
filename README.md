@@ -157,6 +157,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/OKitel"><img src="https://avatars.githubusercontent.com/u/79774026?v=4?s=100" width="100px;" alt="Olga Kitel"/><br /><sub><b>Olga Kitel</b></sub></a><br /><a href="#infra-OKitel" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/OKitel/eCommerceApp/commits?author=OKitel" title="Tests">⚠️</a> <a href="https://github.com/OKitel/eCommerceApp/commits?author=OKitel" title="Documentation">📖</a> <a href="https://github.com/OKitel/eCommerceApp/commits?author=OKitel" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/lobovskiy"><img src="https://avatars.githubusercontent.com/u/88252084?v=4?s=100" width="100px;" alt="Artem"/><br /><sub><b>Artem</b></sub></a><br /><a href="#infra-lobovskiy" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#data-lobovskiy" title="Data">🔣</a> <a href="https://github.com/OKitel/eCommerceApp/commits?author=lobovskiy" title="Tests">⚠️</a> <a href="https://github.com/OKitel/eCommerceApp/commits?author=lobovskiy" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
@@ -165,3 +166,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
