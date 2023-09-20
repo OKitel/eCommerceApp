@@ -1,4 +1,4 @@
-# Maestro Market
+# Maestro Market🎶
 
 Welcome to our eCommerce musical instrument selling application!
 This project is a simple e-commerce application powered by React on the frontend and CommerceTools platform for the backend. It's simply a demo demonstrating basic features which is only the tip of an iceberg because commerce is a complex business with a solid system architecture. Our application replicates real-world shopping experiences in a digital environment.
@@ -166,4 +166,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
