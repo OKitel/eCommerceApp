@@ -1,0 +1,24 @@
+.cart_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 3rem;
+}
+
+.cart-items_wrapper {
+  flex: 60%;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 42.5rem) {
+  .cart_wrapper {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .cart-items_wrapper {
+    width: 100%;
+    padding: 1rem;
+  }
+}
