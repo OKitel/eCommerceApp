@@ -1,6 +1,5 @@
 import { screen } from '@testing-library/react';
 import { AttributeDefinition } from '@commercetools/platform-sdk';
-import { debug } from 'jest-preview';
 
 import { renderWithProviders } from './test-utils';
 import { FilterAttributes } from '../components/ProductList/ProductFilterMain/FilterAttributes/FilterAttributes';
@@ -44,7 +43,6 @@ test('renders FilterAttributes correctly', async () => {
   const applyFilters = jest.fn();
 
   renderWithProviders(<FilterAttributes attributes={mockAttributes} applyFilters={applyFilters} />);
-  debug();
   expect(screen.getByText('Price')).toBeInTheDocument();
 
   const applyFiltersButton = screen.getByText('Apply filters');

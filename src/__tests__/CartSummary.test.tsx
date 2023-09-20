@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import { debug } from 'jest-preview';
 
 import { store } from '../store/store';
 import { cheapCart } from '../__mocks__/cheapCart';
@@ -76,7 +75,6 @@ describe('CartSummary', () => {
 
     const clearCartButton = getByText('Clear Shopping Cart');
     await user.click(clearCartButton);
-    debug();
     expect(getByText('Clear Cart?')).toBeInTheDocument();
   });
 });
