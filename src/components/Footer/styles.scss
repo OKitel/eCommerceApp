@@ -1,0 +1,49 @@
+@import '../../theme/consts.scss';
+
+.footer {
+  margin-top: auto;
+  background-color: $clr-primary;
+}
+
+.footer-menu {
+  display: flex;
+  justify-content: space-between;
+  width: 10rem;
+}
+
+.footer-catalog,
+.footer-about {
+  font-family: $ff-heading;
+  color: white;
+  text-decoration: none;
+}
+
+.footer-logo {
+  margin-bottom: 1rem;
+
+  & a {
+    transition: all ease-in-out 0.3s;
+  }
+
+  & a:hover {
+    text-shadow: 0.2rem 0.2rem 2rem $clr-secondary;
+  }
+}
+
+.footer-logo {
+  font-family: $ff-heading;
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: white;
+  text-shadow: 0.2rem 0.2rem 0.2rem $clr-primary-dark;
+  position: relative;
+}
+
+.footer-year {
+  font-family: $ff-accent;
+  font-size: 0.9rem;
+  position: absolute;
+  bottom: -1rem;
+  left: 2rem;
+  text-shadow: 0.2rem 0.2rem 0.2rem $clr-primary-dark;
+}

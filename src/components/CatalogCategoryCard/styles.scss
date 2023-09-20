@@ -1,0 +1,33 @@
+@import '../../theme/consts.scss';
+
+.catalog-category-card {
+  position: relative;
+
+  &:not(&_active):hover {
+    box-shadow: 0 0 0.5rem $clr-primary;
+  }
+
+  &__button,
+  &__content {
+    padding-inline: 1rem;
+    height: 100%;
+  }
+}
+
+.category-cards .catalog-category-card {
+  &_active {
+    background-color: $clr-secondary;
+  }
+}
+
+.sale-ribbon {
+  color: white;
+  text-shadow: 0.2rem 0.2rem 0.2rem $clr-primary-dark;
+  position: absolute;
+  background-color: $clr-primary;
+  rotate: 45deg;
+  top: 0.5rem;
+  right: -30px;
+  padding: 0 2rem;
+  letter-spacing: 0.1rem;
+}

@@ -1,0 +1,27 @@
+@import '../../theme/consts.scss';
+
+.catalog-product {
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  &:hover {
+    box-shadow: 0rem 0rem 0.5rem $clr-secondary;
+  }
+
+  &__preview-image {
+    height: 10rem;
+  }
+
+  &__description {
+    display: -webkit-box;
+    overflow: hidden;
+    line-height: 1.5em;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    -webkit-box-orient: vertical;
+  }
+
+  &__controls {
+    margin-top: auto;
+  }
+}
