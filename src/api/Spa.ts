@@ -1,8 +1,10 @@
-import { ByProjectKeyRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/by-project-key-request-builder';
 import { ClientResponse } from '@commercetools/platform-sdk/dist/declarations/src/generated/shared/utils/common-types';
 import {
+  Cart,
   CategoryPagedQueryResponse,
   CustomerSignInResult,
+  MyCartDraft,
+  MyCartUpdateAction,
   Product,
   ProductProjectionPagedQueryResponse,
   ProductType,
@@ -11,20 +13,19 @@ import {
 import { retry } from './utils';
 import { TProductTypes } from '../types';
 import { ProductProjectionSearchQueryArgs } from './types';
-import { TokenStoreTypes, getSpaApiRootWithPasswordFlow, spaApiRoot } from '../lib/commercetools-sdk';
+import {
+  TokenStoreTypes,
+  getSpaApiRootWithPasswordFlow,
+  spaApiRoot,
+  spaApiWithTokenRoot,
+} from '../lib/commercetools-sdk';
 
 class SpaApi {
-  private spaApiRoot: ByProjectKeyRequestBuilder | null = null;
-
   public async loginCustomer(
     email: string,
     password: string,
   ): Promise<ClientResponse<CustomerSignInResult> | undefined> {
-    if (!this.spaApiRoot) {
-      this.spaApiRoot = getSpaApiRootWithPasswordFlow(email, password);
-    }
-
-    const apiRoot = this.spaApiRoot;
+    const apiRoot = getSpaApiRootWithPasswordFlow(email, password);
 
     const res = await retry<ClientResponse<CustomerSignInResult>>(
       () => apiRoot.me().login().post({ body: { email, password } }).execute(),
@@ -72,6 +73,39 @@ class SpaApi {
       () => spaApiRoot.productTypes().withKey({ key }).get().execute(),
       TokenStoreTypes.SpaApiTokenStore,
     );
+
+    return res;
+  }
+
+  public async createCart(cartDraft: MyCartDraft): Promise<ClientResponse<Cart>> {
+    const res = await spaApiWithTokenRoot.me().carts().post({ body: cartDraft }).execute();
+
+    return res;
+  }
+
+  public async deleteCart(id: string, version: number): Promise<ClientResponse<Cart>> {
+    const res = await spaApiWithTokenRoot.me().carts().withId({ ID: id }).delete({ queryArgs: { version } }).execute();
+
+    return res;
+  }
+
+  public async getActiveCart(): Promise<ClientResponse<Cart>> {
+    const res = await spaApiWithTokenRoot.me().activeCart().get().execute();
+
+    return res;
+  }
+
+  public async updateCart(
+    cartId: string,
+    cartVersion: number,
+    updateActions: MyCartUpdateAction[],
+  ): Promise<ClientResponse<Cart>> {
+    const res = await spaApiWithTokenRoot
+      .me()
+      .carts()
+      .withId({ ID: cartId })
+      .post({ body: { version: cartVersion, actions: updateActions } })
+      .execute();
 
     return res;
   }

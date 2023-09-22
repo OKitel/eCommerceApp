@@ -9,6 +9,9 @@ import { isCurrency } from '../../utils/typesUtils';
 export const CurrencySelector: React.FC = (): JSX.Element => {
   const currencies = Object.values(Currencies);
   const currencySelected = useAppSelector((state) => state.settings.currency);
+  const {
+    progress: { changeCartCurrency: progressChangeCartCurrency },
+  } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
   return (
@@ -19,6 +22,7 @@ export const CurrencySelector: React.FC = (): JSX.Element => {
         id="currency-select"
         value={currencySelected}
         size="small"
+        disabled={progressChangeCartCurrency}
         inputProps={{ 'aria-label': 'Without label' }}
         onChange={({ target: { value } }): void => {
           if (isCurrency(value)) {

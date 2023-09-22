@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Hidden from '@mui/material/Hidden';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
+import { Badge } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
@@ -13,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { clearCustomerData } from '../../slices/customer/slice';
+import { clearActiveCart } from '../../slices/cart/slice';
 import { LINKS } from '../consts';
 
 import { CurrencySelector } from '../Header/CurrencySelector';
@@ -22,12 +24,14 @@ import './styles.scss';
 export const BurgerMenu: React.FC = (): JSX.Element => {
   const customerData = useAppSelector((state) => state.customer.customerData);
   const progressIntrospect = useAppSelector((state) => state.customer.progress.introspect);
+  const { activeCart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
+  const totalLineItemQuantity = activeCart?.totalLineItemQuantity;
 
   return (
     <>
-      <Hidden smUp>
+      <Hidden mdUp>
         <IconButton onClick={(): void => setOpen(true)} color="secondary">
           <MenuIcon />
         </IconButton>
@@ -50,11 +54,35 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
           variant="text"
           color="primary"
           className="burger-button"
+          aria-label="cart"
           onClick={(): void => {
             setOpen(false);
           }}
         >
-          <ShoppingCartRoundedIcon /> &nbsp;Cart
+          <Badge
+            badgeContent={totalLineItemQuantity}
+            color="secondary"
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            data-testid="cart-icon-badge"
+          >
+            <ShoppingCartRoundedIcon />
+          </Badge>
+          &nbsp;Cart
+        </Button>
+        <Button
+          component={RouterLink}
+          to={LINKS.about_us}
+          variant="text"
+          color="primary"
+          className="burger-button"
+          onClick={(): void => {
+            setOpen(false);
+          }}
+        >
+          About us
         </Button>
         <Button
           component={RouterLink}
@@ -91,6 +119,7 @@ export const BurgerMenu: React.FC = (): JSX.Element => {
               className="burger-button"
               onClick={(): void => {
                 dispatch(clearCustomerData());
+                dispatch(clearActiveCart());
                 setOpen(false);
               }}
             >

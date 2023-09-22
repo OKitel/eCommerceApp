@@ -1,9 +1,15 @@
-import { AttributeLocalizedEnumValue, DiscountedPrice, Price, ProductVariant } from '@commercetools/platform-sdk';
+import {
+  AttributeLocalizedEnumValue,
+  DiscountedPrice,
+  LineItem,
+  Price,
+  ProductVariant,
+} from '@commercetools/platform-sdk';
 
 import { Currencies, Localizations } from '../types';
 
-export function formatPriceCents(value: number, localization: Localizations, currency: Currencies): string {
-  return (value / 100).toLocaleString(localization, { style: 'currency', currency: currency });
+export function formatPriceCents(value: number, localization: Localizations, currency: string): string {
+  return (value / 100).toLocaleString(localization, { style: 'currency', currency });
 }
 
 export function getVariantAttributeLocalizedEnumValue(
@@ -41,4 +47,15 @@ export function findDiscountPriceWithCurrencyCode(
   if (prices && prices.length) {
     return prices.find((price) => price.discounted?.value.currencyCode === currency)?.discounted;
   }
+}
+
+export function getLineItemsFullPriceTotalCentAmount(lineItems: LineItem[]): number {
+  let totalCentAmount = 0;
+
+  lineItems.forEach((lineItem) => {
+    const { centAmount } = lineItem.price.discounted?.value || lineItem.price.value;
+    totalCentAmount += centAmount * lineItem.quantity;
+  });
+
+  return totalCentAmount;
 }

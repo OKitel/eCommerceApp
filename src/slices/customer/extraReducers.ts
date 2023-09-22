@@ -29,6 +29,9 @@ export function reducerGetLoggedInCustomerRejected(
   const { payload } = action;
   state.customerData = null;
   state.progress.introspect = false;
+  clearLoggedInCustomerId();
+  clearTokenStore(TokenStoreTypes.SpaApiTokenStore);
+
   if (payload && typeof payload === 'string') {
     state.errorMessage = payload;
   }
@@ -46,6 +49,7 @@ export function reducerLoginCustomerFulfilled(
   if (action.payload) {
     state.customerData = action.payload;
     saveLoggedInCustomerId(action.payload.id);
+    clearTokenStore(TokenStoreTypes.AnonymousApiTokenStore);
   }
 }
 export function reducerLoginCustomerRejected(state: Draft<TCustomerSliceState>, action: PayloadAction<unknown>): void {

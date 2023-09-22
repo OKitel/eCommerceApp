@@ -1,9 +1,13 @@
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import configureMockStore from 'redux-mock-store';
 
+import { store } from '../store/store';
 import { renderWithProviders } from './test-utils';
-import { product1 } from '../__mocks__/productProjections';
+import { product1, product4 } from '../__mocks__/productProjections';
+import { mockCart } from '../__mocks__/cart';
 
 import { CatalogProduct } from '../components/CatalogProduct/CatalogProduct';
 
@@ -46,5 +50,30 @@ describe('Catalog product is displayed correctly', () => {
     // select 'Natural satin' in color select
     await selectColor(selectorButton, 'naturalSatin');
     expect(selectorButton).toHaveTextContent('Natural satin');
+  });
+
+  test('Catalog product id added to cart', async () => {
+    const mockStore = configureMockStore();
+    const state = {
+      ...store.getState(),
+      cart: {
+        activeCart: mockCart,
+        progress: {
+          addingLineItem: null,
+        },
+      },
+      progress: false,
+    };
+    const mockedStore = mockStore(() => state);
+
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Provider store={mockedStore}>
+          <CatalogProduct productProjection={product4} />
+        </Provider>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText('In cart')).toBeInTheDocument();
   });
 });

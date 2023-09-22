@@ -14,5 +14,6 @@ export const fonts = {
 
 export const fontSizes = {
   400: '1rem',
+  600: '1.4rem',
   800: '2.5rem',
 };

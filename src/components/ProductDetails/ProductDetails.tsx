@@ -1,33 +1,62 @@
-import { Button, Typography, IconButton, Box, Rating } from '@mui/material';
-import { ProductData, ProductVariant } from '@commercetools/platform-sdk';
 import { useState } from 'react';
+import { ProductData, ProductVariant } from '@commercetools/platform-sdk';
+import { Typography, IconButton, Box, Rating } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { removeLineItemFromCart } from '../../slices/cart/slice';
+import { setAlert } from '../../slices/alerts/slice';
+import { ServerError } from '../../api/types';
 
 import { ProductVariantSelector } from '../CatalogProduct/ProductVariantSelector';
 import { ProductPrice } from '../CatalogProduct/ProductPrice';
+import { ProductButtonAddToCart } from '../ProductButtonAddToCart/ProductButtonAddToCart';
 
 import './styles.scss';
 
 type Props = {
-  product: ProductData;
+  productData: ProductData;
+  productId: string;
 };
 
-export const ProductDetails: React.FC<Props> = ({ product }: Props): React.ReactElement => {
+export const ProductDetails: React.FC<Props> = ({ productData, productId }: Props): React.ReactElement => {
+  const dispatch = useAppDispatch();
   const { localization } = useAppSelector((state) => state.settings);
+  const {
+    activeCart,
+    progress: { modifyingCart },
+  } = useAppSelector((state) => state.cart);
   const [like, setLike] = useState(false);
   const [ratingValue] = useState<number | null>(null);
-  const allVariants = [product.masterVariant, ...product.variants];
-  const manufacturer = product.masterVariant.attributes?.find((atr) => atr.name === 'manufacturer');
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(product.masterVariant);
+  const allVariants = [productData.masterVariant, ...productData.variants];
+  const manufacturer = productData.masterVariant.attributes?.find((atr) => atr.name === 'manufacturer');
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(productData.masterVariant);
+  const variantSkusInCart = activeCart?.lineItems.map((lineItem) => lineItem.variant.sku) || [];
+  const isSelectedVariantInCart = variantSkusInCart.includes(selectedVariant.sku);
+
+  const onSuccess = (): void => {
+    dispatch(setAlert({ message: 'Product removed from cart', severity: 'success' }));
+  };
+  const onError = (error: ServerError): void => {
+    dispatch(setAlert({ message: error.message, severity: 'error' }));
+  };
+  const handleClickRemoveFromCart = (): void => {
+    const lineItemFound = activeCart?.lineItems.find((lineItem) => lineItem.variant.sku === selectedVariant.sku);
+    if (lineItemFound) {
+      const { id, quantity } = lineItemFound;
+      dispatch(removeLineItemFromCart({ lineItemId: id, quantity, onSuccess, onError }));
+    } else {
+      dispatch(setAlert({ message: 'Something went wrong. The product was not found in the cart', severity: 'error' }));
+    }
+  };
+
   return (
     <>
       <Box className="details-title_container">
-        <Typography variant="h5">{product.name[localization]}</Typography>
+        <Typography variant="h5">{productData.name[localization]}</Typography>
         <Box className="details-icons_container">
           <IconButton color="primary" aria-label="share product" size="large">
             <ShareRoundedIcon />
@@ -53,9 +82,12 @@ export const ProductDetails: React.FC<Props> = ({ product }: Props): React.React
       />
 
       <ProductPrice selectedVariant={selectedVariant} />
-      <Button variant="contained">
-        <ShoppingCartRoundedIcon /> &nbsp;Add to cart
-      </Button>
+      <ProductButtonAddToCart productId={productId} selectedVariant={selectedVariant} />
+      {isSelectedVariantInCart && (
+        <LoadingButton loading={modifyingCart} variant="outlined" color="error" onClick={handleClickRemoveFromCart}>
+          Remove from cart
+        </LoadingButton>
+      )}
     </>
   );
 };

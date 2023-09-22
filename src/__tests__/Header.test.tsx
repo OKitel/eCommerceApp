@@ -1,8 +1,12 @@
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
+import configureMockStore from 'redux-mock-store';
 
+import { store } from '../store/store';
 import { renderWithProviders } from './test-utils';
+import { mockCart } from '../__mocks__/cart';
 
 import { Header } from '../components/Header/Header';
 
@@ -55,5 +59,27 @@ describe('Header is displayed correctly', () => {
       await user.click(screen.getByTestId('search-btn'));
       expect(searchInput.value).toBe('Piano Casio');
     }
+  });
+
+  test('display proper number of line items on the cart badge', async () => {
+    const mockStore = configureMockStore();
+    const state = {
+      ...store.getState(),
+      cart: {
+        activeCart: mockCart,
+        progress: { changeCartCurrency: false },
+      },
+    };
+    const mockedStore = mockStore(() => state);
+
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Provider store={mockedStore}>
+          <Header />
+        </Provider>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId('cart-icon-badge')).toHaveTextContent(`${mockCart.totalLineItemQuantity}`);
   });
 });

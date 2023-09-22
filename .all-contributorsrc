@@ -1,0 +1,41 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "OKitel",
+      "name": "Olga Kitel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79774026?v=4",
+      "profile": "https://github.com/OKitel",
+      "contributions": [
+        "infra",
+        "test",
+        "doc",
+        "code"
+      ]
+    },
+    {
+      "login": "lobovskiy",
+      "name": "Artem",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88252084?v=4",
+      "profile": "https://github.com/lobovskiy",
+      "contributions": [
+        "infra",
+        "data",
+        "test",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "eCommerceApp",
+  "projectOwner": "OKitel"
+}
