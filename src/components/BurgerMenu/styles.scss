@@ -1,0 +1,12 @@
+@import '../../theme/consts';
+
+.burger-button,
+.burger-selector {
+  width: 10rem;
+  margin: 1rem !important;
+}
+
+.burger-selector > * {
+  width: 100%;
+  text-align: center;
+}

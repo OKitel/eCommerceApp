@@ -1,0 +1,44 @@
+@import '../../theme/consts.scss';
+
+.empty-cart-img {
+  max-width: 30rem;
+}
+
+.empty-cart_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5rem 0;
+}
+
+.empty-cart_title {
+  text-align: center;
+}
+
+.empty-cart_text {
+  text-align: center;
+  margin: 1rem !important;
+}
+
+.empty-cart_link {
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  color: $clr-primary;
+
+  &:hover {
+    color: $clr-secondary;
+  }
+}
+
+@media screen and (max-width: 42.5rem) {
+  .empty-cart-img {
+    max-width: 25rem;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .empty-cart-img {
+    max-width: 20rem;
+  }
+}
