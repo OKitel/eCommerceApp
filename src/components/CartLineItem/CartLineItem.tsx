@@ -15,6 +15,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { LineItem } from '@commercetools/platform-sdk';
+import { useDebounce } from 'usehooks-ts';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { formatPriceCents } from '../../utils/productsUtils';
@@ -35,6 +36,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
 
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(item.quantity);
+  const debouncedValue = useDebounce<string>(value, 500);
 
   const onError = useCallback(
     (error: ServerError): void => {
@@ -209,7 +211,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
         {renderPrice()}
         <Stack direction="row" alignItems="center">
           <Typography variant="h6" className="line-item_total-price">
-            Total:
+            Subtotal:
           </Typography>
           {renderTotalPrice()}
         </Stack>
