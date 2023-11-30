@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -36,7 +36,7 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
 
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(item.quantity);
-  const debouncedValue = useDebounce<string>(value, 500);
+  const debouncedValue = useDebounce<number>(value, 500);
 
   const onError = useCallback(
     (error: ServerError): void => {
@@ -44,6 +44,12 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
     },
     [dispatch],
   );
+
+  useEffect(() => {
+    if (item.quantity !== debouncedValue) {
+      dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: debouncedValue, onSuccess: () => {}, onError }));
+    }
+  }, [dispatch, item.id, item.quantity, debouncedValue, onError]);
 
   const handleClickDelete = (): void => {
     const onSuccess = (): void => {};
@@ -55,28 +61,18 @@ export const CartLineItem: React.FC<Props> = ({ item, isLast }: Props): React.Re
     if (typeof numValue === 'number' && !Number.isNaN(numValue)) {
       const newValue = numValue || 1;
       if (value !== newValue) {
-        const onSuccess = (): void => {
-          setValue(newValue);
-        };
-        dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: newValue, onSuccess, onError }));
+        setValue(newValue);
       }
     }
   };
 
   const handleInc = (): void => {
-    const onSuccess = (): void => {
-      setValue(value + 1);
-    };
-    dispatch(changeLineItemQuantity({ lineItemId: item.id, quantity: value + 1, onSuccess, onError }));
+    setValue(value + 1);
   };
 
   const handleDec = (): void => {
     if (value >= 2) {
-      const onSuccess = (): void => {
-        setValue(value - 1);
-      };
-
-      dispatch(removeLineItemFromCart({ lineItemId: item.id, quantity: 1, onSuccess, onError }));
+      setValue(value - 1);
     }
   };
 
