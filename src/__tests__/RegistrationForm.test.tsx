@@ -124,7 +124,7 @@ describe('Registration form validation', () => {
   test('Registration form invalid date of birth validation (age < 13)', async () => {
     renderComponent();
     const dobInput = screen.getByPlaceholderText('MM/DD/YYYY');
-    if (dobInput) await user.type(dobInput, '01012011');
+    if (dobInput) await user.type(dobInput, '01012013');
     await user.click(screen.getByTestId('submit-btn'));
     expect(screen.getByText('You must be at least 13 years old')).toBeInTheDocument();
   });
