@@ -16,7 +16,7 @@ on:
       - 'tsconfig.node.json'
       - 'vite.config.ts'
 
-  workflow_dispatch: # Add this to allow manual triggers
+  workflow_dispatch: # Allow manual triggers
 
 jobs:
   lint-prettier-test:
